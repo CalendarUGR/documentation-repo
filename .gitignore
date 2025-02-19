@@ -1,0 +1,28 @@
+# Archivos de compilación intermedios y temporales
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.idx
+*.ind
+*.lof
+*.lot
+*.out
+*.toc
+*.run.xml
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+
+# Archivos de salida
+*.dvi
+*.ps
+
+# Archivos de respaldo
+*.bak
+*.backup
+*~
