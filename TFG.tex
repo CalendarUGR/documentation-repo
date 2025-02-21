@@ -7,13 +7,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Variables para la portada
-\setTitle{Título del trabajo}
-\setAuthor{Nombre del alumno} % Si hay más de un autor, separarlos con \\
-\setDegree{Grado en Ingeniería Informática - Ingeniería del Software} % Cambiar si es necesario
-\setSupervisor{Nombre del profesor tutor} % Si hay más de un tutor, separarlos con \\
-\setDepartment{Lenguajes y Sistemas Informáticos}
-\setMonth{junio/julio/diciembre} % Dejar sólo el mes de la convocatoria en que se presenta el trabajo
-\setYear{20XX/YY} % Por ejemplo, 2022/23
+\setTitle{CalendarUGR - Sistema de gestión personalizada de horarios académicos para la Universidad de Granada} 
+\setAuthor{Juan Miguel Acosta Ortega} 
+\setDegree{Grado en Ingeniería Informática} 
+\setSupervisor{Juan Luis Jiménez Laredo} 
+\setDepartment{Dpto. de Ingeniería de Computadores, Automática y Robótica}
+\setMonth{junio} 
+\setYear{2024/25} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -31,6 +31,7 @@
     \input{sections/00_agradecimientos}
     \input{sections/00_resumen}
     \input{sections/00_abstract}
+    \input{sections/00_authorization}
     
     % Índice del documento y de figuras
     \begingroup
@@ -46,18 +47,25 @@
     \clearpage\pagenumbering{arabic}
     
     % Capítulos del trabajo
-    \input{sections/ejemplos_borrame}
     \input{sections/01_Introduccion}
-    \input{sections/02_Gestion}
+
+    \input{sections/02_Estado}
     \input{sections/03_Analisis}
     \input{sections/04_Diseño}
     \input{sections/05_Implementacion}
     \input{sections/06_Pruebas}
-    \input{sections/XX_Conclusiones}
+    \input{sections/07_Conclusiones}
 
     % Bibliografía
     \bibliographystyle{unsrtnat}
     \bibliography{bibliografia.bib}
+
+    % Anexos
+
+    %% Anexo A : Glosario 
+    \input{sections/ANXA_Glosario.tex}
+    %% Anexo B : Sprint Backlogs 
+    \input{sections/ANXB_Sprints.tex}
         
 
 % Fin del documento

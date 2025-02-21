@@ -1,0 +1,56 @@
+\glsdefs@newdocentry{scrum}%
+{%
+name={Scrum},%
+sort={Scrum},%
+type={main},%
+first={Scrum},%
+firstplural={Scrums},%
+text={Scrum},%
+plural={Scrums},%
+description={Metodología ágil de desarrollo de software basada en iteraciones llamadas sprints},%
+descriptionplural={Metodología ágil de desarrollo de software basada en iteraciones llamadas sprints},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{microservicios}%
+{%
+name={Microservicios},%
+sort={Microservicios},%
+type={main},%
+first={Microservicios},%
+firstplural={Microservicioss},%
+text={Microservicios},%
+plural={Microservicioss},%
+description={Arquitectura de software donde una aplicación se compone de múltiples servicios pequeños y autónomos},%
+descriptionplural={Arquitectura de software donde una aplicación se compone de múltiples servicios pequeños y autónomos},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+

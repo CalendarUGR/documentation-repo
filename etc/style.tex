@@ -5,7 +5,7 @@
 
 \titleformat{\section}[block]{\normalfont\Large\bfseries}{\thesection.}{.5em}{\Large}
 
-\titleformat{\part}[block]{\titlerule[2pt]\normalfont\Huge\bfseries\centering}{Parte \Roman{part}\\\vspace{15pt}}{0pt}{\Huge}[\vspace{2pt}{\titlerule[2pt]}]
+\titleformat{\part}[block]{\titlerule[2pt]\normalfont\Huge\bfseries\centering}{Parte \Roman{part}\\\vspace{15pt}}{0pt}{\Huge}[\vspace{2pt}{\titlerule[2pt]}] 
 
 % Tamaños y estilos de elementos en la TOC
 \DeclareTOCStyleEntry[
@@ -49,6 +49,8 @@
 }
 \setlength{\marginparwidth}{2cm} 
 
+\pagenumbering{arabic} % Números de página en arábico
+ 
 % Limite de profundidad del índice
 \setcounter{tocdepth}{2}
 
