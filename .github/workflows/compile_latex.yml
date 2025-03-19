@@ -1,0 +1,31 @@
+name: Compile LaTeX Document
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install LaTeX
+        run: sudo apt-get update && sudo apt-get install -y texlive-full
+
+      - name: Compile LaTeX document
+        run: |
+          pdflatex -interaction=nonstopmode -halt-on-error TFG.tex
+          bibtex TFG || true  # Solo si usas referencias
+          pdflatex -interaction=nonstopmode -halt-on-error TFG.tex
+          pdflatex -interaction=nonstopmode -halt-on-error TFG.tex
+
+      - name: Upload PDF as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-pdf
+          path: TFG.pdf
