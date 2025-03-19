@@ -9,6 +9,461 @@ En este capítulo explicaremos...
 
 \section{Historias de usuario}
 
+Una historia de usuario es una explicación general e informal de una función de software escrita desde la perspectiva
+del usuario final. Su propósito es articular cómo proporcionará una función de software valor al cliente. \cite{atlassian_user_stories}.
+
+Estas no usan un lenguaje técnico y preciso para definir y acotar los requisitos de un sistema, sino que se enfocan en
+el usuario final y en cómo este interactuará con el sistema. Por lo tanto, las historias de usuario son una herramienta
+de comunicación entre el equipo de desarrollo y el cliente.
+
+En \hyperlink{scrum}{SCRUM} las historias de usuario son una parte fundamental del proceso de desarrollo de software. En
+este marco de trabajo, las historias de usuario son utilizadas para definir los requisitos del sistema y son la base para
+la planificación y estimación de las tareas a realizar.
+\newline\newline
+\negritas{¿Por qué son importantes las historias de usuario?}
+\begin{itemize}
+    \item Centran la atención en el usuario final.
+    \item Permiten la colaboración y comunicación entre el equipo de desarrollo y el cliente.
+    \item Fomentan soluciones creativas y flexibles.
+\end{itemize}
+\subsection{Estructura de una historia de usuario}
+
+Las historias de usuario siguen una estructura general simple y clara. 
+\newline\newline
+\textbf{Como} [tipo de usuario], \textbf{quiero} [realizar una acción], \textbf{para} [obtener un beneficio].
+
+\begin{itemize}
+    \item \textbf{Como}: describe el tipo de usuario que está interactuando con el sistema.
+    \item \textbf{Quiero}: describe la acción que el usuario desea realizar.
+    \item \textbf{Para}: describe el beneficio que el usuario obtendrá al realizar la acción.   
+\end{itemize}
+
+Además de esta estructura general, las historias de usuario pueden incluir otros elementos como criterios de aceptación,
+prioridad, estimación de esfuerzo, entre otros.
+
+Para se ha definido la siguiente estructura para las historias de usuario:
+
+%% Tabla: Estructura de una historia de usuario
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
+        \hline
+        \textbf{ID} & Identificador único de la historia de usuario. & \textbf{Nombre} & Nombre de la historia de usuario. \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Descripción general de la historia de usuario.} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{Estimación del esfuerzo necesario para completar la historia de usuario. Basado en Planning Poker.} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Prioridad}} & \multicolumn{2}{p{6cm}|}{Acción que el usuario desea realizar. Desde P3 (baja) hasta P0 (alta).} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{Conjunto de condiciones que deben cumplirse para considerar la historia de usuario como completada.} \\
+        \hline
+    \end{tabular}
+    \caption{Estructura de una historia de usuario}
+    \label{tab:estructura_historia_usuario}
+\end{table}
+
+\begin{comment}
+    HU-1) Como usuario he de poder iniciar sesión en el sistema
+
+Criterios de aceptación:
+
+[ ] Para poder iniciar sesión ha de insertar su correo y contraseña.
+[ ] Sólo se puede iniciar sesión con correos de la ugr.
+
+
+HU-2) Como usuario he de poder registrarme en el sistema
+
+Criterios de aceptación:
+
+[ ] El alumno sólo se puede registrar con su correo institucional de la ugr.
+[ ] El alumno debe insertar nickname, correo y contraseña.
+[ ] La contraseña del alumno ha de ser mayor o igual a 9 caracteres, conteniendo esta una mayúscula y un número como mínimo.
+[ ] El registro se ha de completar mediante un link mandado por mail.
+
+
+HU-3) Como usuario puedo modificar mi nickname.
+
+Criterios de aceptación:
+
+[ ] El alumno no puede cambiar su nickname a otro que exista.
+[ ] El alumno no puede modificar su correo electrónico.
+
+
+HU-4) Como usuario he de poder modificar la contraseña de acceso.
+
+Criterios de aceptación:
+
+[ ] Para poder modificar la contraseña ha de insertar la contraseña anterior.
+[ ] Se ha de insertar la nueva contraseña 2 veces, siendo esta  mayor o igual a 9 caracteres, y conteniendo una mayúscula y un número como mínimo.
+
+HU-5) Como usuario he de poder darme de baja del sistema.
+
+Criterios de aceptación:
+
+[ ] Para poder completar la baja ha de escribir su contraseña en un campo de texto.
+
+HU-6) Como administrador he de poder actualizar mi rol a profesor, y viceversa.
+
+Criterios de aceptación:
+
+[ ] Para poder cambiar el rol a profesor he de ser administrador.
+[ ] Para poder cambiar el rol a profesor he de ser administrador.
+
+HU-7) Como usuario he de poder seleccionar el grado o grados que estoy cursando. ( realmente los dobles grados oficiales cuentan como uno sólo en BD, pero si estoy cursando, por ejemplo, Matemáticas y Química realmente son dos grados independientes ).
+
+Criterios de aceptación:
+
+[ ] Se pueden seleccionar un máximo de 4 grados.
+
+HU-8) Como usuario he de poder eliminar un grado que ya no esté cursando.
+
+Criterios de aceptación:
+
+[ ] Si el usuario está suscrito a grupos de asignatura de ese grado, se le recordará que también se revocarán sus suscripciones a estos.
+
+HU-9) Como usuario he de poder suscribirme a los grupos de asignaturas a las que quiero hacer seguimiento.
+
+Criterios de aceptación:
+
+[ ] Para hacer seguimiento a un grupo en concreto, el usuario deberá estar cursando el grado al que pertenece.
+
+HU-10) Como usuario he de poder revocar una suscripción a un grupo de asignatura.
+
+Criterios de aceptación:
+
+[ ] El usuario sólo puede revocar suscripciones de grupos a los que está suscrito.
+
+HU-11) Como usuario he de poder ver mi horario de grupos de asignatura en diferentes formatos ( día, semana, mes , año ).
+
+Criterios de aceptación:
+
+[ ] El horario debe mostrar la asignatura, grupo, hora de inicio y fin, profesores del grupo, y aula.
+[ ] Las clases sólo deben mostrarse en el rango de fechas en las que se imparten.
+
+HU-12) Como profesor he de poder realizar cambios sobre los grupos de asignatura a los que me he suscrito ( cambio de aula, horario de inicio y fin y profesor ).
+
+Criterios de aceptación:
+
+[ ] El profesor solo podrá realizar cambios en los grupos en los que imparta clase.
+[ ] El sistema debe permitir modificar el aula, y el horario.
+[ ] Los cambios deben generar alertas para los alumnos suscritos.
+
+HU-13) Como administrador he de poder realizar cambios sobre cualquier grupo de asignatura ( cambio de aula, horario de inicio y fin y profesor ).
+
+Criterios de aceptación:
+
+[ ] El sistema debe permitir modificar el aula, y el horario.
+[ ] Los cambios deben generar alertas para los alumnos suscritos.
+
+HU-14) Como profesor / administrador he de poder crear eventos puntuales a nivel de grupo ( clases de recuperación, extra, charlas …).
+
+Criterios de aceptación:
+
+[ ]  Se debe especificar la fecha, hora de inicio, hora de fin y tipo de evento.
+[ ] Los eventos deben notificarse automáticamente a los alumnos suscritos.
+[ ] Los eventos deben aparecer en el horario del grupo y de los alumnos suscritos.
+
+HU-15) Como usuario he de poder exportar mi horario para usarlo en otros sistemas estándar de calendario.
+
+Criterios de aceptación:
+
+[ ] El usuario podrá exportar su horario en formatos compatibles con sistemas estándar de calendario (.ics).
+[ ] La exportación debe incluir todas las asignaturas y eventos del usuario.
+[ ] Se debe permitir elegir un rango de fechas para la exportación.
+[ ] El archivo generado debe poder descargarse y ser importable en Google Calendar, Outlook, Apple Calendar, etc.
+
+HU-16) Como usuario he de poder sincronizar mi calendario con Google Calendar.
+
+Criterios de aceptación:
+
+[ ] El usuario podrá vincular su cuenta con Google Calendar mediante OAuth.
+[ ] Los eventos de su horario deben sincronizarse automáticamente con Google Calendar.
+[ ] Se deben reflejar en Google Calendar los cambios realizados en el horario del usuario.
+[ ] El usuario debe poder desactivar la sincronización en cualquier momento.
+
+HU-17) Como alumno he de poder ver alertas sobre cambios en las clases de los grupos a los que estoy suscrito ( cambio de aula, horario de inicio y fin y profesor ).
+
+Criterios de aceptación:
+
+[ ] Las alertas aparecerán en la vista principal del horario durante la siguiente semana a partir del cambio.
+[ ] Si el cambio es de aula u horario se mandará además un correo electrónico.
+
+HU-18) Como alumno he de poder ver alertas referentes a eventos “esta semana” de mis grupos ( clases de recuperación, extra, charlas …).
+
+Criterios de aceptación:
+
+[ ] Las alertas aparecerán en la vista principal del horario durante la siguiente semana a partir del cambio.
+[ ] Los eventos aparecerán, como las clases, en la vista del horario.
+
+\end{comment}
+
+\subsection{Historias de usuario}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
+        \hline
+        \textbf{ID} & HU-1 & \textbf{Nombre} & Iniciar sesión \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como usuario he de poder iniciar sesión en el sistema.} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{3} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Prioridad}} & \multicolumn{2}{p{6cm}|}{P0} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
+            \begin{itemize}
+                \item Para poder iniciar sesión ha de insertar su correo y contraseña.
+                \item Sólo se puede iniciar sesión con correos de la UGR.
+            \end{itemize}
+        } \\
+        \hline
+    \end{tabular}
+    \caption{Historia de usuario HU-1}
+    \label{tab:hu_1}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
+        \hline
+        \textbf{ID} & HU-2 & \textbf{Nombre} & Registrarse \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como usuario he de poder registrarme en el sistema.} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{5} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Prioridad}} & \multicolumn{2}{p{6cm}|}{P0} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
+            \begin{itemize}
+                \item El alumno sólo se puede registrar con su correo institucional de la UGR.
+                \item El alumno debe insertar nickname, correo y contraseña.
+                \item La contraseña del alumno ha de ser mayor o igual a 9 caracteres, conteniendo esta una mayúscula y un número como mínimo.
+                \item El registro se ha de completar mediante un link mandado por mail.
+            \end{itemize}
+        } \\
+        \hline
+    \end{tabular}
+    \caption{Historia de usuario HU-2}
+    \label{tab:hu_2}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
+        \hline
+        \textbf{ID} & HU-3 & \textbf{Nombre} & Modificar nickname \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como usuario puedo modificar mi nickname.} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{2} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Prioridad}} & \multicolumn{2}{p{6cm}|}{P1} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
+            \begin{itemize}
+                \item El alumno no puede cambiar su nickname a otro que exista.
+                \item El alumno no puede modificar su correo electrónico.
+            \end{itemize}
+        } \\
+        \hline
+    \end{tabular}
+    \caption{Historia de usuario HU-3}
+    \label{tab:hu_3}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
+        \hline
+        \textbf{ID} & HU-4 & \textbf{Nombre} & Modificar contraseña \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como usuario he de poder modificar la contraseña de acceso.} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{3} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Prioridad}} & \multicolumn{2}{p{6cm}|}{P1} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
+            \begin{itemize}
+                \item Para poder modificar la contraseña ha de insertar la contraseña anterior.
+                \item Se ha de insertar la nueva contraseña 2 veces, siendo esta  mayor o igual a 9 caracteres, y conteniendo una mayúscula y un número como mínimo.
+            \end{itemize}
+        } \\
+        \hline
+    \end{tabular}
+    \caption{Historia de usuario HU-4}
+    \label{tab:hu_4}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
+        \hline
+        \textbf{ID} & HU-5 & \textbf{Nombre} & Darse de baja \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como usuario
+        he de poder darme de baja del sistema.} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{1} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Prioridad}} & \multicolumn{2}{p{6cm}|}{P2} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
+            \begin{itemize}
+                \item Para poder completar la baja ha de escribir su contraseña en un campo de texto.
+            \end{itemize}
+        } \\
+        \hline
+    \end{tabular}
+    \caption{Historia de usuario HU-5}
+    \label{tab:hu_5}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
+        \hline
+        \textbf{ID} & HU-6 & \textbf{Nombre} & Cambiar rol \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como administrador he de poder actualizar mi rol a profesor, y viceversa.} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{2} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Prioridad}} & \multicolumn{2}{p{6cm}|}{P1} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
+            \begin{itemize}
+                \item Para poder cambiar el rol a profesor he de ser administrador.
+                \item Para poder cambiar el rol a profesor he de ser administrador.
+            \end{itemize}
+        } \\
+        \hline
+    \end{tabular}
+    \caption{Historia de usuario HU-6}
+    \label{tab:hu_6}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
+        \hline
+        \textbf{ID} & HU-7 & \textbf{Nombre} & Seleccionar grados \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como usuario he de poder seleccionar el grado o grados que estoy cursando.} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{3} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Prioridad}} & \multicolumn{2}{p{6cm}|}{P1} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
+            \begin{itemize}
+                \item Se pueden seleccionar un máximo de 4 grados.
+            \end{itemize}
+        } \\
+        \hline
+    \end{tabular}
+    \caption{Historia de usuario HU-7}
+    \label{tab:hu_7}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
+        \hline
+        \textbf{ID} & HU-8 & \textbf{Nombre} & Eliminar grado \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como usuario he de poder eliminar un grado que ya no esté cursando.} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{2} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Prioridad}} & \multicolumn{2}{p{6cm}|}{P1} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
+            \begin{itemize}
+                \item Si el usuario está suscrito a grupos de asignatura de ese grado, se le recordará que también se revocarán sus suscripciones a estos.
+            \end{itemize}
+        } \\
+        \hline
+    \end{tabular}
+    \caption{Historia de usuario HU-8}
+    \label{tab:hu_8}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
+        \hline
+        \textbf{ID} & HU-9 & \textbf{Nombre} & Suscribirse a grupos de asignatura \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como usuario he de poder suscribirme a los grupos de asignaturas a las que quiero hacer seguimiento.} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{4} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Prioridad}} & \multicolumn{2}{p{6cm}|}{P1} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
+            \begin{itemize}
+                \item Para hacer seguimiento a un grupo en concreto, el usuario deberá estar cursando el grado al que pertenece.
+            \end{itemize}
+        } \\
+        \hline
+    \end{tabular}
+    \caption{Historia de usuario HU-9}
+    \label{tab:hu_9}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
+        \hline
+        \textbf{ID} & HU-10 & \textbf{Nombre} & Revocar suscripción a grupo de asignatura \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como usuario he de poder revocar una suscripción a un grupo de asignatura.} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{2} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Prioridad}} & \multicolumn{2}{p{6cm}|}{P1} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
+            \begin{itemize}
+                \item El usuario sólo puede revocar suscripciones de grupos a los que está suscrito.
+            \end{itemize}
+        } \\
+        \hline
+    \end{tabular}
+    \caption{Historia de usuario HU-10}
+    \label{tab:hu_10}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
+        \hline
+        \textbf{ID} & HU-11 & \textbf{Nombre} & Ver horario de grupos de asignatura \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como usuario he de poder ver mi horario de grupos de asignatura en diferentes formatos ( día, semana, mes , año ).} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{5} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Prioridad}} & \multicolumn{2}{p{6cm}|}{P1} \\
+        \hline
+        \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
+            \begin{itemize}
+                \item El horario debe mostrar la asignatura, grupo, hora de inicio y fin, profesores del grupo, y aula.
+                \item Las clases sólo deben mostrarse en el rango de fechas en las que se imparten.
+            \end{itemize}
+        } \\
+        \hline
+    \end{tabular}
+    \caption{Historia de usuario HU-11}
+    \label{tab:hu_11}
+\end{table}
+
+%% Faltan las historias de usuario de la siuiente iteración
+
 \section{Requisitos funcionales}
 
 \section{Requisitos no funcionales}
