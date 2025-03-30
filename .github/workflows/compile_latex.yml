@@ -38,12 +38,12 @@ jobs:
           git add TFG.pdf
           git commit -m "Actualización automática del PDF compilado"
           git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
-          - name: Merge changes into main
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          run: |
-            git fetch origin main
-            git checkout main
-            git merge --strategy-option ours ${{ github.sha }} -m "Merge changes from workflow"
-            git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
+      - name: Merge changes into main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git fetch origin main
+          git checkout main
+          git merge --strategy-option ours ${{ github.sha }} -m "Merge changes from workflow"
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
 
