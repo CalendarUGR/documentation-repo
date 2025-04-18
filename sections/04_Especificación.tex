@@ -62,11 +62,55 @@ La elección de la metodología Scrum se justifica por las siguientes razones:
     \item \textbf{Adaptabilidad a un Proyecto Individual:} Aunque tradicionalmente Scrum se aplica a equipos, su estructura iterativa y adaptable se ajusta bien a un proyecto individual como un TFG, permitiendo una organización eficiente del trabajo y una gestión del tiempo efectiva.
 \end{itemize}
 
-Es importante destacar que, dada la naturaleza individual del proyecto, se ha realizado una adaptación de los roles y las ceremonias de Scrum para ajustarse a las necesidades y recursos disponibles. Sin embargo, se han mantenido los principios fundamentales de la metodología para asegurar una gestión eficaz del desarrollo.
+Es importante destacar que, dada la naturaleza individual del proyecto, se ha realizado una adaptación de los roles y las ceremonias de Scrum para ajustarse a las necesidades y recursos disponibles. 
+Sin embargo, se han mantenido los principios fundamentales de la metodología para asegurar una gestión eficaz del desarrollo.
 
 \section{Personas}
 
+Las personas son representaciones ficticias de los usuarios finales del sistema. Estas se crean a partir de la investigación y el análisis de los usuarios reales, y se utilizan para comprender mejor sus necesidades,
+ comportamientos, inquietudes, objetivos... \newline
+ Las personas ayudan a guiar el diseño y desarrollo del sistema, asegurando que se satisfacen las necesidades de los usuarios. En definitiva ayudan a poner al usuario en el centro del proceso de desarrollo.
+
+\subsection{Personas del sistema}
+
+%% Iágenes de personas
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/04_persona_1.png}
+    \caption{Persona 1: Alumno de la UGR}
+    \label{fig:persona_1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/04_persona_2.png}
+    \caption{Persona 2: Profesor de la UGR}
+    \label{fig:persona_2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/04_persona_3.png}
+    \caption{Persona 3: ''Administrador'' de la UGR}
+    \label{fig:persona_3}
+\end{figure}
+
 \section{Escenarios}
+
+Un escenario es una descripción narrativa de cómo un usuario interactúa con un sistema para lograr un objetivo específico. Los escenarios son herramientas útiles para comprender y comunicar los requisitos del sistema, ya que proporcionan un contexto claro y detallado sobre cómo se espera que funcione el sistema en situaciones del mundo real.
+\newline
+\negritas{¿Por qué son importantes los escenarios?}
+\begin{itemize}
+    \item Ayudan a identificar y definir los requisitos del sistema de manera más clara y comprensible.
+    \item Proporcionan un contexto para las decisiones de diseño y desarrollo, asegurando que se alineen con las necesidades del usuario.
+    \item Facilitan la comunicación entre los miembros del equipo de desarrollo y los interesados, ya que son más fáciles de entender que los requisitos técnicos.
+    \item Permiten identificar posibles problemas o desafíos en la interacción del usuario con el sistema antes de que se implemente.
+\end{itemize}
+
+\subsection{Escenarios del sistema}
+
+%% Tablas de escenarios 
+
 
 \section{Historias de usuario}
 
@@ -505,7 +549,8 @@ Para se ha definido la siguiente estructura para las historias de usuario:
         \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
             \begin{itemize}
                 \item Las clases extra aparecerán, como las clases, en la vista del horario.
-                \item Se debe mandar un correo electrónico a los alumnos que afecte.
+                \item Si el evento es en la semana actual se debe mostrar en una lista de alertas.
+                \item Se debe mandar un correo electrónico a los alumnos que afecte y tengan las notificaciones activadas.
             \end{itemize}
         } \\
         \hline
@@ -543,54 +588,7 @@ Para se ha definido la siguiente estructura para las historias de usuario:
     \centering
     \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
         \hline
-        \textbf{ID} & HU-18 & \textbf{Nombre} & Registrar días festivos de facultad \\
-        \hline
-        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como administrador puedo registrar los días festivos de mi facultad.} \\
-        \hline
-        \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{3} \\
-        \hline
-        \multicolumn{2}{|p{6cm}|}{\textbf{Prioridad}} & \multicolumn{2}{p{6cm}|}{P1} \\
-        \hline
-        \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
-            \begin{itemize}
-                \item El usuario debe ser un administrador.
-                \item El día a registrar no puede estar ya registrado.
-            \end{itemize}
-        } \\
-        \hline
-    \end{tabular}
-    \caption{Historia de usuario HU-18}
-    \label{tab:hu_18}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
-        \hline
-        \textbf{ID} & HU-19 & \textbf{Nombre} & Recibir alertas de cambios en asignaturas suscritas \\
-        \hline
-        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como alumno debo poder recibir alertas de cambios en las asignaturas a las que estoy suscrito.} \\
-        \hline
-        \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{4} \\
-        \hline
-        \multicolumn{2}{|p{6cm}|}{\textbf{Prioridad}} & \multicolumn{2}{p{6cm}|}{P1} \\
-        \hline
-        \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
-            \begin{itemize}
-                \item La alerta debe llegar a los usuarios que estén suscritos a ese grupo de asignatura.
-            \end{itemize}
-        } \\
-        \hline
-    \end{tabular}
-    \caption{Historia de usuario HU-19}
-    \label{tab:hu_19}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
-        \hline
-        \textbf{ID} & HU-20 & \textbf{Nombre} & Eliminar evento a nivel de facultad \\
+        \textbf{ID} & HU-18 & \textbf{Nombre} & Eliminar evento a nivel de facultad \\
         \hline
         \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como profesor / administrador he de poder eliminar los eventos que he creado a nivel de facultad ( charlas, conferencias, exámenes …).} \\
         \hline
@@ -605,17 +603,17 @@ Para se ha definido la siguiente estructura para las historias de usuario:
         } \\
         \hline
     \end{tabular}
-    \caption{Historia de usuario HU-20}
-    \label{tab:hu_20}
+    \caption{Historia de usuario HU-18}
+    \label{tab:hu_18}
 \end{table}
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{2cm}|p{4cm}|p{2cm}|p{4cm}|}
         \hline
-        \textbf{ID} & HU-21 & \textbf{Nombre} & Eliminar día festivo de facultad \\
+        \textbf{ID} & HU-19 & \textbf{Nombre} & Activar / desactivar alertas por correo electrónico \\
         \hline
-        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como administrador he de poder eliminar los días festivos de mi facultad.} \\
+        \multicolumn{2}{|p{6cm}|}{\textbf{Descripción}} & \multicolumn{2}{p{6cm}|}{Como alumno debo poder desactivar / activar las notificaciones por correo electrónico referente a los eventos a nivel de grupo / facultad} \\
         \hline
         \multicolumn{2}{|p{6cm}|}{\textbf{Estimación}} & \multicolumn{2}{p{6cm}|}{3} \\
         \hline
@@ -623,13 +621,14 @@ Para se ha definido la siguiente estructura para las historias de usuario:
         \hline
         \multicolumn{2}{|p{6cm}|}{\textbf{Criterios de aceptación}} & \multicolumn{2}{p{6cm}|}{
             \begin{itemize}
-                \item El usuario debe ser un administrador.
+                \item Tras desactivar las alertas, el usuario no recibirá más correos electrónicos referente a eventos a nivel de grupo / facultad.
+                \item El usuario podrá activar las alertas en cualquier momento.
             \end{itemize}
         } \\
         \hline
     \end{tabular}
-    \caption{Historia de usuario HU-21}
-    \label{tab:hu_21}
+    \caption{Historia de usuario HU-19}
+    \label{tab:hu_19}
 \end{table}
 
 \section{Requisitos funcionales}
@@ -648,6 +647,7 @@ A partir de las historias de usuario, junto a sus criterios de aceptación, se h
         \item \textbf{RF-2.5) Cambio de contraseña de acceso:} El sistema debe permitir el cambio de la contraseña de acceso.
         \item \textbf{RF-2.6) Dar de baja:} El sistema debe permitir al usuario darse de baja con el objetivo de que no le lleguen más correos relacionados.
         \item \textbf{RF-2.7) Cambio de rol:} EL sistema debe poder facilitar el cambio de rol de profesor a administrador, y viceversa.
+        \item \textbf{RF-2.8) Activación / desactivación de alertas:} El sistema debe permitir activar o desactivar las alertas por correo electrónico.
     \end{itemize}
 \end{itemize}
 
@@ -670,10 +670,8 @@ A partir de las historias de usuario, junto a sus criterios de aceptación, se h
         \item \textbf{RF-2.12) Sincronizar con Google calendar:} El sistema deberá poder sincronizarse con Google Calendar.
         \item \textbf{RF-2.13) Alertas sobre clases extra:} El sistema debe poder mandar alertas sobre clases extra a los alumnos de ese grupo.
         \item \textbf{RF-2.14) Crear eventos a nivel de facultad:} El sistema debe poder crear eventos a nivel de facultad.
-        \item \textbf{RF-2.15) Registrar días festivos de facultad:} El sistema debe poder registrar los días festivos de la facultad.
-        \item \textbf{RF-2.16) Alertas de cambios en asignaturas suscritas:} El sistema debe poder mandar alertas de cambios en las asignaturas suscritas.
-        \item \textbf{RF-2.17) Eliminar eventos a nivel de facultad:} El sistema debe poder eliminar eventos a nivel de facultad.
-        \item \textbf{RF-2.18) Eliminar días festivos de facultad:} El sistema debe poder eliminar días festivos de la facultad.
+        \item \textbf{RF-2.15) Alertas de cambios en asignaturas suscritas:} El sistema debe poder mandar alertas de cambios en las asignaturas suscritas.
+        \item \textbf{RF-2.16) Eliminar eventos a nivel de facultad:} El sistema debe poder eliminar eventos a nivel de facultad.
     \end{itemize}
 \end{itemize}
 
@@ -682,8 +680,8 @@ A partir de las historias de usuario, junto a sus criterios de aceptación, se h
 \subsection{Rendimiento}
 
 \begin{itemize}
-    \item \textbf{RNF-1.1) Tiempo de respuesta:} El sistema debe responder a las solicitudes de los usuarios en un tiempo máximo de 3 segundos.
-    \item \textbf{RNF-1.2) Capacidad de usuarios concurrentes:} El sistema debe soportar un mínimo de 100 usuarios concurrentes sin degradación significativa del rendimiento.
+    \item \textbf{RNF-1.1) Tiempo de respuesta:} El sistema debe responder a las solicitudes de los usuarios en un tiempo máximo de 2 segundos.
+    \item \textbf{RNF-1.2) Capacidad de usuarios concurrentes:} El sistema debe soportar un mínimo de 1000 usuarios concurrentes sin degradación significativa del rendimiento.    \item \textbf{RNF-1.3) Recuperación ante fallos:} El sistema debe ser capaz de recuperarse de fallos en menos de 5 minutos.
 \end{itemize}
 
 \subsection{Usabilidad}
@@ -721,13 +719,124 @@ A partir de las historias de usuario, junto a sus criterios de aceptación, se h
 \subsection{Disponibilidad}
 
 \begin{itemize}
-    \item \textbf{RNF-6.1) Tiempo de actividad:} El sistema debe tener un tiempo de actividad del 99.9\%.
+    \item \textbf{RNF-6.1) Tiempo de actividad:} El sistema debe tener un tiempo de actividad del 95\%.
     \item \textbf{RNF-6.2) Recuperación ante fallos:} El sistema debe poder recuperarse de fallos de hardware o software sin pérdida de datos.
 \end{itemize}
 
 \section{Requisitos de información}
 
+El sistema debe recopilar y almacenar la siguiente información de los diferentes servicios:
+
+\subsection{Servicio de usuarios}
+No se recopila demasiada información del usuario, sólo la necesaria para poder identificarlo y autenticarlo. La información que se recopila es la siguiente:
+
+\begin{itemize}
+    \item \textbf{Nickname}: Nombre de usuario único.
+    \item \textbf{Correo electrónico}: Correo electrónico institucional (necesario para clasificar al usuario como alumno o profesor).
+    \item \textbf{Contraseña}: Contraseña de acceso al sistema.
+\end{itemize}
+
+Esta corresponde con la información de entrada que ofrecen los usuarios al registrarse. El sistema no almacena la contraseña, sino un hash de la misma, para evitar que un posible ataque a la base de datos comprometa la seguridad de los usuarios.
+Tras el procesamiento de la información, el sistema almacena la siguiente información:
+
+\begin{itemize}
+    \item \textbf{ID}: Identificador único del usuario.
+    \item \textbf{Rol}: Rol del usuario.
+    \item \textbf{Notificaciones} : Información sobre si el usuario tiene activadas o desactivadas las notificaciones.
+\end{itemize}
+
+\subsection{Servicio de horarios}
+El sistema recopila la información de horarios académicos de todos los grados de la UGR. Esta información es pública y se obtiene de la página "grados.ugr.es". La información que se recopila es la siguiente:
+
+\begin{itemize}
+    \item \textbf{Grado}: Información referente al grado.
+    \begin{itemize}
+        \item \textbf{Facultad} : Nombre de la facultad a la que pertenece el grado.
+        \item \textbf{Campo} : Campo de conocimiento al que pertenece el grado.
+        \item \textbf{Nombre} : Nombre del grado.
+        \item \textbf{Url} : Url de la página del grado.
+    \end{itemize}
+
+    \item \textbf{Asignatura}: Información referente a la asignatura.
+    \begin{itemize}
+        \item \textbf{Curso académico} : Curso académico al que pertenece la asignatura.
+        \item \textbf{Departamento} : Departamento al que pertenece la asignatura.
+        \item \textbf{Nombre} : Nombre de la asignatura.
+        \item \textbf{Semestre} : Semestre al que pertenece la asignatura.
+        \item \textbf{Tipo} : Tipo de asignatura (obligatoria, optativa, etc.).
+        \item \textbf{Url} : Url de la página de la asignatura.
+        \item \textbf{Año} : Año en el que se imparte la asignatura.
+    \end{itemize}
+
+    \item \textbf{Grupo} : Información referente al grupo.
+    \begin{itemize}
+        \item \textbf{Nombre} : Nombre del grupo.
+        \item \textbf{Profesores} : Profesores que imparten la asignatura.
+    \end{itemize}
+
+    \item \textbf{Clase} : Información referente a la clase.
+    \begin{itemize}
+        \item \textbf{Aula} : Aula en la que se imparte la clase.
+        \item \textbf{Fecha de inicio} : Fecha de inicio de la clase.
+        \item \textbf{Fecha de fin} : Fecha de fin de la clase.
+        \item \textbf{Día} : Día de la semana en el que se imparte la clase.
+        \item \textbf{Hora de inicio} : Hora de inicio de la clase.
+        \item \textbf{Hora de fin} : Hora de fin de la clase.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Servicio de suscripciones académicas}
+
+El sistema recopila la información de las suscripciones académicas de los usuarios y de los eventos (clases extra, charlas, días festivos ...). Esta información es privada y se obtiene de la base de datos del sistema. La información que se recopila es la siguiente:
+
+\begin{itemize}
+    \item \textbf{Suscripción}: Información referente a la suscripción.
+    \begin{itemize}
+        \item \textbf{ID} : Identificador único de la suscripción.
+        \item \textbf{ID del usuario} : Identificador único del usuario.
+        \item \textbf{Nombre del grupo} : Nombre del grupo al que está suscrito el usuario.
+        \item \textbf{Nombre de la asignatura} : Nombre de la asignatura a la que está suscrito el usuario.
+        \item \textbf{Nombre del grado} : Nombre del grado al que está suscrito el usuario.
+    \end{itemize}
+
+    \item \textbf{Evento}: Información referente al evento.
+    \begin{itemize}
+        \item \textbf{ID} : Identificador único del evento.
+        \item \textbf{ID del usuario creador} : Identificador único del usuario que ha creado el evento.
+        \item \textbf{Facultad} : Facultad a la que pertenece el evento.
+        \item \textbf{Grado} : Grado al que pertenece el evento.
+        \item \textbf{Asignatura} : Asignatura al que pertenece el evento.
+        \item \textbf{Grupo} : Grupo al que pertenece el evento.
+        \item \textbf{Tipo} : Tipo de evento (a nivel de grupo / facultad).
+        \item \textbf{Fecha} : Fecha del evento.
+        \item \textbf{Hora de inicio} : Hora de inicio del evento.
+        \item \textbf{Hora de fin} : Hora de fin del evento.
+        \item \textbf{Día} : Día de la semana en el que se imparte el evento.
+        \item \textbf{Aula} : Aula en la que se imparte el evento.
+        \item \textbf{Título} : Título del evento.
+        \item \textbf{Profesor} : Profesor que imparte el evento.
+    \end{itemize}
+\end{itemize}
+
 \section{Validación de los requisitos}
 
+La validación de los requisitos ha sido un proceso clave para garantizar que el sistema desarrollado cumpla con las expectativas y necesidades definidas. Este proceso se ha llevado a cabo mediante reuniones semanales con el Product Manager, quien en este caso ha sido el director del TFG, D. Juan Luis Jiménez Laredo.
+
+Durante estas reuniones, se han abordado los siguientes aspectos:
+
+\begin{itemize}
+    \item \textbf{Revisión de requisitos:} Se han revisado los requisitos funcionales y no funcionales definidos, asegurando que sean claros, completos y alineados con los objetivos del proyecto.
+    \item \textbf{Validación de historias de usuario:} Se han analizado las historias de usuario propuestas, verificando que reflejen correctamente las necesidades de los usuarios finales y que incluyan criterios de aceptación adecuados.
+    \item \textbf{Validación de implementaciones:} Se han presentado los incrementos de software desarrollados durante cada sprint, evaluando si cumplen con los requisitos y las historias de usuario previamente validadas.
+    \item \textbf{Retroalimentación:} Se ha recibido retroalimentación por parte del Product Manager, lo que ha permitido realizar ajustes y mejoras tanto en los requisitos como en las implementaciones.
+\end{itemize}
+
+Este enfoque iterativo e incremental ha asegurado que el desarrollo del sistema se mantenga alineado con las expectativas del proyecto, minimizando riesgos y garantizando la calidad del producto final.
+
 \section{Conclusiones}
-En este capítulo concluimos que...
+
+En este capítulo se han definido los requisitos del sistema, tanto funcionales como no funcionales, así como los requisitos de información necesarios para su implementación. Además, se ha detallado el proceso de validación de los requisitos, que ha sido clave para garantizar que el sistema desarrollado cumpla con las expectativas y necesidades definidas.
+
+La metodología ágil Scrum, adaptada a la naturaleza individual del proyecto, ha permitido un desarrollo iterativo e incremental, asegurando la entrega de valor de forma continua y la flexibilidad necesaria para adaptarse a los cambios. Las reuniones semanales con el Product Manager han sido fundamentales para validar los requisitos, las historias de usuario y las implementaciones, permitiendo realizar ajustes y mejoras de manera oportuna.
+
+En conclusión, el enfoque adoptado ha permitido una gestión eficiente del proyecto, minimizando riesgos y asegurando la calidad del producto final. Los requisitos definidos proporcionan una base sólida para el desarrollo del sistema, alineándose con los objetivos del proyecto y las necesidades de los usuarios finales.

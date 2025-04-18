@@ -2,12 +2,38 @@
 
 \section{Iteración 0}
 
+Curso de microsericios en el ecosistema de Spring Boot, reuniones con el director del TFG para definir el sistema.
+Reuniones con el secretario de la facultad, con funcionariado de la ETSIIT, y con el director del CEPRUD para conocer  la información con la que cuento.
+Pruebas en Spring Boot.
+
 \section{Iteración 1}
+
+Se implementaron todas las historias de usuario relacionadas con la gestón de usuarios y roles, así como la autenticación y autorización. Para ello
+se implementarion los servicios user-service, auth-service, mail-service y el api-gateway.
+Además se hizo una primera aproximación del scrapping de los datos de horarios académicos de todos los grados de la ugr.
 
 \section{Iteración 2}
 
+Se afina el scrapping, se crea el servicio schedule-consumer-service, y se crea la lógica de suscripciones a grupos, y demás tareas relacionadas. Además se puede extraer el ".ics"
+de los horarios personalizados, para ello se implementa el academic-subscription-service.
+
+Se crea además el servidor de descubrimiento de servicios con eureka, y así se investiga como mejorar el rendimiento con balanceo de carga y varias instancias.
+
 \section{Iteración 3}
+
+Fin del backend generando eventos a nivel de grupo y a nivel de facultad. Extracción del ics con clases oficiales, clases extra y eventos de facultad. Sincronización con Google calendar.
+Alertas cuando se crean eventos a nicel de grupo (clases extra).
+Se crean pruebas unitarias y se realizan pruebas de carga en el servidor de despliegue.
+Se dockeriza el sistema y se implementa en un servidor de producción.
 
 \section{Iteración 4}
 
+Comienzo del frontend, se implementan las mismas historias de usuario que en el backend.
+Refinamiento del backend, añadidos para complementar el frontend.
+
 \section{Iteración 5}
+
+Se acaba el frontend. Se termina la documentación del proyecto.
+Se comienza la presentación del TFG.
+
+
