@@ -1,3 +1,75 @@
 \chapter{Despliegue del sistema}\label{cap:despliegue}
 
-\section{Dockerización de la aplicación}
+\section{Contenerización del sistema}
+
+Pasos para contenerizar el sistema:
+
+\begin{enumerate}
+    \item Crear una red en docker:
+    \begin{lstlisting}[language=bash]
+        docker network create calendarugr
+    \end{lstlisting}
+    \item Generar los .jar de los microservicios, sin pasar los tests para una construcción sin conflictos para los servicios que ya están contenerizados:
+    \begin{lstlisting}[language=bash]
+        ./mvnw clean package -DskipTests
+    \end{lstlisting}
+    \item Crear las imágenes de los microservicios (Ej imágen de Eureka service):
+    \begin{lstlisting}[language=bash]
+        FROM amazoncorretto:21-alpine-jdk
+        WORKDIR /app
+        EXPOSE 8761
+        COPY ./target/eureka-service-0.0.1-SNAPSHOT.jar eureka-service.jar
+
+        ENTRYPOINT ["java", "-jar", "eureka-service.jar"]
+    \end{lstlisting}
+    \item Construir la imagen de docker:
+    \begin{lstlisting}[language=bash]
+        docker build -t eureka-service .
+    \end{lstlisting}
+    \item Para levantar los contenedores uno a uno (Ej levantando el contenedor de Eureka):
+    \begin{lstlisting}[language=bash]
+        docker run -d --name eureka-service --network calendarugr -p 8761:8761 eureka-service
+    \end{lstlisting}
+    Si fuera necesario añadir variables de entorno, se puede hacer con el flag \texttt{-e}:
+    \begin{lstlisting}[language=bash]
+        docker run -d --name eureka-service --network calendarugr -p 8761:8761 \
+            -e EUREKA_SERVER_URL=http://eureka-service:8761/eureka/ \
+            eureka-service
+    \end{lstlisting}
+    \item Bajar las imágenes oficiales de mysql:8.0.41 y mongo:6.0.4:
+    \begin{lstlisting}[language=bash]
+        docker pull mysql:8.0.41
+        docker pull mongo:latest
+    \end{lstlisting}
+    \item Para levantar contenedores con variables de entorno (Ej levantando el contenedor de Mysql):
+    \item \begin{lstlisting}[language=bash]
+        docker run -p 3307:3306 --network calendarugr \
+            -e MYSQL_ROOT_PASSWORD=...\
+            -e MYSQL_USER=... \
+            -e MYSQL_PASSWORD=... \
+            -v /home/juanmi/mysql-scripts/init.sql:/docker-entrypoint-initdb.d/init.sql \
+            --name mysql \
+            mysql:8.0.41
+    \end{lstlisting}
+    \item El init.sql es un script que se ejecuta al iniciar el contenedor de Mysql, y se utiliza para crear la base de datos y las tablas necesarias para el funcionamiento del sistema. El script se encuentra en la carpeta \texttt{mysql-scripts} del proyecto.
+    \begin{lstlisting}[language=sql]
+        CREATE DATABASE IF NOT EXISTS DB_USER_SERVICE;
+        CREATE DATABASE IF NOT EXISTS DB_SCHEDULE_CONSUMER_SERVICE;
+
+        GRANT ALL PRIVILEGES ON DB_USER_SERVICE.* TO 'calendarugr'@'%';
+        GRANT ALL PRIVILEGES ON DB_SCHEDULE_CONSUMER_SERVICE.* TO 'calendarugr'@'%';
+        FLUSH PRIVILEGES;
+    \end{lstlisting}
+    \item Para levantar el contenedor de Mongo:
+    \begin{lstlisting}[language=bash]
+        docker run -d --name mongodb \
+            -p 27018:27017 \
+            --network calendarugr \
+            -e MONGO_INITDB_ROOT_USERNAME=admin \
+            -e MONGO_INITDB_ROOT_PASSWORD=CalendarUGR@2025 \
+            mongo:6.0.4
+    \end{lstlisting}
+    \item Funciona, para mayor comodidad creamos un docker compose para levantar todos los servicios a la vez:
+    
+
+\end{enumerate}
