@@ -82,13 +82,69 @@ Podemos concluir tras analizar la situación actual de aprovisionamiento de hora
 
 Frente al modelo estático observado de manera generalizada en la Universidad de Granada, el panorama de la gestión de horarios en otras instituciones de educación superior y en el mercado de software educativo muestra una clara tendencia hacia sistemas más dinámicos, personalizados e integrados. 
 \newline\newline
-Existen diversas soluciones, desde módulos dentro de grandes sistemas ERP educativos hasta herramientas especializadas en la creación y gestión de horarios y planificadores académicos \cite{webModernCampus}, pasando por aplicaciones de seguimiento del tiempo adaptadas al ámbito educativo.
+Existen diversas soluciones, desde módulos dentro de grandes sistemas ERP educativos hasta herramientas especializadas en la creación y gestión de horarios y planificadores académicos, pasando por aplicaciones de seguimiento del tiempo adaptadas al ámbito educativo.
 El análisis de estas herramientas revela un conjunto de características comunes y avanzadas que definen el estado del arte en este dominio:
 
 \begin{itemize}
-      \item 
+      \item Por un lado ciertas universidades han desarrollado sistemas internos que permiten a los estudiantes acceder a sus horarios de manera personalizada, integrando información sobre asignaturas, grupos, aulas y profesores. Estos sistemas suelen ofrecer una interfaz gráfica intuitiva y accesible,
+      permitiendo a los usuarios visualizar su horario de manera clara y sencilla. 
+
+      %% 2 jpeg one next to the other
+
+      \begin{figure}[H]
+            \centering
+            \makebox[\textwidth][c]{%
+                \includegraphics[height=8cm]{figures/03_ual_app_filtros.jpeg}
+                \hspace{2cm}
+                \includegraphics[height=8cm]{figures/03_ual_app_horarios.jpeg}
+            }
+            \caption{Aplicación móvil de la Universidad de Almería (UAL App).}
+            \label{fig:ual_app}
+        \end{figure}
+
+      Exponiendo un ejemplo, la Universidad de Almeria (UAL) ha impementado en su aplicación móvil multiplataforma ``UAL App'', la posibilidad de, seleccionando las asignaturas y grupos en los que se está matriculado, obtener
+      una lista de las actividades ordenadas por hora según el día de la semana.
+      \newline
+      De esta manera en la misma aplicación que los estudiantes usan para consultar sus notas, expediente académico, días festivos, etc. pueden consultar su horario académico de manera rápida en el mismo ecosistema.
+
+      \item Por otro lado, y de manera externa a las universidades, existen aplicaciones de gestión de horarios y planificación personal que permiten a los estudiantes integrar sus horarios académicos con otras actividades personales, como trabajos, eventos sociales o compromisos familiares. 
+      \newline\newline
+      Estas aplicaciones suelen ofrecer funciones avanzadas de recordatorios, notificaciones y sincronización con calendarios digitales, lo que facilita la organización del tiempo y la gestión de tareas.
+      Un ejemplo representativo de este tipo de sistemas es 'My Study Life'  \cite{webMyStudyLife}, una aplicación multiplataforma que permite a los estudiantes gestionar sus horarios académicos, tareas y exámenes de manera integrada. En este caso el sistema en sí no cuenta cona los datos internos de la universidad, sino que el estudiante tiene que introducir manualmente los datos de sus asignaturas y grupos, sin embargo, ofrece una interfaz intuitiva y fácil de usar, permitiendo a los estudiantes visualizar su horario de manera clara y sencilla.
+      Además de la posibilidad de añadir tareas y exámenes, la aplicación permite establecer recordatorios y notificaciones para ayudar a los estudiantes a mantenerse organizados y cumplir con sus plazos, y es posee widgets personalizados para la pantalla de inicio de los dispositivos móviles e incluso aplicaciones para smartwatch, lo que consigue una integración total con el ecosistema del usuario.
+
+      \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{figures/03_my_study_life.png}
+            \caption{Aplicación My Study Life.}
+            \label{fig:mystudylife}
+      \end{figure}
+
+      De manera general, y de uso más extendido, existen aplicaciones de gestión de tiempo y productividad que permiten a los usuarios organizar su tiempo de manera más eficiente como lo son Google Calendar \cite{webGoogleCalendar} o Microsoft Outlook \cite{webOutlook}.
+      Estas aplicaciones permiten a los usuarios crear eventos, establecer recordatorios y sincronizar sus calendarios con otros dispositivos y aplicaciones. Sin embargo, no están específicamente diseñadas para la gestión de horarios académicos y pueden carecer de algunas funciones avanzadas que ofrecen otras aplicaciones más especializadas.
+      Sin embargo también son usados para, sincronizando calendarios de sisemas externos, centralizar la información de los horarios académicos y otras actividades personales en un solo lugar, lo que facilita la gestión del tiempo y la planificación de tareas.
+
+      \item Por último, existen sistemas de gestión de horarios y planificación académica que se integran con plataformas de aprendizaje en línea y sistemas de gestión del aprendizaje \hyperlink{lms}{LMS}, como Moodle \cite{webMoodle} o Blackboard.
+      Estos sistemas permiten a los estudiantes acceder a su horario académico y a la información relacionada con sus cursos de manera centralizada, facilitando la gestión de tareas, exámenes y actividades académicas.
+      Un ejemplo de este tipo de sistemas es el módulo de planificación académica de Moodle que permite a los estudiantes visualizar su horario académico y gestionar sus tareas y exámenes de manera integrada con la plataforma de aprendizaje.
+      \newline\newline
+      Este módulo ofrece una interfaz gráfica intuitiva y accesible, permitiendo a los estudiantes personalizar su horario académico y acceder a la información relacionada con sus cursos de manera centralizada. Además, el módulo de planificación académica de Moodle permite a los estudiantes establecer recordatorios y notificaciones para ayudarles a mantenerse organizados y cumplir con sus plazos.
+      \newline\newline
+      Sin embargo, este tipo de sistemas suelen estar limitados a las plataformas de aprendizaje en línea y no ofrecen la misma flexibilidad y personalización que otras aplicaciones de gestión de horarios y planificación personal.
+
 \end{itemize}
-\section{Arquitectura de microservicios}
+
+\section{Desarrollo de servicios web}
+
+\subsection{Arquitecturas de software}
+
+\subsection{Tecnologías de desarrollo}
+
+\subsection{Sistemas de almacenamiento de datos}
+
+\subsection{Comunicación de microservicios}
+
+\subsection{Tecnologías de despliegue}
 
 \section{Conclusión}
 
