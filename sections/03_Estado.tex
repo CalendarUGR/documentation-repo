@@ -69,7 +69,7 @@ La realidad con la que se encuentra el estudiante es con la siguiente:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/02_horario_biologia.png}
-    \caption{Horario de la asignatura Bases Químicas de la Biología.}
+    \caption{Horario de la asignatura Bases Químicas de la Biología, impartida en el Grado en Biología.}
     \label{fig:horario_biologia}
 \end{figure}
 
@@ -136,9 +136,180 @@ El análisis de estas herramientas revela un conjunto de características comune
 
 \section{Desarrollo de servicios web}
 
+El desarrollo de servicios web ha evolucionado significativamente en los últimos años, impulsado por la creciente demanda de aplicaciones distribuidas y la necesidad de integrar sistemas heterogéneos. En este contexto, se han desarrollado diferentes paradigmas arquitectónicos y tecnologías que permiten la creación de servicios web eficientes y escalables.
+
+Esta evoluci\'{o}n ha llevado a una clara distinci\'{o}n de responsabilidades en el desarrollo de aplicaciones web, consolidando los conceptos de \hyperlink{frontend}{Frontend} y \hyperlink{backend}{Backend} como pilares fundamentales.
+
+El \textbf{frontend}, tambi\'{e}n conocido como el "lado del cliente", es la parte de la aplicaci\'{o}n con la que el usuario interact\'{u}a directamente. Abarca la interfaz de usuario (\hyperlink{ui}{UI}), la experiencia de usuario (\hyperlink{ux}{UX}) y toda la l\'{o}gica que se ejecuta en el navegador web del cliente. Las tecnolog\'{i}as predominantes en el desarrollo frontend incluyen HTML para la estructura, CSS para la presentaci\'{o}n y JavaScript para la interactividad. 
+\newline\newline
+En los \'{u}ltimos a\~{n}os, frameworks y bibliotecas de JavaScript como React, Angular y Vue.js han ganado una enorme popularidad, permitiendo la creaci\'{o}n de interfaces de usuario din\'{a}micas, complejas y reutilizables. Estos frameworks facilitan la gesti\'{o}n del estado de la aplicaci\'{o}n en el cliente y la comunicaci\'{o}n as\'{i}ncrona con el servidor, mejorando la fluidez y la reactividad de las aplicaciones web modernas.
+
+Por otro lado, el \textbf{backend}, o "lado del servidor", es el motor que impulsa la aplicaci\'{o}n. Se encarga de la l\'{o}gica de negocio, el procesamiento de datos, la autenticaci\'{o}n de usuarios, la gesti\'{o}n de bases de datos y la comunicaci\'{o}n con otros sistemas o servicios. Es invisible para el usuario final, pero crucial para el funcionamiento de la aplicaci\'{o}n. Existe una amplia variedad de lenguajes y frameworks para el desarrollo backend, como Node.js (con Express.js o NestJS), Python (con Django o Flask), Java (con Spring), Ruby (con Ruby on Rails), PHP (con Laravel o Symfony) y C\# (con .NET). La elecci\'{o}n de la tecnolog\'{i}a backend suele depender de factores como los requisitos de rendimiento, la escalabilidad, la experiencia del equipo de desarrollo y el ecosistema existente. El backend tambi\'{e}n es responsable de la seguridad de la aplicaci\'{o}n, implementando medidas para proteger los datos y prevenir accesos no autorizados.
+
+La comunicaci\'{o}n entre el frontend y el backend se ha estandarizado en gran medida a trav\'{e}s de las \textbf{Interfaces de Programaci\'{o}n de Aplicaciones (\hyperlink{api}{API})}. 
+
+Las Apis son vitales para la creación de experiencias digitales modernas, ya que simplifican como los sistemas se comunican, ofreciendo flexibilidad e independencia a una empresa. El mundo de las APIs está en constante evoluvión, y cada vez más empresas están adoptando este enfoque para integrar sus sistemas y servicios. Las APIs permiten a los desarrolladores acceder a funcionalidades específicas de una aplicación o servicio sin necesidad de conocer su implementación interna, lo que facilita la creación de aplicaciones complejas y la integración de diferentes sistemas.
+\newline
+Son tres tecnologías las que se han estandarizado como las más utilizadas para la creación de APIs: REST, GraphQL y gRPC.
+
+\begin{enumerate}
+    \item \textbf{\hyperlink{rest}{REST} - El Estándar Atemporal}
+    \begin{itemize}
+        \item \textbf{Ventajas:} Maduro y ampliamente adoptado, simple y flexible, sin estado, múltiples tipos de medios.
+        \item \textbf{Limitaciones:} Sobre-recuperación y sub-recuperación, complejidad de versionado, capacidades de tiempo real limitadas.
+        \item \textbf{Mejores Casos de Uso:} APIs públicas, operaciones CRUD simples, requisitos de tiempo real limitados.
+        \item \textbf{Consideraciones:} Versionado y escalabilidad para grandes bases de usuarios, impacto de la sobre/sub-recuperación.
+    \end{itemize}
+
+    \item \textbf{\hyperlink{graphql}{GraphQL} - El Orquestador Dinámico}
+    \begin{itemize}
+        \item \textbf{Ventajas:} Obtención de datos impulsada por el cliente (reduce la sobre-recuperación), relaciones de datos complejas eficientes, actualizaciones en tiempo real (subscriptions), esquema flexible.
+        \item \textbf{Limitaciones:} Mayor complejidad del servidor, curva de aprendizaje, ecosistema de herramientas en evolución.
+        \item \textbf{Mejores Casos de Uso:} Aplicaciones de una sola página (SPAs), estructuras de datos complejas, actualizaciones y suscripciones en tiempo real.
+        \item \textbf{Consideraciones:} Complejidad del servidor e impacto en el rendimiento, documentación y herramientas para desarrolladores.
+    \end{itemize}
+
+    \item \textbf{\hyperlink{grpc}{gRPC} - El Conducto de Alto Rendimiento}
+    \begin{itemize}
+        \item \textbf{Ventajas:} Alto rendimiento (HTTP/2, Protocol Buffers), soporte de streaming, fuertemente tipado, herramientas maduras.
+        \item \textbf{Limitaciones:} Curva de aprendizaje más pronunciada, menos flexible, adopción menos extendida.
+        \item \textbf{Mejores Casos de Uso:} Comunicación entre microservicios de alto rendimiento, escenarios de streaming, operaciones intensivas en datos.
+        \item \textbf{Consideraciones:} Complejidad de adopción de gRPC y Protocol Buffers, justificación del esfuerzo de desarrollo por las ganancias de rendimiento.
+    \end{itemize}
+\end{enumerate}
+
+Las \textbf{APIs REST (Representational State Transfer)} se han convertido en el paradigma dominante para dise\~{n}ar estas interfaces debido a su simplicidad, escalabilidad y flexibilidad. Una API REST define un conjunto de reglas y convenciones para que los sistemas puedan comunicarse a trav\'{e}s del protocolo HTTP.
+
+La creaci\'{o}n de una API REST que sirva al frontend implica varios pasos clave:
+
+\begin{itemize}
+    \item \textbf{Definici\'{o}n de Recursos:} Se identifican los recursos que la API expondr\'{a} (por ejemplo, usuarios, productos, pedidos). Cada recurso tiene una URI (Uniform Resource Identifier) \'{u}nica.
+    \item \textbf{Uso de M\'{e}todos HTTP \cite{MDNHTTPMethods2025}:} HTTP define un conjunto de métodos de petición para indicar la acción que se desea realizar para un recurso determinado. Aunque estos también pueden ser sustantivos, estos métodos de solicitud a veces son llamados HTTP verbs. Cada uno de ellos implementan una semántica diferente, pero algunas características similares son compartidas por un grupo de ellos: ej. un request method puede ser safe, idempotent, o cacheable.
+    \newline\newline
+    Los más usados son :
+    \begin{itemize}
+        \item \texttt{GET}: Solicita una representación de un recurso específico. Las peticiones que usan el método GET sólo deben recuperar datos.
+        \item \texttt{HEAD}: Similar a GET, pero no devuelve el cuerpo de la respuesta, solo los encabezados. Se utiliza para obtener metadatos.
+        \item \texttt{POST}: Se utiliza para enviar una entidad a un recurso en específico, causando a menudo un cambio en el estado o efectos secundarios en el servidor.
+        \item \texttt{PUT}: Reemplaza todas las representaciones actuales del recurso de destino con la carga útil de la petición.
+        \item \texttt{PATCH}: Aplica modificaciones parciales a un recurso.
+        \item \texttt{OPTIONS}: Describe las opciones de comunicación para el recurso de destino. Permite al cliente conocer las capacidades del servidor.
+        \item \texttt{DELETE}: Borra un recurso en específico.
+    \end{itemize}
+    \item \textbf{Representaci\'{o}n de Datos:} Los datos intercambiados entre el cliente y el servidor suelen estar en formato JSON (JavaScript Object Notation) debido a su ligereza y facilidad de parseo por parte de los navegadores y la mayor\'{i}a de los lenguajes de programaci\'{o}n. XML tambi\'{e}n puede ser utilizado, aunque es menos com\'{u}n en APIs modernas orientadas a frontend.
+    \item \textbf{Statelessness (Ausencia de Estado):} Cada petici\'{o}n del cliente al servidor debe contener toda la informaci\'{o}n necesaria para que el servidor la entienda y procese. El servidor no almacena ning\'{u}n estado de la sesi\'{o}n del cliente entre peticiones. Esto simplifica el dise\~{n}o del servidor y mejora la escalabilidad.
+    \item \textbf{Uso de C\'{o}digos de Estado HTTP:} Se utilizan c\'{o}digos de estado HTTP para indicar el resultado de una petici\'{o}n (por ejemplo, \texttt{200 OK}, \texttt{201 Created}, \texttt{400 Bad Request}, \texttt{401 Unauthorized}, \texttt{404 Not Found}, \texttt{500 Internal Server Error}).
+\end{itemize}
+
+El backend desarrolla estos endpoints de la API REST, implementando la l\'{o}gica necesaria para cada operaci\'{o}n. El frontend, a su vez, realiza peticiones HTTP (utilizando APIs del navegador como \texttt{Fetch} o bibliotecas como Axios) a estas URLs para enviar y recibir datos, actualizando din\'{a}micamente la interfaz de usuario sin necesidad de recargar la p\'{a}gina completa. Este desacoplamiento entre frontend y backend permite que ambos puedan desarrollarse, probarse, desplegarse y escalarse de forma independiente, facilitando la colaboraci\'{o}n entre equipos y la adopci\'{o}n de diferentes tecnolog\'{i}as para cada capa. Adem\'{a}s, una API REST bien dise\~{n}ada puede servir no solo a una aplicaci\'{o}n web, sino tambi\'{e}n a aplicaciones m\'{o}viles u otros servicios, promoviendo la reutilizaci\'{o}n y la interoperabilidad entre sistemas heterog\'{e}neos, tal como se mencionaba al inicio.
+
+La tendencia hacia arquitecturas de microservicios en el backend ha reforzado a\'{u}n m\'{a}s la importancia de las APIs REST bien definidas, ya que cada microservicio suele exponer su funcionalidad a trav\'{e}s de una API. En este contexto, herramientas como OpenAPI (anteriormente Swagger) para la definici\'{o}n y documentaci\'{o}n de APIs, y soluciones de API Gateway para la gesti\'{o}n, seguridad y monitorizaci\'{o}n del tr\'{a}fico de las APIs, se han vuelto indispensables en el desarrollo de servicios web modernos y robustos.
+
 \subsection{Arquitecturas de software}
 
+La elección de la arquitectura backend es una decisión fundamental en el desarrollo de cualquier aplicación web, impactando directamente en su escalabilidad, mantenibilidad, flexibilidad y velocidad de desarrollo. Para un sistema de gestión de horarios académicos como el propuesto, que potencialmente puede crecer en complejidad y número de usuarios, la comparación entre los enfoques monolítico y de microservicios es particularmente relevante.
+
+Si bien la arquitectura monolítica ha sido tradicionalmente un punto de partida, la creciente complejidad de los sistemas y la necesidad de agilidad han impulsado la adopción y evolución de diversos paradigmas arquitectónicos. A continuación, se presenta una exposición de diferentes arquitecturas de software \cite{bookORellySoftwareArchitecture} implementadas en sistemas backend, analizando sus características y su posición en el espectro que va desde el monolito hasta los microservicios.
+
+\subsubsection*{Arquitectura en Capas (Layered Architecture / N-Tier Architecture)}
+
+\begin{description}
+    \item[\textbf{Descripción:}] Este es uno de los patrones arquitectónicos más establecidos y fundamentales. Consiste en la organización del código en capas horizontales, donde cada capa posee una responsabilidad específica y se comunica, por lo general, únicamente con las capas adyacentes (superior e inferior). Las capas típicas suelen ser:
+    \begin{itemize}
+        \item \textit{Capa de Presentación (o Interfaz de Usuario):} Gestiona la interacción con el usuario o sistemas cliente. En el contexto de un backend, esta capa a menudo se materializa como la API que gestiona las solicitudes HTTP.
+        \item \textit{Capa de Aplicación (o Lógica de Negocio):} Contiene la lógica de negocio central y orquesta las tareas y flujos de trabajo.
+        \item \textit{Capa de Dominio (o Modelo de Negocio):} Representa las entidades, los objetos de valor y las reglas inherentes al dominio del negocio.
+        \item \textit{Capa de Acceso a Datos (o Persistencia):} Encargada de la comunicación con los sistemas de almacenamiento de datos, como bases de datos.
+        \item \textit{Capa de Infraestructura:} Provee servicios técnicos transversales, tales como logging, monitorización, y comunicación de red.
+    \end{itemize}
+    \item[\textbf{Posicionamiento y Evolución:}] Una aplicación monolítica frecuentemente se estructura internamente siguiendo una arquitectura en capas. Aunque este patrón no descompone el sistema en servicios desplegables de forma independiente, sí promueve una modularización interna y una clara separación de responsabilidades (Separation of Concerns), lo cual es un primer paso crucial para gestionar la complejidad y facilitar la mantenibilidad de un sistema antes de considerar arquitecturas más distribuidas.
+\end{description}
+
+\subsubsection*{Arquitectura Orientada a Servicios (SOA - Service-Oriented Architecture)}
+
+\begin{description}
+    \item[\textbf{Descripción:}] SOA es un paradigma de diseño que estructura una aplicación como una colección de servicios que se comunican entre sí. Estos servicios encapsulan funcionalidades de negocio discretas y pueden ser accedidos a través de la red. A menudo, los servicios en SOA son de grano más grueso en comparación con los microservicios. La comunicación se estandarizó frecuentemente mediante protocolos como SOAP (Simple Object Access Protocol) sobre HTTP, y es común el uso de un Enterprise Service Bus (ESB) para la mediación, el enrutamiento y la transformación de mensajes entre servicios.
+    \item[\textbf{Características Clave:}] Fomenta la reutilización de servicios a nivel empresarial, la interoperabilidad entre sistemas heterogéneos y el descubrimiento dinámico de servicios.
+    \item[\textbf{Posicionamiento y Evolución:}] SOA representó un avance significativo respecto a los monolitos, permitiendo una descomposición más formal y orientada a negocio. Puede considerarse un precursor importante de la arquitectura de microservicios. Sin embargo, SOA a menudo implicaba una mayor sobrecarga en términos de estándares, una gobernanza más centralizada y, en ocasiones, cuellos de botella debidos al ESB, aspectos que la arquitectura de microservicios busca simplificar o descentralizar.
+\end{description}
+
+\subsubsection*{Arquitectura Dirigida por Eventos (EDA - Event-Driven Architecture)}
+
+\begin{description}
+    \item[\textbf{Descripción:}] En una EDA, el flujo de la aplicación es determinado por la ocurrencia de eventos. Los eventos son notificaciones que representan un cambio de estado significativo o un suceso relevante dentro del sistema (por ejemplo, ``PedidoRealizado'', ``InventarioBajo''). Los componentes del sistema, denominados productores de eventos, publican estos eventos en un canal o bus de eventos (gestionado por un bróker de mensajes como Apache Kafka, RabbitMQ o Google Cloud Pub/Sub). Otros componentes, los consumidores de eventos, se suscriben a los eventos que les conciernen y reaccionan a ellos de forma asíncrona.
+    \item[\textbf{Estilos Principales:}] Se distinguen dos topologías principales: el \textit{mediador de eventos}, donde un componente central orquesta el flujo de eventos, y el \textit{bróker de eventos}, que facilita una mayor desacoplamiento entre publicadores y suscriptores.
+    \item[\textbf{Posicionamiento y Evolución:}] EDA es altamente compatible y a menudo se utiliza en conjunción con la arquitectura de microservicios para lograr una comunicación asíncrona, resiliente y escalable. Permite un desacoplamiento profundo entre servicios, mejorando la tolerancia a fallos y la capacidad de respuesta del sistema. También se emplea para modernizar sistemas monolíticos, permitiendo integrar nuevas funcionalidades de forma reactiva o desacoplar módulos existentes.
+\end{description}
+
+\subsubsection*{Arquitectura Basada en el Espacio (SBA - Space-Based Architecture) y Principios Nativos de la Nube}
+
+\begin{description}
+    \item[\textbf{Descripción (SBA):}] Conocida también como arquitectura de tuplas espaciales, la SBA está diseñada para abordar problemas de alta escalabilidad y concurrencia, minimizando los cuellos de botella asociados a las bases de datos centralizadas. En este modelo, la lógica de negocio y los datos se particionan y se distribuyen en múltiples unidades de procesamiento (PUs) auto-suficientes. Cada PU generalmente contiene la aplicación, una caché de datos en memoria y, potencialmente, su propio motor de base de datos. La coordinación y comunicación se realizan a través de un ``espacio de tuplas'' compartido o una caché distribuida.
+    \item[\textbf{Principios Nativos de la Nube (Cloud-Native):}] Más que una arquitectura específica, es un enfoque para diseñar y construir aplicaciones que explotan plenamente las ventajas del modelo de computación en la nube. Esto incluye el uso de contenedores (por ejemplo, Docker), orquestación (por ejemplo, Kubernetes), diseño para la resiliencia (circuit breakers, reintentos), observabilidad y automatización extensiva (CI/CD).
+    \item[\textbf{Posicionamiento y Evolución:}] SBA ofrece una solución para escenarios de escalabilidad extrema. Los principios nativos de la nube son fundamentales en el estado del arte actual, proporcionando el ecosistema y las herramientas para desplegar, gestionar y escalar eficazmente arquitecturas distribuidas modernas, incluyendo prominentemente los microservicios y sistemas basados en EDA.
+\end{description}
+
+\subsubsection*{Arquitectura de Microservicios}
+
+\begin{description}
+    \item[\textbf{Descripción:}] Esta arquitectura estructura una aplicación como una suite de pequeños servicios independientes, cada uno enfocado en una capacidad de negocio específica y bien delimitada (Bounded Context). Cada microservicio es autónomo, lo que implica que puede ser desarrollado, desplegado, escalado y gestionado de forma independiente. Típicamente, cada servicio posee su propia base de datos para asegurar un bajo acoplamiento y se comunica con otros servicios a través de APIs ligeras y bien definidas, comúnmente utilizando HTTP/REST, gRPC, o a través de mensajería asíncrona.
+    \item[\textbf{Características Clave:}] Despliegue independiente y continuo, escalabilidad granular (se escalan solo los servicios que lo necesitan), flexibilidad tecnológica (posibilidad de usar diferentes stacks tecnológicos por servicio), aislamiento de fallos (un fallo en un servicio no debería derribar todo el sistema), y alineación con equipos de desarrollo pequeños y autónomos (Conway's Law).
+    \item[\textbf{Posicionamiento y Evolución:}] La arquitectura de microservicios se considera una evolución directa y una alternativa robusta para superar las limitaciones intrínsecas de los sistemas monolíticos, especialmente en contextos de alta complejidad, crecimiento rápido y necesidad de agilidad. Aborda desafíos como la dificultad para escalar, la complejidad en el mantenimiento, la lentitud en la adopción de nuevas tecnologías, los ciclos de despliegue prolongados y el alto acoplamiento que caracterizan a las grandes aplicaciones monolíticas.
+\end{description}
+
+\subsubsection*{Conclusión: Progresión y Criterios de Selección}
+
+El panorama de arquitecturas backend ha evolucionado desde la simplicidad inicial de los sistemas \textbf{monolíticos}, pasando por la modularización interna de la \textbf{arquitectura en capas}, hacia la descomposición en servicios con \textbf{SOA}. Posteriormente, paradigmas como la \textbf{arquitectura dirigida por eventos} han ganado tracción para mejorar el desacoplamiento y la resiliencia, mientras que enfoques como la \textbf{arquitectura basada en el espacio} y los \textbf{principios nativos de la nube} abordan la escalabilidad extrema y la eficiencia en entornos cloud.
+
+Finalmente, la \textbf{arquitectura de microservicios} emerge como un enfoque predominante para construir sistemas complejos, distribuidos y altamente escalables, ofreciendo un alto grado de agilidad y autonomía. No obstante, es crucial destacar que no existe una arquitectura universalmente superior. La selección de la arquitectura más adecuada debe ser el resultado de un análisis cuidadoso de los requisitos específicos del proyecto, el contexto del negocio, las capacidades del equipo de desarrollo, las proyecciones de escalabilidad y los compromisos (trade-offs) inherentes a cada patrón. En muchos sistemas del mundo real, es común encontrar combinaciones pragmáticas de estos patrones arquitectónicos.
+
 \subsection{Tecnologías de desarrollo}
+
+En el ámbito del desarrollo de software, la elección de las tecnologías adecuadas es crucial para el éxito de un proyecto. En este apartado, se presentan las principales tecnologías que se han considerado para el desarrollo del sistema de gestión de horarios académicos.
+
+\subsubsection{Tecnologías y lenguajes backend}
+
+\begin{enumerate}
+    \item \textbf{Java con Spring Framework (Spring Boot y Spring Cloud):}
+    Java es un lenguaje de programación robusto, maduro y ampliamente adoptado en el desarrollo de aplicaciones empresariales a gran escala. Su ecosistema es vasto, con una gran comunidad y un fuerte enfoque en el rendimiento y la seguridad. Spring Boot simplifica drásticamente la creación de aplicaciones basadas en Spring, ofreciendo auto-configuración, servidores web embebidos (como Tomcat o Jetty) y una gestión de dependencias simplificada, lo que lo convierte en una opción popular para el desarrollo rápido de microservicios listos para producción. De hecho, se considera el estándar de facto para microservicios en Java.
+
+    Para arquitecturas de microservicios, Spring Cloud complementa a Spring Boot proporcionando un conjunto de herramientas y patrones para construir sistemas distribuidos resilientes y escalables. Esto incluye soluciones para el descubrimiento de servicios (permitiendo que los servicios se encuentren dinámicamente en la red), balanceo de carga (distribuyendo las solicitudes entre múltiples instancias de un servicio), pasarelas API (un punto de entrada único para todas las solicitudes de los clientes), interruptores de circuito (para prevenir fallos en cascada) y gestión de configuración distribuida. Dada la potencial complejidad de un sistema de gestión de horarios universitarios, especialmente si se opta por microservicios, la madurez y el soporte integral de Spring Cloud para estos patrones son altamente relevantes.
+
+    \item \textbf{.NET Core:}
+    .NET Core (ahora parte de .NET 5 y versiones posteriores) es un framework de desarrollo de aplicaciones multiplataforma, de código abierto y de alto rendimiento mantenido por Microsoft. Es una opción sólida para construir microservicios, con excelente soporte para la creación de APIs RESTful, contenedores Docker y despliegue en plataformas de orquestación como Kubernetes. Ofrece características como escalabilidad, un modelo de entrega continua, herramientas para operaciones CRUD, soporte para comunicación síncrona y asíncrona entre servicios, y la implementación de patrones de diseño avanzados como CQRS (Command and Query Responsibility Segregation) y Event Sourcing. También se integra bien con tecnologías de caché como Redis y proporciona mecanismos de seguridad robustos mediante OAuth2 y OpenID Connect. Para equipos con experiencia en el ecosistema Microsoft o que buscan una alternativa de alto rendimiento a Java, .NET Core es una opción muy competente.
+
+    \item \textbf{Node.js con Express.js:}
+    Node.js es un entorno de ejecución para JavaScript del lado del servidor, construido sobre el motor V8 de Chrome. Su principal característica distintiva es su modelo de E/S (Entrada/Salida) asíncrono y sin bloqueo, orientado a eventos. Esto lo hace particularmente eficiente para aplicaciones que manejan un gran número de conexiones concurrentes y operaciones de E/S intensivas, como aplicaciones en tiempo real o APIs que actúan como fachadas para otros servicios. Express.js es un framework web minimalista y flexible para Node.js, ampliamente utilizado para construir APIs RESTful y microservicios ligeros. Su simplicidad y el vasto ecosistema de paquetes disponibles a través de npm (Node Package Manager) permiten un desarrollo rápido. En el contexto de un sistema de gestión de horarios, Node.js con Express podría ser adecuado para microservicios específicos que se beneficien de su naturaleza asíncrona, como un servicio de notificaciones en tiempo real o una pasarela API ligera.
+
+    \item \textbf{Python con Django/Flask:}
+    Python es un lenguaje de programación conocido por su sintaxis clara, legibilidad y alta productividad del desarrollador.Para el desarrollo web, existen dos frameworks principales: Django y Flask. Django es un framework de ``baterías incluidas'' que proporciona muchas funcionalidades listas para usar, como un ORM (Object-Relational Mapper), un panel de administración y un sistema de autenticación. Esto puede acelerar el desarrollo de aplicaciones web completas. Flask, por otro lado, es un micro-framework que proporciona las herramientas esenciales para construir aplicaciones web, ofreciendo mayor flexibilidad y dejando más decisiones de diseño al desarrollador.
+
+    Para microservicios, Flask es a menudo la opción preferida debido a su ligereza y minimalismo, permitiendo construir servicios pequeños y enfocados sin el overhead de Django. Sin embargo, Django podría considerarse si un microservicio específico se beneficia significativamente de sus características integradas. Ambos frameworks cuentan con comunidades maduras y un amplio soporte.
+
+    \item \textbf{Consideraciones para la Elección del Stack Backend:}
+    La elección del stack tecnológico para el backend está intrínsecamente ligada a la arquitectura general seleccionada (monolito o microservicios) y, de manera crucial, a la experiencia y familiaridad del equipo de desarrollo. Si se adopta una arquitectura de microservicios, frameworks con un robusto soporte para patrones de sistemas distribuidos, como Spring Cloud para el ecosistema Java, ofrecen ventajas considerables en términos de gestión y resiliencia. Por otro lado, si la velocidad de desarrollo inicial para un monolito o para microservicios más simples es prioritaria, alternativas como Python con Flask o Node.js con Express pueden permitir un arranque más rápido. La disponibilidad de desarrolladores con experiencia en un stack tecnológico particular, por ejemplo, Java en entornos corporativos o universitarios, puede ser un factor determinante, incluso si otro stack pudiera parecer marginalmente superior desde una perspectiva puramente técnica.
+
+    Además, la ``madurez'' de un lenguaje y framework, como es el caso de Java y Spring, no solo implica estabilidad del código base, sino también la existencia de un vasto ecosistema de herramientas, bibliotecas probadas y soluciones documentadas para problemas comunes. Este ecosistema reduce el riesgo inherente al desarrollo y puede acortar los tiempos de desarrollo a largo plazo al evitar la necesidad de ``reinventar la rueda''. Para un sistema potencialmente complejo como la gestión de horarios académicos, que podría requerir integraciones con sistemas universitarios preexistentes, autenticación robusta y una gestión de datos sofisticada, la amplitud y profundidad de un ecosistema maduro pueden ser más beneficiosas que un framework más nuevo o ligero que exija más integraciones manuales o el desarrollo de componentes básicos desde cero.
+\end{enumerate}
+
+\subsubsection{Tecnologías y lenguajes frontend}
+
+En el contexto de desarrollo web orientado al cliente, la elección de tecnologías y lenguajes es fundamental para garantizar una experiencia de usuario fluida y eficiente. A continuación, se presentan las principales tecnologías y lenguajes considerados para el desarrollo del frontend del sistema de gestión de horarios académicos.
+
+En cuanto a lenguajes de programación, el \textbf{JavaScript} es el lenguaje de programación más utilizado en el desarrollo frontend. Es un lenguaje interpretado y orientado a objetos que permite la creación de aplicaciones web interactivas y dinámicas. JavaScript se ejecuta en el navegador del cliente, lo que permite la manipulación del DOM (Document Object Model) y la interacción con el usuario sin necesidad de recargar la página.
+\newline\newline
+El \textbf{HTML (HyperText Markup Language)} es el lenguaje de marcado utilizado para estructurar el contenido de las páginas web. HTML define la estructura y el contenido de una página, incluyendo texto, imágenes, enlaces y otros elementos multimedia. Junto con CSS (Cascading Style Sheets), que se utiliza para definir la presentación y el diseño visual de las páginas web, HTML forma la base del desarrollo frontend.
+\newline\newline
+El \textbf{CSS} es un lenguaje de estilo utilizado para describir la presentación de un documento HTML. CSS permite definir el diseño, los colores, las fuentes y otros aspectos visuales de una página web. Junto con HTML y JavaScript, CSS forma el trinomio fundamental del desarrollo frontend.
+\newline\newline
+Respecto a frameworks y bibliotecas, existen varias opciones populares que facilitan el desarrollo frontend:   
+
+\begin{enumerate}
+    \item \textbf{React:} Es una biblioteca de JavaScript desarrollada por Facebook para construir interfaces de usuario. React se basa en componentes reutilizables y permite la creación de aplicaciones web dinámicas y escalables. Su enfoque basado en el estado y el ciclo de vida de los componentes facilita la gestión de la interactividad y la actualización eficiente del DOM.
+    \item \textbf{Angular:} Es un framework de desarrollo web desarrollado por Google que permite la creación de aplicaciones web de una sola página (SPA). Angular utiliza TypeScript, un superconjunto de JavaScript, y ofrece una arquitectura basada en componentes, inyección de dependencias y un sistema de enrutamiento robusto.
+    \item \textbf{Vue.js:} Es un framework progresivo para construir interfaces de usuario. Vue.js es fácil de integrar con otras bibliotecas o proyectos existentes y se centra en la capa de vista. Su enfoque reactivo y su sistema de componentes lo hacen adecuado para aplicaciones pequeñas y grandes.
+\end{enumerate}
+
 
 \subsection{Sistemas de almacenamiento de datos}
 

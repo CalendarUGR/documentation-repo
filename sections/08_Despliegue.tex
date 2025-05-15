@@ -70,6 +70,98 @@ Pasos para contenerizar el sistema:
             mongo:6.0.4
     \end{lstlisting}
     \item Funciona, para mayor comodidad creamos un docker compose para levantar todos los servicios a la vez:
-    
 
+\end{enumerate}
+
+Pasos para la dockerización del frontend en Angular:
+
+\begin{enumerate}
+    \item Construir el proyecto Angular para producción:
+    \begin{lstlisting}[language=bash]
+        ng build --configuration production
+    \end{lstlisting}
+    Este comando generará una carpeta \texttt{dist} con los archivos necesarios para desplegar la aplicación.
+    \item Crear un archivo de configuración para APache (apache-ssl.conf) en el que se especifique la configuración del servidor web. Este archivo se encuentra en la carpeta \texttt{docker} del proyecto.
+          Aquí se especifican el uso de SSL, la redirección de HTTP a HTTPS y la configuración del proxy inverso para el backend.
+        \begin{lstlisting}[language=bash]
+            <VirtualHost *:443>
+            ServerName example.com
+        
+            DocumentRoot /usr/local/apache2/htdocs
+        
+            # Habilitar SSL
+            SSLEngine on
+            SSLCertificateFile .../examplePublic.pem
+            SSLCertificateKeyFile .../examplePrivateKey.pem
+        
+            SSLCipherSuite "HIGH:MEDIUM:!MD5:!RC4:!3DES"
+            SSLHonorCipherOrder on
+        
+            SSLProtocol -all +TLSv1.2 +TLSv1.3
+        
+            SSLProxyEngine On
+            SSLProxyProtocol -all +TLSv1.2
+            SSLProxyCheckPeerCN off
+            SSLProxyCheckPeerName off
+        
+            <Directory /usr/local/apache2/htdocs>
+                Options FollowSymLinks
+                AllowOverride All
+                Require all granted
+        
+                RewriteEngine On
+                RewriteCond %{REQUEST_FILENAME} !-f
+                RewriteCond %{REQUEST_FILENAME} !-d
+                RewriteRule ^ /index.html [L]
+            </Directory>
+        
+            ErrorLog /var/log/apache2/error.log
+            CustomLog /var/log/apache2/access.log combined
+        </VirtualHost>
+        \end{lstlisting}
+     
+    \item Crear un Dockerfile para el frontend ( Usando Apache como servidor web):
+        \begin{lstlisting}[language=bash]
+            FROM ubuntu:latest
+
+            ENV DEBIAN_FRONTEND=noninteractive
+
+            RUN apt-get update && apt-get install -y \
+                apache2 \
+                libapache2-mod-php \
+                php \
+                curl \
+                zip \
+                unzip \
+                git \
+                iputils-ping \
+                iproute2 \
+                && rm -rf /var/lib/apt/lists/*
+
+            RUN a2enmod ssl rewrite && mkdir -p /etc/apache2/ssl
+
+            COPY ./apache-ssl.conf /etc/apache2/sites-available/apache-ssl.conf
+
+            RUN a2ensite apache-ssl.conf
+
+            COPY ./dist/tempusugr /var/www/html
+
+            EXPOSE 443
+
+            CMD ["apache2ctl", "-D", "FOREGROUND"]
+        \end{lstlisting}
+    \item Construir la imagen de docker, en el caso de esta imagen no se sube a Docker Hub ya q2ue no se construye en local, sino en el servidor de producción.
+           De esta manera evitamos que las claves privadas queden expuestas en el repositorio de Docker Hub y/o salgan de un entorno seguro y controlado.
+    \begin{lstlisting}[language=bash]
+        docker build -t tempusugr-frontend .
+    \end{lstlisting}
+    \item Levantar el contenedor del frontend:
+    \begin{lstlisting}[language=bash]
+        docker run -d --name tempusugr-frontend \
+            -p 443:443 \
+            --network calendarugr \
+            -v /home/juanmi/certificados:/etc/apache2/ssl \
+            tempusugr-frontend
+    \end{lstlisting}
+    \item Para acceder a la aplicación, se puede usar el navegador y acceder a la dirección \texttt{https://localhost} o \texttt{https://<ip-del-servidor>}.
 \end{enumerate}
