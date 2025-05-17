@@ -1,96 +1,34 @@
 \chapter{Especificación de requisitos}\label{cap:especificación}
 
-\section{Metodología de desarrollo}
-Para la gestión y desarrollo del proyecto, se ha optado por la metodología ágil \hyperlink{scrum}{Scrum}. Esta metodología se caracteriza por su enfoque iterativo e incremental, permitiendo una adaptación flexible a los cambios y una entrega temprana de valor.
-
-\subsection{Roles y Responsabilidades en este Proyecto}
-
-Dada la naturaleza individual de este proyecto, los roles tradicionales de Scrum se han adaptado de la siguiente manera:
-
-\begin{itemize}
-    \item \textbf{Equipo de Desarrollo y Scrum Master:} El autor de este TFG ha asumido ambos roles. Esto implica la responsabilidad de llevar a cabo el desarrollo del software, así como de facilitar el proceso Scrum, asegurando que se sigan las prácticas y principios de la metodología. Se ha encargado de la planificación, ejecución y revisión de cada sprint, así como de la identificación y resolución de impedimentos.
-    \item \textbf{Product Owner:} El rol de Product Owner ha sido desempeñado tanto por el director del TFG, D. Juan Luis Jiménez Laredo, como por el autor del sistema. En esta función, ambos han sido los responsables de definir la visión del producto, priorizar el Backlog del Producto y asegurar que el desarrollo se alinee con las necesidades y expectativas del proyecto. Los dos participaron activamente en la definición de los requisitos y en la validación de los incrementos de software.
-\end{itemize}
-
-\subsection{Proceso Scrum Implementado}
-
-El proceso Scrum se ha implementado siguiendo los siguientes pasos clave:
-
-\begin{itemize}
-    \item \textbf{Backlog del Producto:} Se ha definido un Backlog del Producto inicial, compuesto por las funcionalidades y tareas necesarias para completar el TFG.
-    \item \textbf{Sprints:} El desarrollo se ha dividido en sprints de duración determinada (la duración específica de los sprints se definirá en el apartado de planificación \ref{cap:planificacion}). Cada sprint ha tenido como objetivo la entrega de un incremento de software funcional y potencialmente entregable.
-    \item \textbf{Planificación del Sprint:} Al inicio de cada sprint, se ha llevado a cabo una reunión de planificación en la que, junto con el Product Owner, se han seleccionado los elementos del Backlog del Producto que se abordarían durante el sprint. Se han estimado las tareas y se ha definido el Sprint Backlog.
-    \item \textbf{Desarrollo del Sprint:} Durante el sprint, el autor ha trabajado en el desarrollo de las tareas asignadas, siguiendo las prácticas de desarrollo y asegurando la calidad del código.
-    \item \textbf{Reunión Diaria (Daily Scrum):} Aunque adaptada a la naturaleza individual del proyecto, se ha realizado una reflexión diaria sobre el progreso, los impedimentos y las tareas a realizar. Esto ha permitido mantener un seguimiento constante del avance.
-    \item \textbf{Revisión del Sprint (Sprint Review):} Al finalizar cada sprint, se ha llevado a cabo una revisión del sprint. Dado que el autor es también el equipo de desarrollo, esta revisión ha consistido en una \textbf{introspección personal y un análisis de los resultados del sprint}, evaluando las metas alcanzadas y el incremento de software desarrollado. Se ha realizado una autoevaluación del progreso y la calidad del trabajo.
-    \item \textbf{Retrospectiva del Sprint (Sprint Retrospective):} La retrospectiva del sprint se ha realizado en colaboración con el Product Owner (D. Juan Luis Jiménez Laredo). En esta reunión, se ha analizado el sprint finalizado, identificando qué se ha hecho bien, qué se podría mejorar y qué acciones concretas se podrían implementar para el siguiente sprint. Esta colaboración ha permitido obtener una perspectiva externa y valiosa para la mejora continua del proceso.
-\end{itemize}
-
-\subsection{Gestión de Tareas y Seguimiento del Progreso}
-
-Para la gestión de las tareas y el seguimiento del progreso del proyecto, se ha utilizado \textbf{GitHub Projects}. Esta herramienta ha permitido:
-
-\begin{itemize}
-    \item \textbf{Creación de Tableros por Sprint:} Se han configurado tableros de proyecto en GitHub Projects, utilizando las funcionalidades de \textbf{``Iteraciones''} para representar cada sprint. Esto ha facilitado la visualización del trabajo en curso para cada iteración.
-    \item \textbf{Gestión del Estado de las Tareas:} Dentro de cada tablero de sprint, se han creado y gestionado las tareas individuales, asignándoles diferentes estados ( ``Backlog'', ``Todo'', ``In progress'', ``Testing'', ``Done''). Esto ha permitido un seguimiento visual del avance de cada tarea y del sprint en general.
-    \item \textbf{Organización y Priorización:} GitHub Projects ha facilitado la organización de las tareas y su priorización dentro de cada sprint, alineándose con el Sprint Backlog definido.
-    \item \textbf{Visualización de las tareas en el tiempo:} La herramienta ha permitido visualizar el progreso de las tareas en el tiempo a través de un roadmap, lo que ha facilitado la identificación de posibles retrasos y la toma de decisiones para ajustar el plan si es necesario.
-\end{itemize}
-
-\begin{figure}[h!] 
-    \centering 
-    \includegraphics[width=1\textwidth]{figures/04_github_tablero.png}
-    \caption{Tablero del 2º Sprint durante su desarrollo.} % Leyenda de la imagen
-    \label{tablero_github} % Etiqueta para referenciar la imagen
-\end{figure}
-
-\begin{figure}[h!] 
-    \centering 
-    \includegraphics[width=1\textwidth]{figures/04_roadmap.png}
-    \caption{Segmento del ''Roadmap'' del proyecto.} % Leyenda de la imagen
-    \label{roadmap_github} % Etiqueta para referenciar la imagen
-\end{figure}
-
-\subsection{Justificación de la Metodología}
-
-La elección de la metodología Scrum se justifica por las siguientes razones:
-
-\begin{itemize}
-    \item \textbf{Flexibilidad:} Permite adaptarse a los cambios en los requisitos y a los aprendizajes obtenidos durante el desarrollo. En concreto este sistema dependía en etapas tempranas de desarrollo del posible acceso a datos oficiale de la UGR, sistemas de autenticación internos, datos de matriculaciones, etc. Es por ello que la flexibilidad de Scrum ha sido clave para ajustar el plan a medida que se han ido conociendo más detalles.
-    \item \textbf{Entrega Temprana de Valor:} Facilita la entrega de incrementos funcionales de software de forma regular, lo que permite obtener retroalimentación temprana y ajustar el rumbo del proyecto si es necesario.
-    \item \textbf{Transparencia:} El uso de herramientas como GitHub Projects y la realización de las reuniones Scrum promueven la transparencia en el progreso del proyecto.
-    \item \textbf{Adaptabilidad a un Proyecto Individual:} Aunque tradicionalmente Scrum se aplica a equipos, su estructura iterativa y adaptable se ajusta bien a un proyecto individual como un TFG, permitiendo una organización eficiente del trabajo y una gestión del tiempo efectiva.
-\end{itemize}
-
-Es importante destacar que, dada la naturaleza individual del proyecto, se ha realizado una adaptación de los roles y las ceremonias de Scrum para ajustarse a las necesidades y recursos disponibles. 
-Sin embargo, se han mantenido los principios fundamentales de la metodología para asegurar una gestión eficaz del desarrollo.
+El primer paso para el desarrollo de un sistema es la definición de los requisitos que este debe cumplir. Estos son las características y funcionalidades que el sistema debe tener para satisfacer las necesidades de los usuarios finales y cumplir con los objetivos del proyecto. \newline
+Para definir estos, se han utilizado diferentes técnicas de recopilación de información, como entrevistas, encuestas y análisis de documentos existentes. 
 
 \section{Personas}
 
 Las personas son representaciones ficticias de los usuarios finales del sistema. Estas se crean a partir de la investigación y el análisis de los usuarios reales, y se utilizan para comprender mejor sus necesidades,
  comportamientos, inquietudes, objetivos... \newline
- Las personas ayudan a guiar el diseño y desarrollo del sistema, asegurando que se satisfacen las necesidades de los usuarios. En definitiva ayudan a poner al usuario en el centro del proceso de desarrollo.
+Las personas ayudan a guiar el diseño y desarrollo del sistema, asegurando que se satisfacen las necesidades de los usuarios.
 
 \subsection{Personas del sistema}
 
 %% Iágenes de personas
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/04_persona_1.png}
+    \includegraphics[width=0.6\textwidth]{figures/04_persona_1.png}
     \caption{Persona 1: Alumno de la UGR}
     \label{fig:persona_1}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/04_persona_2.png}
+    \includegraphics[width=0.6\textwidth]{figures/04_persona_2.png}
     \caption{Persona 2: Profesor de la UGR}
     \label{fig:persona_2}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/04_persona_3.png}
+    \includegraphics[width=0.6\textwidth]{figures/04_persona_3.png}
     \caption{Persona 3: ''Administrador'' de la UGR}
     \label{fig:persona_3}
 \end{figure}
@@ -847,11 +785,3 @@ Durante estas reuniones, se han abordado los siguientes aspectos:
 \end{itemize}
 
 Este enfoque iterativo e incremental ha asegurado que el desarrollo del sistema se mantenga alineado con las expectativas del proyecto, minimizando riesgos y garantizando la calidad del producto final.
-
-\section{Conclusiones}
-
-En este capítulo se han definido los requisitos del sistema, tanto funcionales como no funcionales, así como los requisitos de información necesarios para su implementación. Además, se ha detallado el proceso de validación de los requisitos, que ha sido clave para garantizar que el sistema desarrollado cumpla con las expectativas y necesidades definidas.
-
-La metodología ágil Scrum, adaptada a la naturaleza individual del proyecto, ha permitido un desarrollo iterativo e incremental, asegurando la entrega de valor de forma continua y la flexibilidad necesaria para adaptarse a los cambios. Las reuniones semanales con el Product Manager han sido fundamentales para validar los requisitos, las historias de usuario y las implementaciones, permitiendo realizar ajustes y mejoras de manera oportuna.
-
-En conclusión, el enfoque adoptado ha permitido una gestión eficiente del proyecto, minimizando riesgos y asegurando la calidad del producto final. Los requisitos definidos proporcionan una base sólida para el desarrollo del sistema, alineándose con los objetivos del proyecto y las necesidades de los usuarios finales.
