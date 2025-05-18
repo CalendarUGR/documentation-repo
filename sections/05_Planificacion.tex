@@ -16,7 +16,7 @@ La realización del cronograma se ha llevado a cabo haciendo uso de la herramien
 El cronograma del proyecto se ha dividido en 5 sprints, cada uno con una duración de 3 semanas. Como se muestra en la figura \ref{gantt}, cada sprint ha tenido un conjunto de tareas generales a realizar, que se han ido completando a lo largo del desarrollo.
 
 \begin{enumerate}
-    \item \textbf{Sprint 0:} En este sprint se paraleliza por un lado el aprendizaje técnico acerca de microservicios, docker y el framework de desarrollo backend \textbf{Spring Boot}, a la vez que se acota el sistema y se recaban los requisitos iniciales del sistema.
+    \item \textbf{Sprint 0:} En este sprint se paraleliza por un lado el aprendizaje técnico acerca de microservicios, docker y el framework de desarrollo backend Spring Boot, a la vez que se acota el sistema y se recaban los requisitos iniciales del sistema.
     \item \textbf{Sprint 1:} En este sprint se comienza el desarrollo del backend implementando los servicios relativos a los usuarios, y la autenticación y autorización basadas en las credenciales de la UGR junto al servicio de mensajería (notificaciones). Además se implementa el scrapping de la we de ``Grados UGR'' para obtener los horarios de los grados.
     \item \textbf{Sprint 2:} En este sprint se continúa el backend implementando las funcionalidades relativas a suscripciones, horarios personalizados y creación de eventos.
     \item \textbf{Sprint 3:} En este sprint se desarrolla la parte del backend relacionada con generación de archivos ics, sincronización con sistemas de calendarios externos y alertas. Además se realizan tests y la contenerización del sistema.
@@ -52,31 +52,6 @@ El proceso Scrum se ha implementado siguiendo los siguientes pasos clave:
     \item \textbf{Retrospectiva del Sprint (Sprint Retrospective):} La retrospectiva del sprint se ha realizado en colaboración con el Product Owner (D. Juan Luis Jiménez Laredo). En esta reunión, se ha analizado el sprint finalizado, identificando qué se ha hecho bien, qué se podría mejorar y qué acciones concretas se podrían implementar para el siguiente sprint. Esta colaboración ha permitido obtener una perspectiva externa y valiosa para la mejora continua del proceso.
 \end{itemize}
 
-\subsection{Gestión de Tareas y Seguimiento del Progreso}
-
-Para la gestión de las tareas y el seguimiento del progreso del proyecto, se ha utilizado \textbf{GitHub Projects}. Esta herramienta ha permitido:
-
-\begin{itemize}
-    \item \textbf{Creación de Tableros por Sprint:} Se han configurado tableros de proyecto en GitHub Projects, utilizando las funcionalidades de \textbf{``Iteraciones''} para representar cada sprint. Esto ha facilitado la visualización del trabajo en curso para cada iteración.
-    \item \textbf{Gestión del Estado de las Tareas:} Dentro de cada tablero de sprint, se han creado y gestionado las tareas individuales, asignándoles diferentes estados ( ``Backlog'', ``Todo'', ``In progress'', ``Testing'', ``Done''). Esto ha permitido un seguimiento visual del avance de cada tarea y del sprint en general.
-    \item \textbf{Organización y Priorización:} GitHub Projects ha facilitado la organización de las tareas y su priorización dentro de cada sprint, alineándose con el Sprint Backlog definido.
-    \item \textbf{Visualización de las tareas en el tiempo:} La herramienta ha permitido visualizar el progreso de las tareas en el tiempo a través de un roadmap, lo que ha facilitado la identificación de posibles retrasos y la toma de decisiones para ajustar el plan si es necesario.
-\end{itemize}
-
-\begin{figure}[H] 
-    \centering 
-    \includegraphics[width=1\textwidth]{figures/04_github_tablero.png}
-    \caption{Tablero del 2º Sprint durante su desarrollo.} % Leyenda de la imagen
-    \label{tablero_github} % Etiqueta para referenciar la imagen
-\end{figure}
-
-\begin{figure}[H] 
-    \centering 
-    \includegraphics[width=1\textwidth]{figures/04_roadmap.png}
-    \caption{Segmento del ''Roadmap'' del proyecto.} % Leyenda de la imagen
-    \label{roadmap_github} % Etiqueta para referenciar la imagen
-\end{figure}
-
 \subsection{Justificación de la Metodología}
 
 La elección de la metodología Scrum se justifica por las siguientes razones:
@@ -91,8 +66,90 @@ La elección de la metodología Scrum se justifica por las siguientes razones:
 Es importante destacar que, dada la naturaleza individual del proyecto, se ha realizado una adaptación de los roles y las ceremonias de Scrum para ajustarse a las necesidades y recursos disponibles. 
 Sin embargo, se han mantenido los principios fundamentales de la metodología para asegurar una gestión eficaz del desarrollo.
 
-\section{Presupuesto del proyecto}
+\subsection{Gestión de Tareas y Seguimiento del Progreso}
+
+Para la gestión de las tareas y el seguimiento del progreso del proyecto, se ha utilizado \textbf{GitHub Projects}. Esta herramienta ha permitido:
+
+\begin{itemize}
+    \item \textbf{Creación de un Backlog del Producto:} Se ha creado un backlog del producto en GitHub Projects, donde se han definido las historias de usuario y las tareas necesarias para el desarrollo del sistema. Este backlog ha sido la base para la planificación de los sprints y la gestión de las tareas.
+    \newline\newline
+    Cada tarea creada en este ha representado una historia de usuario o una tarea aparte a realizar ( reuniones, investigación, etc.). Cada tarea ha sido asignada a un sprint y se ha estimado el tiempo necesario para su realización usando la técnica de \textbf{``Planning Poker''}. Esta técnica ha permitido una estimación más precisa y consensuada entre el Product Owner y el equipo de desarrollo.
+    Además cada historia de usuario conllevaba una seriie de criterios de aceptación que se han ido marcando a medida que se iban cumpliendo. 
+    
+    \begin{figure}[H] 
+        \centering 
+        \includegraphics[width=0.9\textwidth]{figures/05_hu.png}
+        \caption{Ejemplo de historia de usuario en Github Projects.} % Leyenda de la imagen
+        \label{historia de usuario} % Etiqueta para referenciar la imagen
+    \end{figure}
+
+    \item \textbf{Creación de Tableros por Sprint:} Se han configurado tableros de proyecto en GitHub Projects, utilizando las funcionalidades de \textbf{``Iteraciones''} para representar cada sprint. Esto ha facilitado la visualización del trabajo en curso para cada iteración.
+    \newline
+    Antes del comienzo de cada sprint se revisa el product backlog, se seleccionan las tareas a realizar y se crea el tablero correspondiente poniendo todas las tareas en estado ``To do''. Además también se revisan las prioridades de estas y se cambian si el proyecto lo requiere.
+    Durante el desarrollo del sprint, las tareas se van moviendo a los diferentes estados según su avance ( ``Backlog'', ``Todo'', ``In progress'', ``Testing'', ``Done'').
+    
+    \begin{figure}[H] 
+        \centering 
+        \includegraphics[width=1\textwidth]{figures/04_github_tablero.png}
+        \caption{Tablero del 2º Sprint durante su desarrollo.} % Leyenda de la imagen
+        \label{tablero_github} % Etiqueta para referenciar la imagen
+    \end{figure}
+    
+    \item \textbf{Visualización de las tareas en el tiempo:} La herramienta ha permitido visualizar el progreso de las tareas en el tiempo a través de un roadmap, lo que ha facilitado la identificación de posibles retrasos y la toma de decisiones para ajustar el plan si es necesario.
+
+    \begin{figure}[H] 
+        \centering 
+        \includegraphics[width=1\textwidth]{figures/04_roadmap.png}
+        \caption{Segmento del ''Roadmap'' del proyecto.} % Leyenda de la imagen
+        \label{roadmap_github} % Etiqueta para referenciar la imagen
+    \end{figure}
+\end{itemize}
+
+Para la gestión del tiempo dedicado a cada tarea, se ha utilizado la funcionalidad de \textbf{``Time Tracking''} Clockify. Esta funcionalidad permite registrar el tiempo dedicado a cada tarea y generar informes sobre el progreso del proyecto. Además, se ha utilizado la técnica de \textbf{``Pomodoro''} para gestionar el tiempo de trabajo, lo que ha permitido mantener un enfoque constante y evitar la fatiga.
+\newline\newline
+\textbf{Clockify}\cite{clockify} es una herramienta de seguimiento del tiempo que permite registrar el tiempo dedicado a cada tarea y generar informes sobre el progreso del proyecto. Esta herramienta ha sido utilizada para llevar un control detallado del tiempo invertido en cada tarea, lo que ha facilitado la gestión del tiempo y la identificación de posibles retrasos.
+Además nos facilita un total de horas dedicadas al desarrollo del proyecto, por lo que facilita demostrar el esfuerzo realizado en el mismo.
+
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=0.8\textwidth]{figures/05_clockify.png}
+    \caption{Segmento del ''Roadmap'' del proyecto.} % Leyenda de la imagen
+    \label{clockify} % Etiqueta para referenciar la imagen
+\end{figure}
+
+Este resumen de horas son las correspondientes a los sprints del 1 al 5, e incluye las horas dedicadas a tareas de desarrollo, investigación, reuniones y documentación. En total, y sumando 28.5 horas del curso de microservicos, 5 horas de investigación inicial, y otras 5 horas de reuniones en la iteración 0, se han dedicado un total de 376.5 horas al desarrollo del proyecto.
 
 \section{Gestión de riesgos}
 
-\section{Herramientas de seguimiento y control}
+En todo proyecto de desarrollo de software, es fundamental identificar y gestionar los riesgos que pueden afectar al éxito del mismo. A continuación se presentan los principales riesgos identificados en este proyecto, junto con las estrategias de mitigación implementadas:
+
+\begin{itemize}
+    \item \textbf{Riesgo de cambios en los requisitos:} Dado que desde la el principio del proyecto se trabajó con incertidumbre respecto a la información de la que se podía disponer ( información de los horarios académicos, matriculaciones del alumnado, autenticación institucional ...) y la posibilidad de acceso a estos datos, se ha optado por una metodología ágil (Scrum) que permite adaptarse a los cambios en los requisitos de manera flexible. Además, se ha mantenido una comunicación constante con el Product Owner para ajustar el backlog del producto según sea necesario.
+    \newline\newline Además se ha ido ajustando y equilibrando las tareas a realizar entre los sprints, de manera que se realizaban las tareas más prioritarias que eran más difícil que cambiaran con el paso del tiempo, y se dejó para el final ciertas tareas que no estaban tan definidas.
+
+    \item \textbf{Riesgo de problemas técnicos:} Durante el desarrollo del proyecto, se han presentado diversos problemas técnicos relacionados con la implementación de microservicios, la integración de APIs y la contenerización del sistema. Para mitigar este riesgo, se ha realizado una investigación exhaustiva sobre las tecnologías utilizadas y se han seguido buenas prácticas de desarrollo. Además, se ha mantenido una documentación detallada del proceso de desarrollo para facilitar la resolución de problemas.
+    \newline\newline En caso de que se presentaran problemas técnicos que no pudieran resolverse, se ha mantenido una comunicación constante con el director del TFG para buscar soluciones y alternativas.
+
+    \item \textbf{Imposibilidad de cumplir con los plazos establecidos:} Dada la naturaleza individual del proyecto, existe el riesgo de no poder cumplir con los plazos establecidos en el cronograma. Para mitigar este riesgo, se ha realizado una planificación detallada de las tareas y se ha mantenido un seguimiento constante del progreso. Además, se han establecido hitos intermedios para evaluar el avance del proyecto y realizar ajustes si es necesario.
+    
+    \item \textbf{Acceso a la información necesaria}: Durante el desarrollo del proyecto, se ha dependido de la disponibilidad de información externa (horarios académicos, autenticación institucional, etc.). Para mitigar este riesgo, se ha mantenido una comunicación constante con el Product Owner y se han explorado alternativas en caso de que no se pudiera acceder a la información necesaria. Además, se ha optado por implementar un sistema de scrapping para obtener los horarios académicos de la web de ``Grados UGR'' como una solución alternativa, y se ha mantenido persistencia de los datos en la base de datos del sistema para evitar depender de la disponibilidad de la web.
+\end{itemize}
+
+\section{Estimación de costes}
+
+\subsection{Costes de personal}
+
+Tal y como se describe el apartados anteriores, el desarrollo del proyecto ha constado de 376.5 horas de trabajo, distribuidas en los diferentes sprints y tareas a realizar.
+\newline\newline
+El coste de personal se ha estimado en función del coste por hora del personal involucrado en el proyecto. En este caso, considerando que según la plataforma Glassdoor \cite{webGlassdoor} un desarrollador fullstack junior cobra en torno a 23.062 € al año, y que traduciendo a cobro por hora son en torno a 11 euros/hora, se ha estimado un coste de personal de 4.141.5 euros ( 376.5 horas * 11 euros/hora).
+
+\subsection{Costes de suministros}
+
+\subsubsection{Durante el desarrollo}
+
+Durante el desarrollo del proyecto, se han utilizado servicios que han generado costes asociados. A continuación se detallan los principales costes de suministros:
+
+
+
+
+

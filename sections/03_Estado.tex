@@ -2,7 +2,7 @@
 
 \section{Contextualización}
 
-La planificación temporal y académica son pilares indispensables para un buen desempeño en el entorno universitario. Para los alumnos de centros con una estructura académica compleja, o profesores con varias horas de docencia en diferentes grupos, como la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT) de la Universidad de Granada (UGR), la capacidad de organizar y visualizar sus horarios de manera clara y personalizada se convierte en una necesidad notable.
+La planificación temporal y académica son pilares indispensables para un buen desempeño en el entorno universitario. Para los alumnos de centros con una estructura académica compleja, o profesores con varias horas de docencia en diferentes grupos, como la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT) de la Universidad de Granada (UGR), o incluso varios grados, la capacidad de organizar y visualizar sus horarios de manera clara y personalizada se convierte en una necesidad notable.
 \newline\newline
 La gestión de múltiples asignaturas, grupos de teoría y prácticas, seminarios, tutorías y actividades personales requiere de herramientas que vayan más allá de la simple presentación estática de información, y además de manera general para toda la institución.
 \newline\newline
@@ -11,15 +11,15 @@ Sin embargo, los sistemas tradicionales de visualización de horarios en muchas 
 Esta falta de dinamismo y personalización puede generar confusión, dificultar la planificación y no aprovechar las ventajas que ofrecen las tecnologías actuales para una gestión académica más eficiente y adaptada a las necesidades individuales.
 \newline\newline
 Este capítulo presenta una revisión del estado del arte que fundamenta la necesidad y el enfoque del proyecto. Se analiza la situación actual de la gestión y visualización de horarios en la UGR. 
-Posteriormente, se realizará un análisis comparativo con sistemas más avanzados implementados en otras instituciones de educación superior. A continuación, se profundizará en los paradigmas arquitectónicos de backend, justificando la elección de una arquitectura de microservicios frente a un enfoque monolítico tradicional. Finalmente, se examinará y justificará la selección del stack tecnológico propuesto, incluyendo Java y el ecosistema Spring para el desarrollo de microservicios, RabbitMQ para la comunicación asíncrona, la combinación de bases de datos MySQL y MongoDB bajo el principio de persistencia políglota, la librería Jsoup para la adquisición de datos mediante web scraping, y las tecnologías empleadas para el despliegue del sistema, como Docker.
+Posteriormente, se realizará un análisis comparativo con sistemas más avanzados implementados en otras instituciones de educación superior. A continuación, se profundizará en los paradigmas arquitectónicos de backend y en tecnologías en el desarrollo de sistemas de información basados en web. Finalmente, se examinarán los diferentes stacks tecnológicos, incluyendo Java y el ecosistema Spring para el desarrollo de microservicios, RabbitMQ para la comunicación asíncrona, la combinación de bases de datos MySQL y MongoDB bajo el principio de persistencia políglota, la librería Jsoup para la adquisición de datos mediante web scraping, y las tecnologías empleadas para el despliegue del sistema, como Docker.
 
 \section{Visualización y gestión de horarios académicos en la UGR}
 
-La Universidad de Granada, al igual que muchas otras universidades descentraliza sus sedes, de modo que
+La Universidad de Granada, al igual que muchas otras universidades, descentraliza sus sedes, de modo que
 cada una de ellas tiene su propio sistema de gestión de la información. En este sentido, las facultades cuentan
 con una serie de sistemas de información propios que se encargan de la generación de horarios académicos,
 asignación de aulas y profesores a los grupos tanto de teoría como de prácticas 
-de las distintas titulaciones y asignaturas.sta información a su vez se le facilita a la Universidad de Granada para la centralización de la información.
+de las distintas titulaciones y asignaturas. Esta información a su vez se le facilita a la Universidad de Granada para la centralización de la información.
 \newline\newline
 Para acceder a la información de los horarios, los estudiantes y docentes pueden hacerlo de diferentes maneras:
 \begin{itemize}
@@ -42,7 +42,8 @@ Para acceder a la información de los horarios, los estudiantes y docentes puede
                 \centering
                 \includegraphics[width=0.8\textwidth]{figures/02_etsiit_horario.png}
                 \includegraphics[width=0.8\textwidth]{figures/02_ade_horario.png}
-                \caption{Comparación de horarios de diferentes grados: ETSIIT (arriba) y ADE (abajo).}
+                \includegraphics[width=0.8\textwidth]{figures/02_horario_doble_grado.png}
+                \caption{Comparación de horarios de diferentes grados: ETSIIT (arriba), ADE (centro) y Doble Grado en Nutrición Humana y Dietética (abajo).}
                 \label{fig:horarios_comparacion}
             \end{figure}
           
