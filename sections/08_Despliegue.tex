@@ -1,8 +1,44 @@
 \chapter{Despliegue del sistema}\label{cap:despliegue}
+Una vez desarrollado el sistema, es necesario desplegarlo en un servidor para que los usuarios de la UGR puedan hacer uso de él. Para ello, se ha optado por contenerizar el sistema utilizando Docker, lo que permite una fácil gestión y escalabilidad de los microservicios que componen la aplicación.
+\newline\newline
+\textbf{**Revisar este párrafo y detallar más si necesario}
+El servidor en el que se despliega el sistema se encuentra en el edificio auxiliar de la ETSIIT. Fue solicitado por el director del TFG, Juan Luis Jiménez Laredo, y facilitado por el CSIRC (Servicio de Ciberseguridad y Respuesta a Incidentess Informáticos) de la UGR. El servidor cuenta con las siguientes características:
 
+Además se solicitó un IP estática para el servidor, que se ha configurado para que apunte al dominio \texttt{tempus.ugr.es}. Este dominio se ha registrado en la UGR y se ha configurado para que apunte al servidor donde se desplegará la aplicación.
+
+\section{Configuración del servidor}
+Como paso previo a la contenerización del sistema y despliegue de la aplicación, se ha procedido a la configuración del servidor. 
+\newline\newline
+Esta configuración fue realizada tanto por el director como por el autor del TFG:
+\begin{itemize}
+    \item Creación de usuarios y grupos necesarios para el despliegue de la aplicación.
+    \item Instalación de Docker y Docker Compose. Configuración de Docker para que se ejecute como servicio al iniciar el sistema.
+    \item Configurar ssh para permitir el acceso remoto al servidor, y scp para la transferencia de archivos.
+    \item Instalar git para poder clonar los repositorios necesarios.
+\end{itemize}
+
+No hubo más pasos previos a la contenerización del sistema, y en gran parte esta es la ventaja de contenerizar el sistema, ya que permite una fácil gestión y despliegue de la aplicación sin necesidad de realizar configuraciones complejas en el servidor.
+\newline\newline
+Sin hacer uso de esta tecnología se habrían tenido que realizar, entre otros, los siguientes pasos:
+\begin{itemize}
+    \item Configuración de un servidor web (Apache) para servir la aplicación.
+    \item Configuración de un servidor de base de datos (MySQL y MongoDB) para almacenar los datos de la aplicación.
+    \item Instalación y configuración de Java y Maven para compilar y ejecutar los microservicios.
+    \item Instalación y configuración de Node.js y Angular CLI para compilar el frontend de la aplicación.
+    \item Configuración de un servidor de mensajería (RabbitMQ) para la comunicación entre microservicios.
+    \item etc
+\end{itemize}
+
+Para acceder al servidor de manera remota se ha utilizado la VPN de la UGR, que permite conectarse al servidor de forma segura y acceder a los recursos de la red de la universidad.
+\newline
+Y para el paso de archivos entre el servidor y el equipo local se ha utilizado el protocolo SCP (Secure Copy Protocol), que permite transferir archivos de forma segura a través de SSH.
 \section{Contenerización del sistema}
 
-Pasos para contenerizar el sistema:
+El primer paso realizado en este sentido ha sido la contenerización del backend del sistema, que está compuesto por varios microservicios. 
+
+\subsection{Pasos para la contenerización del backend}
+
+En esta primera fase se han contenerizado, construido y levantado los servicios de la siguiente manera:
 
 \begin{enumerate}
     \item Crear una red en docker:
@@ -13,7 +49,7 @@ Pasos para contenerizar el sistema:
     \begin{lstlisting}[language=bash]
         ./mvnw clean package -DskipTests
     \end{lstlisting}
-    \item Crear las imágenes de los microservicios (Ej imágen de Eureka service):
+    \item Crear las imágenes de los microservicios (Ej imagen de Eureka service):
     \begin{lstlisting}[language=bash]
         FROM amazoncorretto:21-alpine-jdk
         WORKDIR /app
@@ -30,16 +66,11 @@ Pasos para contenerizar el sistema:
     \begin{lstlisting}[language=bash]
         docker run -d --name eureka-service --network calendarugr -p 8761:8761 eureka-service
     \end{lstlisting}
-    Si fuera necesario añadir variables de entorno, se puede hacer con el flag \texttt{-e}:
-    \begin{lstlisting}[language=bash]
-        docker run -d --name eureka-service --network calendarugr -p 8761:8761 \
-            -e EUREKA_SERVER_URL=http://eureka-service:8761/eureka/ \
-            eureka-service
-    \end{lstlisting}
-    \item Bajar las imágenes oficiales de mysql:8.0.41 y mongo:6.0.4:
+    \item Bajar las imágenes oficiales de mysql:8.0.41 y mongo:6.0.4, además de las imágenes de RabbitMQ:
     \begin{lstlisting}[language=bash]
         docker pull mysql:8.0.41
-        docker pull mongo:latest
+        docker pull mongo:6.0.4
+        docker pull rabbitmq:3-management
     \end{lstlisting}
     \item Para levantar contenedores con variables de entorno (Ej levantando el contenedor de Mysql):
     \item \begin{lstlisting}[language=bash]
@@ -65,103 +96,173 @@ Pasos para contenerizar el sistema:
         docker run -d --name mongodb \
             -p 27018:27017 \
             --network calendarugr \
-            -e MONGO_INITDB_ROOT_USERNAME=admin \
-            -e MONGO_INITDB_ROOT_PASSWORD=CalendarUGR@2025 \
+            -e MONGO_INITDB_ROOT_USERNAME=... \
+            -e MONGO_INITDB_ROOT_PASSWORD=... \
             mongo:6.0.4
     \end{lstlisting}
-    \item Funciona, para mayor comodidad creamos un docker compose para levantar todos los servicios a la vez:
-
 \end{enumerate}
 
-Pasos para la dockerización del frontend en Angular:
+De esta manera se levantan todos los servicios uno a uno y se pueden probar de forma individual y en conjunto. Sin embargo, para facilitar el despliegue y la gestión de los microservicios, se ha optado por utilizar Docker Compose.
+
+\subsection{Docker Compose}
+Docker Compose es una herramienta que permite definir y ejecutar aplicaciones Docker multi-contenedor. Con Docker Compose, se puede definir la configuración de todos los microservicios en un único archivo \texttt{docker-compose.yml}, lo que facilita su gestión y despliegue.
+\newline\newline
+Este enfoque nos permite centralizar la configuración de todos los microservicios en un único archivo, lo que facilita su gestión y despliegue, de manera que:
+\begin{itemize}
+    \item Cada microservicio se define como un servicio en el archivo \texttt{docker-compose.yml}.
+    \item Se especifican las imágenes de cada microservicio, los puertos que se exponen, las redes a las que pertenecen y las variables de entorno necesarias.
+    \item Se definen las dependencias entre los servicios, lo que permite que Docker Compose gestione el orden de inicio de los contenedores.
+    \item Se pueden definir volúmenes para persistir los datos de los servicios, como en el caso de MySQL y MongoDB.
+\end{itemize}
+
+De esta manera lo único que haría falta en el servidor para levantar todo el backend sería un directorio contenedor del archivo \texttt{docker-compose.yml}. Al tener este archivo referencia a las imágenes oficiales de MySql, Mongo y RabbitMQ, además de las imágenes de los servicios subidos a Docker Hub, no es necesario tener las imágenes construidas en el servidor, ya que Docker Compose se encargará de descargarlas automáticamente al levantar los servicios.
+
+Para levantar todos los servicios definidos en el archivo \texttt{docker-compose.yml}, se puede ejecutar el siguiente comando:
+\begin{lstlisting}[language=bash]
+    docker-compose up -d ( -d para que se levanten en segundo plano)
+\end{lstlisting}
+
+Además para facilitar aún se han creado automatizaciones para la construcción de las imágenes y el despliegue de los microservicios, de manera que se pueden ejecutar los siguientes comandos:
+\begin{lstlisting}[language=bash]
+    ./build_services.sh 
+    ./upload_to_hub.sh
+\end{lstlisting}
+
+Estos scripts se encargan de construir las imágenes de los microservicios y subirlas al repositorio de Docker Hub, lo que permite que se puedan desplegar en cualquier servidor con Docker instalado.
+
+\subsection{Pasos para la contenerización del frontend}
+
+El frontend del sistema está desarrollado en Angular y se ha decidido contenerizarlo utilizando Apache como servidor web. A continuación se detallan los pasos realizados para la dockerización del frontend:
 
 \begin{enumerate}
     \item Construir el proyecto Angular para producción:
     \begin{lstlisting}[language=bash]
         ng build --configuration production
     \end{lstlisting}
-    Este comando generará una carpeta \texttt{dist} con los archivos necesarios para desplegar la aplicación.
-    \item Crear un archivo de configuración para APache (apache-ssl.conf) en el que se especifique la configuración del servidor web. Este archivo se encuentra en la carpeta \texttt{docker} del proyecto.
+    Este comando generará una carpeta \texttt{dist} con los archivos necesarios para desplegar la aplicación. Estos serán trasladados a un directorio del servidor, por ejemplo, \texttt{built\_tempus}, y deberá estar disponible en el mismo directorio que el docker-compose.yml, los certificados, y un directorio ``apache'' con el archivo de configuración de Apache y el Dockerfile.
+    \newline
+    Además, dentro del directorio \texttt{built\_tempus} se debe crear un archivo \texttt{.htaccess} con el objetivo de redirigir todas las peticiones al archivo \texttt{index.html} del frontend, para que Angular pueda manejar el enrutamiento de la aplicación. El contenido del archivo \texttt{.htaccess} es el siguiente:
+    \begin{lstlisting}[language=bash]
+        RewriteEngine On
+        RewriteBase /
+        RewriteRule ^index\.html$ - [L]
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule . /index.html [L]
+    \end{lstlisting}
+    \item Solicitar los certificados SSL necesarios para el dominio \texttt{tempus.ugr.es}. Estos certificados son necesarios para habilitar HTTPS en el servidor web, y habilitarlo tanto para el frontend como para el backend.
+    \item Copiar los certificados SSL en una carpeta del servidor, por ejemplo, en \texttt{/home/user/certificates}. Estos certificados son necesarios para habilitar HTTPS en el servidor web.
+    \item Crear un archivo de configuración para Apache (\texttt{apache-ssl.conf}) en el que se especifique la configuración del servidor web.
           Aquí se especifican el uso de SSL, la redirección de HTTP a HTTPS y la configuración del proxy inverso para el backend.
-        \begin{lstlisting}[language=bash]
+        \begin{lstlisting}[language=bash] 
             <VirtualHost *:443>
-            ServerName example.com
-        
-            DocumentRoot /usr/local/apache2/htdocs
-        
-            # Habilitar SSL
-            SSLEngine on
-            SSLCertificateFile .../examplePublic.pem
-            SSLCertificateKeyFile .../examplePrivateKey.pem
-        
-            SSLCipherSuite "HIGH:MEDIUM:!MD5:!RC4:!3DES"
-            SSLHonorCipherOrder on
-        
-            SSLProtocol -all +TLSv1.2 +TLSv1.3
-        
-            SSLProxyEngine On
-            SSLProxyProtocol -all +TLSv1.2
-            SSLProxyCheckPeerCN off
-            SSLProxyCheckPeerName off
-        
-            <Directory /usr/local/apache2/htdocs>
-                Options FollowSymLinks
-                AllowOverride All
-                Require all granted
-        
-                RewriteEngine On
-                RewriteCond %{REQUEST_FILENAME} !-f
-                RewriteCond %{REQUEST_FILENAME} !-d
-                RewriteRule ^ /index.html [L]
-            </Directory>
-        
-            ErrorLog /var/log/apache2/error.log
-            CustomLog /var/log/apache2/access.log combined
-        </VirtualHost>
+                ServerName tempus.ugr.es
+                ServerAlias xxx.xx.xxx.xxx
+
+                # Directorio raiz donde se encuentra tu aplicacion Angular
+                DocumentRoot /var/www/html
+
+                # Habilitar SSL
+                SSLEngine on
+                SSLCertificateFile /ejemplo/de/ruta/certificado.pem                
+                SSLCertificateKeyFile /ejemplo/de/ruta/clave-privada.pem
+
+                # Configuracion de cifrados seguros
+                SSLCipherSuite "HIGH:MEDIUM:!MD5:!RC4:!3DES"
+                SSLHonorCipherOrder on
+
+                # Protocolos seguros
+                SSLProtocol -all +TLSv1.2 +TLSv1.3
+
+                SSLProxyEngine On
+                SSLProxyProtocol -all +TLSv1.2
+                SSLProxyCheckPeerCN off
+                SSLProxyCheckPeerName off
+
+                # PROXY PARA EL API GATEWAY
+                ProxyPass /calendarugr/v1 http://api-gateway:8090/calendarugr/v1
+                ProxyPassReverse /calendarugr/v1 http://api-gateway:8090/calendarugr/v1
+
+                <Directory /var/www/html>
+                        Options Indexes FollowSymLinks
+                        AllowOverride All
+                        Require all granted
+                    </Directory>
+
+                    ErrorLog ${APACHE_LOG_DIR}/mi-app-error.log
+                    CustomLog ${APACHE_LOG_DIR}/mi-app-access.log combined
+                </VirtualHost>
         \end{lstlisting}
-     
-    \item Crear un Dockerfile para el frontend ( Usando Apache como servidor web):
+        Este archivo de configuración define un VirtualHost para el dominio \texttt{tempus.ugr.es} en el puerto 443 (HTTPS).
+        \newline 
+        Gracias a esta configuración, Apache actuará como un proxy inverso para el backend, redirigiendo las peticiones al API Gateway que se ejecuta en el contenedor de Docker.
+    \item Creación del Dockerfile para el frontend, que se encargará de construir la imagen del contenedor que servirá la aplicación Angular. Este archivo irá en el mismo directorio que el archivo \texttt{apache-ssl.conf}.
         \begin{lstlisting}[language=bash]
+            # Base image
             FROM ubuntu:latest
 
             ENV DEBIAN_FRONTEND=noninteractive
 
+            # Install apache2
+            # Install dependencies
             RUN apt-get update && apt-get install -y \
+                php \
                 apache2 \
                 libapache2-mod-php \
-                php \
                 curl \
-                zip \
-                unzip \
-                git \
-                iputils-ping \
-                iproute2 \
                 && rm -rf /var/lib/apt/lists/*
+            RUN apt-get update && apt-get install -y zip unzip git
+            RUN apt-get install -y iputils-ping && apt install -y iproute2
 
-            RUN a2enmod ssl rewrite && mkdir -p /etc/apache2/ssl
-
+            # Activate apache2 modules and enable SSL and proxy
+            RUN a2enmod rewrite ssl proxy proxy_http && mkdir /etc/apache2/ssl
+            # copy ssl files
             COPY ./apache-ssl.conf /etc/apache2/sites-available/apache-ssl.conf
 
+            # activate the site
             RUN a2ensite apache-ssl.conf
 
-            COPY ./dist/tempusugr /var/www/html
-
             EXPOSE 443
-
-            CMD ["apache2ctl", "-D", "FOREGROUND"]
         \end{lstlisting}
-    \item Construir la imagen de docker, en el caso de esta imagen no se sube a Docker Hub ya q2ue no se construye en local, sino en el servidor de producción.
-           De esta manera evitamos que las claves privadas queden expuestas en el repositorio de Docker Hub y/o salgan de un entorno seguro y controlado.
-    \begin{lstlisting}[language=bash]
-        docker build -t tempusugr-frontend .
-    \end{lstlisting}
-    \item Levantar el contenedor del frontend:
-    \begin{lstlisting}[language=bash]
-        docker run -d --name tempusugr-frontend \
-            -p 443:443 \
-            --network calendarugr \
-            -v /home/juanmi/certificados:/etc/apache2/ssl \
-            tempusugr-frontend
-    \end{lstlisting}
-    \item Para acceder a la aplicación, se puede usar el navegador y acceder a la dirección \texttt{https://localhost} o \texttt{https://<ip-del-servidor>}.
+    \item Diseñar el archivo \texttt{docker-compose.yml} para el frontend, que incluirá la configuración del contenedor de Apache y la redirección de las peticiones al API Gateway.
+    En este archivo hacemos que el contenedor del frontend use la misma red que el resto de microservicios, y que se levante el contenedor de Apache con la configuración del archivo \texttt{apache-ssl.conf}.
+    \newline
+    Además se especifica el volumen donde se encuentran los certificados SSL, el directorio \texttt{built\_tempus} que contiene los archivos del frontend y el archivo de configuración de Apache.
+
 \end{enumerate}
+
+El directorio contenedor de lo necesario para desplegar el frontend debería contener algo parecido a lo siguiente:
+\begin{lstlisting}[language=bash]
+    - apache-docker/
+        - apache/
+            - apache-ssl.conf         # Configuracion de Apache con SSL
+            - DockerfileApache        # Dockerfile para construir el contenedor
+        - certificados/
+            - ClavePrivada.pem        # Clave privada SSL
+            - Certificado.pem         # Certificado SSL
+        - docker-compose.yml          # Composicion de servicios Docker
+        - built_tempuis               # Carpeta donde se colocan los archivos de la app Angular
+\end{lstlisting}
+
+\section{Levantar el sistema}
+Una vez que se han configurado y contenerizado todos los microservicios, se puede levantar el sistema completo utilizando Docker Compose. Para ello se debe levantar primero el backend, que es el que crea también la red de Docker necesaria para el frontend, y luego el frontend.
+\newline
+Con esto se consigue que el sistema esté completamente desplegado y accesible a través del dominio \texttt{tempus.ugr.es}.
+
+\subsection{Paso del HTTP a HTTPS en las llamadas al backend}
+Si sólo se levantara el backend exponiendo el puerto 8090 para las peticiones al api gateway, las peticiones al backend se realizarían a través de HTTP. Sin embargo, para que el sistema funcione correctamente y se pueda acceder a él a través del dominio \texttt{tempus.ugr.es}, es necesario que las peticiones al backend se realicen a través de HTTPS.
+Para ello, se ha configurado Apache como un proxy inverso que redirige las peticiones al backend a través de HTTPS. De esta manera, las peticiones al backend se realizan a través del dominio \texttt{tempus.ugr.es} y el puerto 443, que es el puerto por defecto para HTTPS.
+
+Ejemplo de endpoint del backend al que se accede a través de HTTP:
+
+\lstset{inputencoding=utf8}
+\begin{lstlisting}[language=bash]
+http://172.25.190.139:8090/calendarugr/v1/schedule-consumer/classes-from-group
+\end{lstlisting}
+
+Ejemplo de endpoint del backend al que se accede a través de HTTPS:
+
+\lstset{inputencoding=utf8}
+\begin{lstlisting}[language=bash]
+https://tempus.ugr.es/calendarugr/v1/schedule-consumer/classes-from-group
+\end{lstlisting}
