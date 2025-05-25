@@ -4,7 +4,8 @@ Una vez desarrollado el sistema, es necesario desplegarlo en un servidor para qu
 \textbf{**Revisar este párrafo y detallar más si necesario}
 El servidor en el que se despliega el sistema se encuentra en el edificio auxiliar de la ETSIIT. Fue solicitado por el director del TFG, Juan Luis Jiménez Laredo, y facilitado por el CSIRC (Servicio de Ciberseguridad y Respuesta a Incidentess Informáticos) de la UGR. El servidor cuenta con las siguientes características:
 
-Además se solicitó un IP estática para el servidor, que se ha configurado para que apunte al dominio \texttt{tempus.ugr.es}. Este dominio se ha registrado en la UGR y se ha configurado para que apunte al servidor donde se desplegará la aplicación.
+Además se solicitó una IP estática para el servidor, que se ha configurado para que apunte al dominio \texttt{tempus.ugr.es}. 
+Esto se ha conseguido gracias a la colaboración del CSIRC, que ha configurado el DNS para que apunte al servidor y al dominio.
 
 \section{Configuración del servidor}
 Como paso previo a la contenerización del sistema y despliegue de la aplicación, se ha procedido a la configuración del servidor. 
@@ -153,7 +154,7 @@ El frontend del sistema está desarrollado en Angular y se ha decidido conteneri
     \item Solicitar los certificados SSL necesarios para el dominio \texttt{tempus.ugr.es}. Estos certificados son necesarios para habilitar HTTPS en el servidor web, y habilitarlo tanto para el frontend como para el backend.
     \item Copiar los certificados SSL en una carpeta del servidor, por ejemplo, en \texttt{/home/user/certificates}. Estos certificados son necesarios para habilitar HTTPS en el servidor web.
     \item Crear un archivo de configuración para Apache (\texttt{apache-ssl.conf}) en el que se especifique la configuración del servidor web.
-          Aquí se especifican el uso de SSL, la redirección de HTTP a HTTPS y la configuración del proxy inverso para el backend.
+          Aquí se especifican el uso de SSL, la redirección de HTTP a HTTPS y la configuración del \hyperlink{reverseproxy}{Reverse Proxy} para el backend.
         \begin{lstlisting}[language=bash] 
             <VirtualHost *:443>
                 ServerName tempus.ugr.es
@@ -266,3 +267,164 @@ Ejemplo de endpoint del backend al que se accede a través de HTTPS:
 \begin{lstlisting}[language=bash]
 https://tempus.ugr.es/calendarugr/v1/schedule-consumer/classes-from-group
 \end{lstlisting}
+
+\subsection{Pruebas de carga en un entorno real}
+
+Una vez todo lo necesario levantado para un funcionamiento normal del sistema, se han realizado pruebas de carga en un entorno real para comprobar el rendimiento y la escalabilidad del sistema. Estas pruebas se han realizado utilizando Locust \cite{locust}, que es una herramienta de código abierto para realizar pruebas de carga y rendimiento en aplicaciones web.
+\newline\newline
+Las pruebas de carga se han realizado para distintos usuarios (con una media de diez suscripciones a grupos de asignatura) solicitando la información de su calendario entero (acción más común del sistema), al endpoint \texttt{https://tempus.ugr.es/calendarugr/v1/academic-subscription/entire-calendar}.\newline
+Además las solicitudes no se han hecho directamente al backend mediante llamadas http, sino que se han hecho a través del dominio \texttt{tempus.ugr.es}, que es el que se utiliza para acceder al sistema desde el navegador. Esto permite simular un uso real del sistema, ya que los usuarios acceden al sistema a través del dominio y no directamente al backend.
+\newline
+Sabiendo que en la UGR hay aproximadamente 60.000 estudiantes, y que el número de profesores :
+\begin{itemize}
+    \item Pruebas de carga con 100 usuarios concurrentes, simulando un uso normal del sistema.
+    \item Pruebas de carga con 500 usuarios concurrentes, simulando un uso intensivo del sistema.
+    \item Pruebas de carga con 1000 usuarios concurrentes, simulando un uso extremo del sistema.
+\end{itemize}
+
+Los parámetros que mide la herramienta son los siguientes:
+\begin{enumerate}
+    \item \textbf{Req.}: Número total de solicitudes realizadas.
+    \item \textbf{Fails}: Número de solicitudes que han fallado.
+    \item \textbf{Med(ms)}: Tiempo medio de respuesta en milisegundos.
+    \item \textbf{95\%ile (ms)}: Tiempo de respuesta en el percentil 95 ( es decir, el 95\% de las solicitudes se han respondido en este tiempo o menos).
+    \item \textbf{99\%ile (ms)}: Tiempo de respuesta en el percentil 99 ( es decir, el 99\% de las solicitudes se han respondido en este tiempo o menos).
+    \item \textbf{Avg(ms)}: Tiempo medio de respuesta en milisegundos.
+    \item \textbf{Min(ms)}: Tiempo mínimo de respuesta en milisegundos.
+    \item \textbf{Max(ms)}: Tiempo máximo de respuesta en milisegundos.
+    \item \textbf{Avg size(bytes)}: Tamaño medio de la respuesta en bytes.
+    \item \textbf{RPS}: Solicitudes por segundo.
+    \item \textbf{Fails/s}: Fallos por segundo.
+\end{enumerate}
+
+
+\subsubsection{Pruebas de carga con 100 usuarios concurrentes}
+
+En esta prueba se simularon 100 usuarios concurrentes realizando solicitudes al sistema durante 2 minutos. Los resultados obtenidos fueron los siguientes:
+
+\begin{table}[H]
+\centering
+\resizebox{16cm}{!}{
+\begin{tabular}{|r|r|r|r|r|r|r|r|r|r|r|}
+\hline
+\textbf{Req.} & \textbf{Fails} & \textbf{Med(ms)} & \textbf{95\%(ms)} & \textbf{99\%(ms)} & \textbf{Avg(ms)} & \textbf{Min(ms)} & \textbf{Max(ms)} & \textbf{Avg size(Bytes)} & \textbf{RPS} & \textbf{Fails/s} \\
+\hline
+4172 & 35 & 84 & 120 & 6300 & 213.04 & 1 & 7329 & 9636.47 & 32.2 & 0.1 \\
+\hline
+\end{tabular}
+}
+\caption{Resultados de la prueba de carga con 100 usuarios concurrentes.}
+\label{tab:locust100}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/08_100_1.png}
+\caption{Gráfica de la prueba de carga con 100 usuarios concurrentes.}
+\label{fig:locust100}
+\end{figure}
+
+Se ha observado en la gráfica de ``Response Times (ms)'' un pico inicial de latencia significativa. Aproximadamente entre las 17:30:00 y 17:40:00, el percentil 95 alcanzó hasta 7300 ms (7 segundos) y el percentil 50 (mediana) llegó a unos 5200 ms (5 segundos). Posteriormente, los tiempos de respuesta se estabilizaron rápidamente, lo que es consistente con las estadísticas globales de la prueba, que muestran una mediana de 84 ms y un percentil 95 de 120 ms para el total de la ejecución.
+\newline\newline
+Este comportamiento es típico de un ``arranque en frío'' o ``cold start'' del sistema, que puede involucrar varios factores:
+
+\begin{itemize}
+    \item \textbf{Carga inicial de código:} Al inicio de la prueba, el servidor de aplicaciones necesita cargar el código en memoria, inicializar módulos, frameworks y establecer las primeras conexiones a la base de datos. Este proceso inicial consume tiempo.
+    \item \textbf{Calentamiento de cachés:} Las aplicaciones web y las bases de datos (PostgreSQL) utilizan cachés. En las primeras solicitudes, estas cachés están vacías, y los datos deben ser recuperados de fuentes más lentas (disco o base de datos), lo que aumenta la latencia. Conforme más solicitudes llegan, las cachés se llenan, mejorando los tiempos de respuesta.
+    \item \textbf{Pool de conexiones:} La creación y llenado del pool de conexiones a la base de datos es una operación relativamente costosa que ocurre al inicio.
+    \item \textbf{Menor concurrencia inicial:} A pesar de un rápido incremento a 100 usuarios en la gráfica, las primeras solicitudes pueden impactar un sistema que aún no ha alcanzado su estado ``caliente''.
+\end{itemize}
+En resumen, estos picos iniciales son un comportamiento esperado de ``calentamiento'' del sistema. Una vez que las cachés se llenan y las conexiones se establecen, el sistema opera de manera más eficiente, resultando en tiempos de respuesta significativamente menores.
+\newline\newline
+En cuanto a los fallos registrados, una tasa de 35 fallos sobre un total de 4172 solicitudes es **extremadamente baja**, representando una tasa de éxito del 99.20\%. Esto se considera, en la mayoría de los casos, despreciable y no indicativo de un problema sistémico grave. Las posibles causas para estos fallos aislados incluyen:
+
+\begin{itemize}
+    \item \textbf{Fallos de red transitorios:} Problemas momentáneos en la conectividad entre el generador de carga y el servidor, o entre el servidor y la base de datos.
+    \item \textbf{Timeouts:} Es posible que algunas solicitudes excedieran el tiempo máximo de espera configurado, especialmente durante el período de ``cold start'' donde las latencias eran muy altas.
+    \item \textbf{Problemas puntuales del servidor/base de datos:} Eventos raros y breves como micro-reinicios, reinicios de conexión o mantenimiento puntual que afectaron solo a esas solicitudes.
+    \item \textbf{Errores del generador de carga:} En ocasiones, el propio software de pruebas puede reportar fallos incorrectamente debido a problemas internos.
+\end{itemize}
+Dado el bajo número de fallos, no se justifica una investigación profunda sobre su origen, ya que es probable que sean anomalías aleatorias o efectos del proceso de inicialización del sistema. La estadística ``Current Failures/s: 0.5'' indica la tasa de fallos en un momento específico, no contradiciendo el total de fallos de la prueba.
+\newline\newline
+Además el fallo registrado es en todos los casos el mismo, ``RemoteDisconnected('Remote end closed connection without response')'', lo que indica que el servidor cerró la conexión antes de enviar una respuesta. Esto puede deberse a un timeout o a un cierre inesperado de la conexión por parte del servidor, pero no necesariamente indica un problema grave en el sistema.
+\newline\newline
+En resumen, los resultados de la prueba de carga con 100 usuarios concurrentes muestran que el sistema es capaz de manejar una carga moderada de usuarios sin problemas significativos, con tiempos de respuesta aceptables y una tasa de éxito muy alta.
+
+\subsubsection{Pruebas de carga con 500 usuarios concurrentes}
+
+En esta prueba se simularon 500 usuarios concurrentes realizando solicitudes al sistema durante 2 minutos. Los resultados obtenidos fueron los siguientes:
+
+\begin{table}[H]
+\centering
+\resizebox{16cm}{!}{
+\begin{tabular}{|r|r|r|r|r|r|r|r|r|r|r|}
+\hline
+\textbf{Req.} & \textbf{Fails} & \textbf{Med(ms)} & \textbf{95\%(ms)} & \textbf{99\%(ms)} & \textbf{Avg(ms)} & \textbf{Min(ms)} & \textbf{Max(ms)} & \textbf{Avg size(Bytes)} & \textbf{RPS} & \textbf{Fails/s} \\
+\hline
+4918 & 48 & 88 & 280 & 15000 & 887.77 & 1 & 105514 & 9623.15 & 48.2 & 0.3 \\
+\hline
+\end{tabular}
+}
+\caption{Resultados de la prueba de carga con 500 usuarios concurrentes.}
+\label{tab:locust500}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/08_500_1.png}
+\caption{Gráfica de la prueba de carga con 500 usuarios concurrentes.}
+\label{fig:locust500}
+\end{figure}
+
+En esta prueba se observan comporetamientos similares a los de la prueba con 100 usuarios concurrentes, pero con una latencia más alta en general. Esto es esperado, ya que al aumentar el número de usuarios concurrentes, el sistema debe manejar más solicitudes al mismo tiempo, lo que puede aumentar la latencia.
+\newline\newline
+En la gráfica de ``Response Times (ms)'' se observa un pico de latencia significativa al inicio de la prueba, similar al de la prueba con 100 usuarios concurrentes. En este caso, el percentil 95 alcanzó hasta 9100 ms (9 segundos) y el percentil 50 (mediana) llegó a unos 5100 ms (5 segundos). Posteriormente, los tiempos de respuesta se estabilizaron, lo que es consistente con las estadísticas globales de la prueba, que muestran una mediana de 88 ms y un percentil 95 de 280 ms para el total de la ejecución.
+\newline\newline
+Además en cuanto a los fallos registrados, una tasa de 48 fallos sobre un total de 4918 solicitudes es también muy baja, representando una tasa de éxito del 99.02\%. Esto indica que el sistema es capaz de manejar una carga moderada de usuarios sin problemas significativos, con tiempos de respuesta aceptables y una tasa de éxito muy alta.
+\newline\newline
+En resumen, los resultados de la prueba de carga con 500 usuarios concurrentes muestran que el sistema es capaz de manejar una carga moderada de usuarios sin problemas significativos, con tiempos de respuesta aceptables y una tasa de éxito muy alta. Aunque se observan picos de latencia al inicio de la prueba, estos son esperados y no indican un problema grave en el sistema.
+
+\subsubsection{Pruebas de carga con 1000 usuarios concurrentes}
+
+En esta prueba se simularon 1000 usuarios concurrentes realizando solicitudes al sistema durante 2 minutos. Los resultados obtenidos fueron los siguientes:
+
+\begin{table}[H]
+\centering
+\resizebox{16cm}{!}{
+\begin{tabular}{|r|r|r|r|r|r|r|r|r|r|r|}
+\hline
+\textbf{Req.} & \textbf{Fails} & \textbf{Med(ms)} & \textbf{95\%(ms)} & \textbf{99\%(ms)} & \textbf{Avg(ms)} & \textbf{Min(ms)} & \textbf{Max(ms)} & \textbf{Avg size(Bytes)} & \textbf{RPS} & \textbf{Fails/s} \\
+\hline
+6672 & 215 & 92 & 2500 & 89000 & 2829.37 & 5 & 135196 & 9404.85 & 50.1 & 0.6 \\
+\hline
+\end{tabular}
+}
+\caption{Resultados de la prueba de carga con 1000 usuarios concurrentes.}
+\label{tab:locust1000}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/08_1000_1.png}
+\caption{Gráfica de la prueba de carga con 1000 usuarios concurrentes.}
+\label{fig:locust1000}
+\end{figure}
+
+En este caso se observa un comportamiento similar al de las pruebas anteriores, pero con una latencia aún más alta en general. Esto es esperado, ya que al aumentar el número de usuarios concurrentes, el sistema debe manejar más solicitudes al mismo tiempo, lo que puede aumentar la latencia.
+\newline\newline
+En la gráfica de ``Response Times (ms)'' se observa un pico de latencia significativa al inicio de la prueba, similar al de las pruebas anteriores. En este caso, el percentil 95 alcanzó hasta 18000 ms (18 segundos) y el percentil 50 (mediana) sin embargo no es tan alto como el de las otras pruebas, llegando a un pico de 140ms al principio. Posteriormente, los tiempos de respuesta se estabilizaron, lo que es consistente con las estadísticas globales de la prueba, que muestran una mediana de 92 ms y un percentil 95 de 2500 ms para el total de la ejecución.
+\newline\newline
+Además, en cuanto a los fallos registrados, una tasa de 215 fallos sobre un total de 6672 solicitudes es también baja, representando una tasa de éxito del 96.78\%. Aunque esta tasa es inferior a las pruebas anteriores, sigue siendo aceptable y no indica un problema grave en el sistema.
+\newline\newline
+En esta prueba además se ha observado un comportamiento anómalo alrededor de los 90 segundos de la prueba, donde el percentil 99 alcanzó hasta 89000 ms (89 segundos). Esto indica que hubo un problema puntual en el sistema que afectó a algunas solicitudes, pero no a todas. Este tipo de comportamiento puede deberse a un problema de rendimiento en el servidor o en la base de datos, o a un problema de red.
+
+La ``recuperación'' no se observa en el sentido de que los tiempos de respuesta o fallos vuelvan a niveles óptimos durante esta fase. Más bien, el sistema entra en un estado de alta latencia y fallos continuos bajo esta carga sostenida. La estabilización en el gráfico de tiempos de respuesta a partir de los 80 segundos no es una recuperación positiva, sino una indicación de que el sistema se ha atascado en un estado de rendimiento muy bajo.
+\newline
+Las causas de esta saturación con 1000 usuarios concurrentes pueden ser:
+
+\begin{itemize}
+    \item \textbf{Saturación de recursos del servidor:} Límites de CPU, memoria o procesos en el servicio de aplicación.
+    \item \textbf{Cuellos de botella en la base de datos:} Agotamiento del pool de conexiones, contención de bloqueos, o límites de recursos (CPU, RAM, IOPS) en PostgreSQL.
+    \item \textbf{Timeouts:} Los tiempos de respuesta excesivos probablemente provocan que las solicitudes excedan los límites de tiempo establecidos, registrándose como fallos.
+    \item \textbf{Límites de autoescalado:} Si el autoescalado no es suficientemente rápido o los límites del plan de servicio son insuficientes para 1000 usuarios.
+\end{itemize}

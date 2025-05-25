@@ -70,7 +70,7 @@ Sin embargo, se han mantenido los principios fundamentales de la metodología pa
 
 \subsection{Gestión de Tareas y Seguimiento del Progreso}
 
-Para la gestión de las tareas y el seguimiento del progreso del proyecto, se ha utilizado \textbf{GitHub Projects}. Esta herramienta ha permitido:
+Para la gestión de las tareas y el seguimiento del progreso del proyecto, se ha utilizado \textbf{GitHub Projects}\cite{calendarugr_github}. Esta herramienta ha permitido:
 
 \begin{itemize}
     \item \textbf{Creación de un Backlog del Producto:} Se ha creado un backlog del producto en GitHub Projects, donde se han definido las historias de usuario y las tareas necesarias para el desarrollo del sistema. Este backlog ha sido la base para la planificación de los sprints y la gestión de las tareas.
@@ -115,7 +115,7 @@ Además nos facilita un total de horas dedicadas al desarrollo del proyecto, por
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=0.8\textwidth]{figures/05_clockify.png}
-    \caption{Segmento del ''Roadmap'' del proyecto.} % Leyenda de la imagen
+    \caption{Resumen de horas de desarrollo en CLockify.} % Leyenda de la imagen
     \label{clockify} % Etiqueta para referenciar la imagen
 \end{figure}
 
@@ -137,21 +137,93 @@ En todo proyecto de desarrollo de software, es fundamental identificar y gestion
     \item \textbf{Acceso a la información necesaria}: Durante el desarrollo del proyecto, se ha dependido de la disponibilidad de información externa (horarios académicos, autenticación institucional, etc.). Para mitigar este riesgo, se ha mantenido una comunicación constante con el Product Owner y se han explorado alternativas en caso de que no se pudiera acceder a la información necesaria. Además, se ha optado por implementar un sistema de scrapping para obtener los horarios académicos de la web de ``Grados UGR'' como una solución alternativa, y se ha mantenido persistencia de los datos en la base de datos del sistema para evitar depender de la disponibilidad de la web.
 \end{itemize}
 
-\section{Estimación de costes}
+\section{Presupuesto del proyecto}
 
-\subsection{Costes de personal}
+\textbf{**Revisar este apartado y detallar más si necesario}
+El presupuesto del proyecto se ha elaborado teniendo en cuenta los gastos elegibles y no elegibles, así como los costes asociados al desarrollo y despliegue del sistema. A continuación se presenta un resumen de los gastos elegibles, que son aquellos que se consideran necesarios para la realización del proyecto y que cumplen con los requisitos establecidos por la normativa de financiación.
 
-Tal y como se describe el apartados anteriores, el desarrollo del proyecto ha constado de 376.5 horas de trabajo, distribuidas en los diferentes sprints y tareas a realizar.
-\newline\newline
-El coste de personal se ha estimado en función del coste por hora del personal involucrado en el proyecto. En este caso, considerando que según la plataforma Glassdoor \cite{webGlassdoor} un desarrollador fullstack junior cobra en torno a 23.062 € al año, y que traduciendo a cobro por hora son en torno a 11 euros/hora, se ha estimado un coste de personal de 4.141.5 euros ( 376.5 horas * 11 euros/hora).
+\subsection{Presupuesto en formato tabla}
 
-\subsection{Costes de suministros}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Gstos elegibles} & \textbf{Importe (€)} \\ \hline
+\textbf{Gastos de personal} & 5.647,5 \\ \hline
+\textbf{Gstos de suministros (desarrollo)} & 200 \\ \hline
+\textbf{Gastos de suministros (despliegue)} & 140 \\ \hline
+\textbf{Total} & \textbf{5.987,5} \\ \hline
+\end{tabular}
+\caption{Resumen de gastos elegibles del proyecto.}
+\label{tab:presupuesto}
+\end{table}
 
-\subsubsection{Durante el desarrollo}
+\subsection{Desglose de la información}
 
-Durante el desarrollo del proyecto, se han utilizado servicios que han generado costes asociados. A continuación se detallan los principales costes de suministros:
+\subsubsection{Gastos elegibles}
 
+\paragraph{Gastos de peronal}
 
+\textbf{Horas trabajadas:} El desarrollo del proyecto ha constado de \textbf{376,5 horas} de trabajo, distribuidas entre tareas y sprints según la planificación del proyecto.
 
+\textbf{Tarifa horaria aplicada:} Aunque la plataforma Glassdoor \cite{webGlassdoor} indica que el salario medio de un desarrollador fullstack junior es de \textbf{23.062 €/año} (aproximadamente \textbf{11 €/hora}), se ha considerado una tarifa de \textbf{15 €/hora} debido a la experiencia y cualificación del desarrollador responsable.
 
+\textbf{Cálculo del coste de personal:}
+\begin{itemize}
+    \item Total: 376,5 horas × 15 €/hora = \textbf{5.647,5 €}
+    \item Coste mensual estimado (4 meses): 5.647,5 € ÷ 4 = \textbf{1.411,88 €/mes}
+\end{itemize}
 
+\paragraph{Gastos de suministros}
+
+Los gastos de suministros incluyen los costes derivados del uso de recursos básicos durante el desarrollo del proyecto, tales como Internet y electricidad.
+
+\textbf{Durante el desarrollo (4 meses):}
+\begin{itemize}
+    \item \textbf{Internet:} 
+    \begin{itemize}
+        \item Conexión de alta velocidad necesaria para tareas de desarrollo y pruebas.
+        \item Coste estimado: 30 €/mes
+        \item Total: 30 € × 4 meses = \textbf{120 €}
+    \end{itemize}
+    \item \textbf{Electricidad:}
+    \begin{itemize}
+        \item Energía eléctrica para los equipos informáticos utilizados.
+        \item Coste estimado: 20 €/mes
+        \item Total: 20 € × 4 meses = \textbf{80 €}
+    \end{itemize}
+\end{itemize}
+
+\textbf{Coste total de suministros:} 120 € (Internet) + 80 € (Electricidad) = \textbf{200 €}
+
+\paragraph{Durante el despliegue}
+
+Durante la fase de despliegue del proyecto, se ha considerado el uso de una máquina dedicada que actuará como servidor para alojar tanto el backend como el frontend de forma permanente.
+
+\textbf{Especificaciones del servidor:}
+\begin{itemize}
+    \item Sistema operativo: Kubuntu 22.04 LTS
+    \item CPU: Intel Core i5 (4 núcleos)
+    \item RAM: 16 GB
+    \item Almacenamiento: SSD 512 GB
+    \item Conectividad: Red de alta velocidad (Ethernet 1 Gbps)
+\end{itemize}
+
+Esta máquina estará en funcionamiento 24/7 para asegurar la disponibilidad continua del sistema.
+
+\textbf{Costes asociados al despliegue:}
+\begin{itemize}
+    \item \textbf{Electricidad:} Funcionamiento continuo del servidor.
+    \begin{itemize}
+        \item Estimación mensual: 25 €/mes
+        \item Periodo considerado: 4 meses
+        \item Total: 25 € × 4 = \textbf{100 €}
+    \end{itemize}
+    \item \textbf{Conectividad:} Uso intensivo de red para servir peticiones de clientes.
+    \begin{itemize}
+        \item Estimación mensual adicional: 10 €/mes
+        \item Total: 10 € × 4 = \textbf{40 €}
+    \end{itemize}
+\end{itemize}
+
+\textbf{Coste total durante el despliegue:} 100 € (electricidad) + 40 € (conectividad) = \textbf{140 €}
