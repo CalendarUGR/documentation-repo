@@ -1,7 +1,5 @@
 \chapter{Estado del arte}\label{cap:estado}
 
-\Juanmi[]{Revisar todo y meter algún esquema de las arquitecturas}
-
 En esta sección se presenta una revisión del estado del arte en el ámbito de la planificación y gestión de horarios académicos, así como las tecnologías y paradigmas arquitectónicos utilizados en el desarrollo de sistemas de información basados en web. Se analizarán las limitaciones de los sistemas actuales, se compararán con soluciones más avanzadas implementadas en otras instituciones, y se explorarán las tecnologías y stacks utilizados en el desarrollo del sistema propuesto.
 
 \section{Contextualización}
@@ -38,7 +36,7 @@ Para acceder a la información de los horarios, los estudiantes y docentes puede
           y obteniendo información diferente. En el caso del grado de Administración y Dirección de Empresas por ejemplo, no se muestra el aula en la que se imparte la clase, pero sí las asignaturas bilingües, y
           los profesores que las imparten.
           \newline\newline
-          Esta forma de visualización de horarios es muy poco eficiente, ya que el estudiante tiene que buscar la información de manera manual, es inconsistente entre grados, y no es accesible para personas con discapacidad visual.
+          Esta forma de visualización de horarios es inconsistente entre grados, y no es accesible para personas con discapacidad visual.
           %% Comparación de horarios de diferentes grados ( 2 imágenes )
           %% Como se insertan dos imagenes en latex con un unico pie de foto -> 
           \newpage
@@ -155,7 +153,7 @@ La comunicaci\'{o}n entre el frontend y el backend se ha estandarizado en gran m
 
 Las Apis son vitales para la creación de experiencias digitales modernas, ya que simplifican como los sistemas se comunican, ofreciendo flexibilidad e independencia a una empresa. El mundo de las APIs está en constante evoluvión, y cada vez más empresas están adoptando este enfoque para integrar sus sistemas y servicios. Las APIs permiten a los desarrolladores acceder a funcionalidades específicas de una aplicación o servicio sin necesidad de conocer su implementación interna, lo que facilita la creación de aplicaciones complejas y la integración de diferentes sistemas.
 \newline
-Son tres tecnologías las que se han estandarizado como las más utilizadas para la creación de APIs: REST, GraphQL y gRPC.
+Son cuatro tecnologías las que se han estandarizado como las más utilizadas para la creación de APIs: REST, SOAP, GraphQL y gRPC.
 
 \begin{enumerate}
     \item \textbf{\hyperlink{rest}{REST} - El Estándar Atemporal}
@@ -164,6 +162,14 @@ Son tres tecnologías las que se han estandarizado como las más utilizadas para
         \item \textbf{Limitaciones:} Sobre-recuperación y sub-recuperación, complejidad de versionado, capacidades de tiempo real limitadas.
         \item \textbf{Mejores Casos de Uso:} APIs públicas, operaciones CRUD simples, requisitos de tiempo real limitados.
         \item \textbf{Consideraciones:} Versionado y escalabilidad para grandes bases de usuarios, impacto de la sobre/sub-recuperación.
+    \end{itemize}
+
+    \item \textbf{\hyperlink{soap}{SOAP} - El Clásico Empresarial}
+    \begin{itemize}
+        \item \textbf{Ventajas:} Protocolo estandarizado, seguridad robusta (WS-Security), transacciones y confiabilidad.
+        \item \textbf{Limitaciones:} Verbosidad, complejidad, menor flexibilidad que REST.
+        \item \textbf{Mejores Casos de Uso:} Sistemas empresariales, integraciones complejas, requisitos de seguridad estrictos.
+        \item \textbf{Consideraciones:} Complejidad del protocolo y herramientas, justificación del uso frente a REST.
     \end{itemize}
 
     \item \textbf{\hyperlink{graphql}{GraphQL} - El Orquestador Dinámico}
@@ -216,7 +222,7 @@ La elección de la arquitectura backend es una decisión fundamental en el desar
 
 Si bien la arquitectura monolítica ha sido tradicionalmente un punto de partida, la creciente complejidad de los sistemas y la necesidad de agilidad han impulsado la adopción y evolución de diversos paradigmas arquitectónicos. A continuación, se presenta una exposición de diferentes arquitecturas de software \cite{bookORellySoftwareArchitecture} implementadas en sistemas backend, analizando sus características y su posición en el espectro que va desde el monolito hasta los microservicios.
 
-\subsubsection*{Arquitectura en Capas (Layered Architecture / N-Tier Architecture)}
+\subsubsection*{Arquitectura en Capas (Layered Architecture / N-Tier Architecture) \cite{clean_architecture}}
 
 \begin{description}
     \item[\textbf{Descripción:}] Este es uno de los patrones arquitectónicos más establecidos y fundamentales. Consiste en la organización del código en capas horizontales, donde cada capa posee una responsabilidad específica y se comunica, por lo general, únicamente con las capas adyacentes (superior e inferior). Las capas típicas suelen ser:
@@ -230,7 +236,7 @@ Si bien la arquitectura monolítica ha sido tradicionalmente un punto de partida
     \item[\textbf{Posicionamiento y Evolución:}] Una aplicación monolítica frecuentemente se estructura internamente siguiendo una arquitectura en capas. Aunque este patrón no descompone el sistema en servicios desplegables de forma independiente, sí promueve una modularización interna y una clara separación de responsabilidades (Separation of Concerns), lo cual es un primer paso crucial para gestionar la complejidad y facilitar la mantenibilidad de un sistema antes de considerar arquitecturas más distribuidas.
 \end{description}
 
-\subsubsection*{Arquitectura Orientada a Servicios (SOA - Service-Oriented Architecture)}
+\subsubsection*{Arquitectura Orientada a Servicios (SOA - Service-Oriented Architecture) \cite{soa_ibm}}
 
 \begin{description}
     \item[\textbf{Descripción:}] SOA es un paradigma de diseño que estructura una aplicación como una colección de servicios que se comunican entre sí. Estos servicios encapsulan funcionalidades de negocio discretas y pueden ser accedidos a través de la red. A menudo, los servicios en SOA son de grano más grueso en comparación con los microservicios. La comunicación se estandarizó frecuentemente mediante protocolos como SOAP (Simple Object Access Protocol) sobre HTTP, y es común el uso de un Enterprise Service Bus (ESB) para la mediación, el enrutamiento y la transformación de mensajes entre servicios.
@@ -238,7 +244,7 @@ Si bien la arquitectura monolítica ha sido tradicionalmente un punto de partida
     \item[\textbf{Posicionamiento y Evolución:}] SOA representó un avance significativo respecto a los monolitos, permitiendo una descomposición más formal y orientada a negocio. Puede considerarse un precursor importante de la arquitectura de microservicios. Sin embargo, SOA a menudo implicaba una mayor sobrecarga en términos de estándares, una gobernanza más centralizada y, en ocasiones, cuellos de botella debidos al ESB, aspectos que la arquitectura de microservicios busca simplificar o descentralizar.
 \end{description}
 
-\subsubsection*{Arquitectura Dirigida por Eventos (EDA - Event-Driven Architecture)}
+\subsubsection*{Arquitectura Dirigida por Eventos (EDA - Event-Driven Architecture) \cite{aws_eda}}
 
 \begin{description}
     \item[\textbf{Descripción:}] En una EDA, el flujo de la aplicación es determinado por la ocurrencia de eventos. Los eventos son notificaciones que representan un cambio de estado significativo o un suceso relevante dentro del sistema (por ejemplo, ``PedidoRealizado'', ``InventarioBajo''). Los componentes del sistema, denominados productores de eventos, publican estos eventos en un canal o bus de eventos (gestionado por un bróker de mensajes como Apache Kafka, RabbitMQ o Google Cloud Pub/Sub). Otros componentes, los consumidores de eventos, se suscriben a los eventos que les conciernen y reaccionan a ellos de forma asíncrona.
@@ -246,15 +252,15 @@ Si bien la arquitectura monolítica ha sido tradicionalmente un punto de partida
     \item[\textbf{Posicionamiento y Evolución:}] EDA es altamente compatible y a menudo se utiliza en conjunción con la arquitectura de microservicios para lograr una comunicación asíncrona, resiliente y escalable. Permite un desacoplamiento profundo entre servicios, mejorando la tolerancia a fallos y la capacidad de respuesta del sistema. También se emplea para modernizar sistemas monolíticos, permitiendo integrar nuevas funcionalidades de forma reactiva o desacoplar módulos existentes.
 \end{description}
 
-\subsubsection*{Arquitectura Basada en el Espacio (SBA - Space-Based Architecture) y Principios Nativos de la Nube}
-
+\subsubsection*{Arquitectura ``Serverless'' y Nativa de la Nube \cite{aws_serverless}}
 \begin{description}
-    \item[\textbf{Descripción (SBA):}] Conocida también como arquitectura de tuplas espaciales, la SBA está diseñada para abordar problemas de alta escalabilidad y concurrencia, minimizando los cuellos de botella asociados a las bases de datos centralizadas. En este modelo, la lógica de negocio y los datos se particionan y se distribuyen en múltiples unidades de procesamiento (PUs) auto-suficientes. Cada PU generalmente contiene la aplicación, una caché de datos en memoria y, potencialmente, su propio motor de base de datos. La coordinación y comunicación se realizan a través de un ``espacio de tuplas'' compartido o una caché distribuida.
-    \item[\textbf{Principios Nativos de la Nube (Cloud-Native):}] Más que una arquitectura específica, es un enfoque para diseñar y construir aplicaciones que explotan plenamente las ventajas del modelo de computación en la nube. Esto incluye el uso de contenedores (por ejemplo, Docker), orquestación (por ejemplo, Kubernetes), diseño para la resiliencia (circuit breakers, reintentos), observabilidad y automatización extensiva (CI/CD).
-    \item[\textbf{Posicionamiento y Evolución:}] SBA ofrece una solución para escenarios de escalabilidad extrema. Los principios nativos de la nube son fundamentales en el estado del arte actual, proporcionando el ecosistema y las herramientas para desplegar, gestionar y escalar eficazmente arquitecturas distribuidas modernas, incluyendo prominentemente los microservicios y sistemas basados en EDA.
+    \item[\textbf{Descripción:}] Este enfoque se centra en la ejecución de código sin necesidad de gestionar servidores o infraestructura subyacente. Los desarrolladores escriben funciones que se ejecutan en respuesta a eventos, y el proveedor de la nube (como AWS Lambda, Azure Functions o Google Cloud Functions) se encarga de la infraestructura, escalabilidad y disponibilidad. Las aplicaciones nativas de la nube están diseñadas para aprovechar al máximo las capacidades de la nube, como el escalado automático, la alta disponibilidad y los servicios gestionados.
+    \item[\textbf{Características Clave:}] Despliegue basado en funciones, escalabilidad automática, pago por uso (se paga solo por el tiempo de ejecución), y enfoque en eventos y microservicios.
+    \item[\textbf{Posicionamiento y Evolución:}] La arquitectura serverless es una evolución natural hacia una mayor abstracción y simplificación del desarrollo backend. Permite a los equipos centrarse en la lógica de negocio sin preocuparse por la infraestructura subyacente. Sin embargo, puede introducir desafíos relacionados con el estado, la latencia y el control sobre el entorno de ejecución.
+    Este enfoque es especialmente adecuado para aplicaciones que requieren escalabilidad extrema y una alta disponibilidad, como sistemas de gestión de horarios académicos que pueden experimentar picos de carga durante períodos específicos (por ejemplo, al inicio del semestre).
 \end{description}
 
-\subsubsection*{Arquitectura de Microservicios}
+\subsubsection*{Arquitectura de Microservicios \cite{ms_microservices}}
 
 \begin{description}
     \item[\textbf{Descripción:}] Esta arquitectura estructura una aplicación como una suite de pequeños servicios independientes, cada uno enfocado en una capacidad de negocio específica y bien delimitada (Bounded Context). Cada microservicio es autónomo, lo que implica que puede ser desarrollado, desplegado, escalado y gestionado de forma independiente. Típicamente, cada servicio posee su propia base de datos para asegurar un bajo acoplamiento y se comunica con otros servicios a través de APIs ligeras y bien definidas, comúnmente utilizando HTTP/REST, gRPC, o a través de mensajería asíncrona.
@@ -360,6 +366,7 @@ EL paso de información entre servicios puede realizarse de diferentes maneras, 
     Tecnologías comunes (descritas en la sección \ref{sec:desarrollo_servicios_web}):  
     \begin{itemize}
         \item \textbf{HTTP/REST}
+        \item \textbf{SOAP}
         \item \textbf{gRPC} 
         \item \textbf{GraphQL}
     \end{itemize}
@@ -407,7 +414,6 @@ La calidad del software es un aspecto fundamental en el desarrollo de aplicacion
     \item \textbf{Pruebas unitarias:} Estas pruebas se centran en verificar el comportamiento de componentes individuales del sistema, como funciones o métodos. Las pruebas unitarias son fundamentales para garantizar que cada componente funcione correctamente y cumpla con los requisitos especificados. Herramientas populares para pruebas unitarias incluyen JUnit (Java), NUnit (.NET), PyTest (Python) y Jest (JavaScript).
     \item \textbf{Pruebas de integración:} Estas pruebas verifican la interacción entre diferentes componentes del sistema, asegurando que funcionen correctamente juntos. Las pruebas de integración son esenciales para identificar problemas de comunicación y dependencias entre componentes. Herramientas populares para pruebas de integración incluyen Postman (para APIs REST), TestNG (Java) y Mocha (JavaScript).
     \item \textbf{Pruebas funcionales:} Estas pruebas evalúan el comportamiento del sistema desde la perspectiva del usuario, asegurando que cumpla con los requisitos funcionales especificados. Las pruebas funcionales pueden ser manuales o automatizadas, y herramientas populares incluyen Selenium (para aplicaciones web), Cucumber (para pruebas basadas en comportamiento) y TestComplete.
-    \item \textbf{Pruebas de rendimiento:} Estas pruebas evalúan la capacidad del sistema para manejar cargas de trabajo específicas y medir su rendimiento bajo diferentes condiciones. Las pruebas de rendimiento son esenciales para garantizar que el sistema sea escalable y responda adecuadamente a las demandas de los usuarios. Herramientas populares para pruebas de rendimiento incluyen JMeter, Gatling y LoadRunner.
     \item \textbf{Pruebas de seguridad:} Estas pruebas evalúan la seguridad del sistema, identificando vulnerabilidades y asegurando que cumpla con las mejores prácticas de seguridad. Las pruebas de seguridad son fundamentales para proteger los datos sensibles y garantizar la integridad del sistema. Herramientas populares para pruebas de seguridad incluyen OWASP ZAP, Burp Suite y Nessus.
     \item \textbf{Pruebas de usabilidad:} Estas pruebas evalúan la experiencia del usuario al interactuar con el sistema, asegurando que sea fácil de usar y cumpla con las expectativas de los usuarios. Las pruebas de usabilidad pueden ser manuales o automatizadas, y herramientas populares incluyen Hotjar, Crazy Egg y UserTesting.
     \item \textbf{Pruebas de carga:} Estas pruebas evalúan la capacidad del sistema para manejar un número específico de usuarios simultáneos y medir su rendimiento bajo diferentes condiciones de carga. Las pruebas de carga son esenciales para garantizar que el sistema sea escalable y responda adecuadamente a las demandas de los usuarios. Herramientas populares para pruebas de carga incluyen Apache JMeter, Gatling y LoadRunner.

@@ -1,12 +1,36 @@
 \chapter{Especificación de requisitos}\label{cap:especificación}
 
-El primer paso para el desarrollo de un sistema es la definición de los requisitos que este debe cumplir. Estos son las características y funcionalidades que el sistema debe tener para satisfacer las necesidades de los usuarios finales y cumplir con los objetivos del proyecto. \newline
+El primer paso para el desarrollo de un sistema es la definición de los requisitos que este debe cumplir. Estos son las características y funcionalidades que el sistema debe tener para satisfacer las necesidades de los usuarios finales y cumplir con los objetivos del proyecto. 
+\section{Recopilación de información}
+
 Para definir estos, se han utilizado diferentes técnicas de recopilación de información, como entrevistas, encuestas y análisis de documentos existentes. 
 
-\Juanlu[]{Si sacas una espada, asegurate de que la enfundas llena de sangre.}
+\Juanmi[]{Añadir a esta sección correos y peticiones al CSIRC, y propuesta al vicerrectorado de transformación digital de la UGR.}
 
-\Juanlu[]{Dices que se han utilizado diferentes técnicas como entrevistas, encuestas, etc. Bien, referencialas y describelas (tal vez en una sección). A bote pronto, te has entrevistado conmigo en más de una decena de ocasiones, has tenido reuniones con Jesús García Miranda, Alberto Guillén, tu supervisor ha contactado a los responsables del CSIRC (con tiempo puedo mirar sus nombres y cargos), se cursó una petición al vicerrectorado de transformación digital de la UGR para tener acceso a las BBDD de la universidad, se ha hecho una encuesta a los miembros del dpto ICAR para hacer una estimación de tiempos, etc. \textbf{¡Pon esto en valor!}. Es decir, las personas ficticias que propones están basadas en interacciones bien reales, los casos de uso, decisiones de diseño, etc, etc, etc están basadas en procesos e interacciones reales. Una vez hecho esto, el resto del capítulo será más creible y tus decisiones de diseño estarán más justificadas.}
+\begin{itemize}
+    \item \textbf{Análisis de documentos existentes:} Se han revisado documentos y recursos existentes relacionados con la UGR, como el sitio web oficial, guías académicas y normativas internas. Esto ha permitido comprender mejor el contexto y la forma en la que los usuarios acceden a la información.
+    \item \textbf{Encuestas:} Se ha realizado una encuesta a los miembros del departamento ICAR, y a compañeros estudiantes de la ETSIIT para obtener información sobre como confeccionan su horario y cuanto tiempo les toma con los sistemas actuales. Estas encuestas han permitido identificar las funcionalidades más valoradas y las áreas de mejora.
+    \item \textbf{Entrevistas:} Se han llevado a cabo numerosas entrevistas con perfiles variados dentro de la institución para entender mejor las necesidades actuales de los usuarios:
+    \begin{itemize}
+        \item \textbf{Jesús García Miranda - Profesor titular y Secretario de la ETSIIT:} (3 de febrero de 2025) En este punto del proyecto no se tenía muy claro cómo se generaba la información de horario escolar, y se necesitaba una visión general de cómo se gestionaba la información en la UGR. \newline
+        Jesús ofreció documentos y recursos para clarificar cómo se generaba y clasificaba esta infromación para su posterior entrega a la UGR. Además hablamos con varios integrantes encargados de la administración de estos procesos que nos aportaron más información sobre cómo se gestionaba la información de horarios y asignaturas.
+        De esta manera se comprendió que estos procesos no eran igual en cada sede de la UGR, y que cada facultad tenía su propio sistema de gestión de horarios y asignaturas. \newline
+        Fue una entrevista enriquecedora que ayudó a definir mejor el contexto y las necesidades del sistema. Además comprendimos que lo ideal para nuestro sistema sería obtener la información de horarios y asignaturas directamente de la UGR, y no tener que gestionarla nosotros mismos. \newline
 
+        \item \textbf{Alberto Guillén Perales - Profesor titular en la ETSIIT y Director del Centro de Producción de Recursos para la Universidad Digital (Ceprud):} (25 de febrero de 2025) Esta reunión se planteó para comprobar la posibilidad de acceder a los siguientes recursos:
+        \begin{itemize}
+            \item Información del calendario académico de la UGR. ( Información pública expuesta en varias páginas web de la UGR, como la página oficial de Grados UGR ).
+            \item Información de matriculaciones y asignaturas de los alumnos. ( Información privada, no accesible públicamente ).
+            \item Acceso a la autenticación de la UGR. ( Información privada, no accesible públicamente, y con proceso de solicitud establecido ).
+        \end{itemize}
+        En esta reunión se concluye que en el tiempo restante del proyecto es complicado el acceso a cualquiera de estos recursos mediante un proceso de solicitud formal, ya que los procesos burocráticos de la UGR pueden demorarse varios meses. \newline
+        El resto de la conversación se centró en alternativas para obtener la infromación necesaria para el desarrollo del sistema, y se decide construir un sistema de autenticación y autorización propio basado en los correos institucionales, y en utilizar técnicas de web scraping para obtener la información de horarios y asignaturas de los grados de la UGR. \newline
+        Fue una reunión muy productiva que ayudó a definir mejor el contexto y las necesidades del sistema. Además comprendimos que lo ideal para nuestro sistema sería obtener la información de horarios y asignaturas directamente por nuestra cuenta y no depender de factores externos. \newline
+        \item \textbf{Juan Luis Jiménez Laredo - Profesor titular en la ETSIIT y Director del TFG ``TempusUGR'':} (Reuniones semanales desde febrero de 2025 hasta junio de 2025) Durante estas reuniones se ha ido revisando el avance del proyecto, y se han ido definiendo y acotando los requisitos del sistema. \newline
+        Gracias a su punto de vista como profesor, y experiencia en el desarrollo de sistemas, se han podido identificar las funcionalidades más importantes y las áreas de mejora. \newline
+
+    \end{itemize}
+\end{itemize}
 
 \section{Personas}
 
