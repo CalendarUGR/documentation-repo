@@ -1,4 +1,4 @@
-\chapter{Planificación del proyecto}\label{cap:planificacion}
+\chapter{Planificación, metodología y presupuesto del proyecto}\label{cap:planificacion}
 
 En este apartado se presenta la planificación del proyecto, incluyendo el cronograma de trabajo, la metodología de desarrollo utilizada y la gestión de riesgos.
 
@@ -98,6 +98,8 @@ Para la gestión de las tareas y el seguimiento del progreso del proyecto, se ha
     \end{figure}
     
     \item \textbf{Visualización de las tareas en el tiempo:} La herramienta ha permitido visualizar el progreso de las tareas en el tiempo a través de un roadmap, lo que ha facilitado la identificación de posibles retrasos y la toma de decisiones para ajustar el plan si es necesario.
+    \newline\newline
+    Además este cronograma se ha ido actualizando a medida que se iban completando las tareas, permitiendo una visualización clara del progreso del proyecto, y una escenificación de las tareas realizadas en el tiempo.\newline Enlace al roadmap del proyecto \cite{roadmap}.
 
     \begin{figure}[H] 
         \centering 
@@ -115,11 +117,21 @@ Además nos facilita un total de horas dedicadas al desarrollo del proyecto, por
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=0.8\textwidth]{figures/05_clockify.png}
-    \caption{Resumen de horas de desarrollo en CLockify.} % Leyenda de la imagen
+    \caption{Resumen de horas de desarrollo en Clockify.} % Leyenda de la imagen
     \label{clockify} % Etiqueta para referenciar la imagen
 \end{figure}
 
 Este resumen de horas son las correspondientes a los sprints del 1 al 5, e incluye las horas dedicadas a tareas de desarrollo, investigación, reuniones y documentación. En total, y sumando 28.5 horas del curso de microservicos, 5 horas de investigación inicial, y otras 5 horas de reuniones en la iteración 0, se han dedicado un total de 376.5 horas al desarrollo del proyecto.
+
+\section{Desarrollo y control de versiones}
+
+El desarrollo del proyecto se ha realizado utilizando el sistema de control de versiones \textbf{Git} y la plataforma de alojamiento de código \textbf{GitHub}. Esta combinación ha permitido llevar un control detallado de los cambios realizados en el código, facilitar la colaboración y mantener una trazabilidad completa del desarrollo.
+\newline\newline
+Cada servicio independiente del backend ha supuesto un repositorio independiente, puesto que son programas independientes que se comunican a través de la red. Además se ha creado un repositorio para el frontend y otro para la documentación en latex.
+\newline\newline
+En este último repositorio se ha hecho uso de \textbf{``Github Actions''} para automatizar el proceso de compilación y despliegue de la documentación, lo que ha permitido mantenerla actualizada de manera continua. Cada vez que se realiza un cambio en la documentación, se ejecuta un flujo de trabajo que compila el código LaTeX y genera el PDF final, asegurando que siempre se disponga de la versión más reciente.
+\newline
+Además cuando el director de este proyecto ha reflejado aluna corrección mediante comentarios en latex, se ha hecho uso de la funcionalidad de \textbf{``Pull Requests''} de GitHub para revisar y aplicar estos cambios de manera controlada. Esto ha permitido mantener un flujo de trabajo ordenado y garantizar que todas las modificaciones se integren correctamente en la documentación final.
 
 \section{Gestión de riesgos}
 
