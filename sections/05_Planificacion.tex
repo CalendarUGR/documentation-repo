@@ -85,7 +85,7 @@ Para la gestión de las tareas y el seguimiento del progreso del proyecto, se ha
         \label{historia de usuario} % Etiqueta para referenciar la imagen
     \end{figure}
 
-    \item \textbf{Creación de Tableros por Sprint:} Se han configurado tableros de proyecto en GitHub Projects, utilizando las funcionalidades de \textbf{``Iteraciones''} para representar cada sprint. Esto ha facilitado la visualización del trabajo en curso para cada iteración.
+    \item \textbf{Creación de Tableros por Sprint:} Se han configurado tableros de proyecto en GitHub Projects, utilizando las funcionalidades de \textbf{``Iteraciones''} para representar cada sprint. Esto ha facilitado la visualización del trabajo en curso para cada sprint, permitiendo un seguimiento claro del progreso y el estado de las tareas.
     \newline
     Antes del comienzo de cada sprint se revisa el product backlog, se seleccionan las tareas a realizar y se crea el tablero correspondiente poniendo todas las tareas en estado ``To do''. Además también se revisan las prioridades de estas y se cambian si el proyecto lo requiere.
     Durante el desarrollo del sprint, las tareas se van moviendo a los diferentes estados según su avance ( ``Backlog'', ``Todo'', ``In progress'', ``Testing'', ``Done'').
@@ -121,7 +121,7 @@ Además nos facilita un total de horas dedicadas al desarrollo del proyecto, por
     \label{clockify} % Etiqueta para referenciar la imagen
 \end{figure}
 
-Este resumen de horas son las correspondientes a los sprints del 1 al 5, e incluye las horas dedicadas a tareas de desarrollo, investigación, reuniones y documentación. En total, y sumando 28.5 horas del curso de microservicos, 5 horas de investigación inicial, y otras 5 horas de reuniones en la iteración 0, se han dedicado un total de 376.5 horas al desarrollo del proyecto.
+Este resumen de horas son las correspondientes a los sprints del 1 al 5, e incluye las horas dedicadas a tareas de desarrollo, investigación, reuniones y documentación. En total, y sumando 28.5 horas del curso de microservicos, 5 horas de investigación inicial, y otras 5 horas de reuniones el Sprint 0, se han dedicado un total de 376.5 horas al desarrollo del proyecto, superando así las 300 horas mínimas para superar el TFG.
 
 \section{Desarrollo y control de versiones}
 
@@ -151,8 +151,6 @@ En todo proyecto de desarrollo de software, es fundamental identificar y gestion
 
 \section{Presupuesto del proyecto}
 
-\Juanmi[]{Comprobar presupuesto y actualizarlo si es necesario.}
-
 En esta sección se presenta el presupuesto del proyecto, que incluye los costes de personal, adquisición de equipamiento informático, costes de infraestructura y operación del servidor, y gastos de suministros durante el desarrollo.
 
 \subsection{Presupuesto en formato tabla}
@@ -163,10 +161,10 @@ En esta sección se presenta el presupuesto del proyecto, que incluye los costes
 \hline
 \textbf{Concepto} & \textbf{Importe (€)} \\ \hline
 \textbf{Costes de Personal} & 5.647,50 \\ \hline
-\textbf{Adquisición de Equipamiento Informático} & 1.473,47 \\ \hline
+\textbf{Adquisición de Equipamiento Informático} & 968,25 \\ \hline
 \textbf{Costes de Infraestructura y Operación del Servidor} & 260,00 \\ \hline
 \textbf{Gastos de Suministros (Desarrollo)} & 200,00 \\ \hline
-\textbf{Total Presupuestado} & \textbf{7.580,97} \\ \hline
+\textbf{Total Presupuestado} & \textbf{7.075,75} \\ \hline
 \end{tabular}
 \caption{Resumen de costes del proyecto.}
 \label{tab:presupuesto_actualizado}
@@ -216,18 +214,15 @@ Para la fase de despliegue del proyecto y para disponer del hardware adecuado, s
     \item PC MINI ASUS NUC 13 PRO RNUC13ANKI700021 (CPU i7-1360P): 626,00 €
     \item Memoria RAM KINGSTON SODIMM DDR4 16GB 3200MHZ CL22 (2 unidades): 64,46 € 
     \item SSD WD 1TB M.2 BLACK SN770 PCI-E NVME 4.0: 70,25 € 
-    \item Tarjeta Gráfica SVGA GEFORCE MSI RTX 4060 TI VENTUS 2X 8G OC: 326,45 € 
-    \item Teclado NEWSKILL SERIKE V2 MECANICO RED: 90,08 € 
     \item DATA SWITCH KVM AISENS 2P HDMI + TECLADO + RATON USB (2 PC): 40,50 € 
 \end{itemize}
-El subtotal de estos componentes (Base Imponible) asciende a 1.217,74 €. Aplicando el 21\% de IVA (255,73 €), el coste total del equipamiento adquirido es de \textbf{1.473,47 €}. Este equipamiento se utilizará como máquina servidora dedicada para alojar tanto el backend como el frontend de forma permanente.
+El subtotal de estos componentes (Base Imponible) asciende a \textbf{800,21 €}. A este importe se le aplica un IVA del 21\% (168,04 €), resultando en un total de \textbf{968,25 €}.
 
 \textbf{Especificaciones principales del servidor resultante:}
 \begin{itemize}
     \item CPU: Intel Core i7-1360P (integrada en ASUS NUC 13 Pro) 
     \item RAM: 32 GB DDR4 (2 x 16GB SODIMM) 
     \item Almacenamiento: SSD 1TB M.2 NVMe PCIe 4.0 
-    \item Tarjeta Gráfica: MSI NVIDIA GeForce RTX 4060 Ti 8GB OC 
     \item Conectividad: Red de alta velocidad (Ethernet 1 Gbps)
 \end{itemize}
 Esta máquina estará en funcionamiento 24/7 para asegurar la disponibilidad continua del sistema.

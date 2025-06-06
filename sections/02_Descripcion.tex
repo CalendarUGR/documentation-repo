@@ -1,6 +1,6 @@
 \chapter{Descripción del problema}\label{cap:descripcion}
 
-La Universidad de Granada (UGR), con su amplia oferta formativa y su elevado número de usuarios —alrededor de 60 000 estudiantes y 4 000 profesores \cite{webPromocionUGR}— depende de una gestión de horarios académicos ágil y precisa para garantizar la correcta organización de sus actividades docentes. Sin embargo, en la práctica este proceso adolece de dispersión y falta de personalización: cada usuario debe rastrear múltiples portales en la web institucional para construir su propio itinerario, lo que no solo incrementa la probabilidad de errores y solapamientos, sino que también genera un coste oculto en tiempo y recursos cuya magnitud analizaremos en detalle en secciones posteriores.
+La Universidad de Granada (UGR), con su amplia oferta formativa y su elevado número de usuarios —alrededor de 60 000 estudiantes y 3.500 profesores \cite{webPromocionUGR}— depende de una gestión de horarios académicos ágil y precisa para garantizar la correcta organización de sus actividades docentes. Sin embargo, en la práctica este proceso adolece de dispersión y falta de personalización: cada usuario debe rastrear múltiples portales en la web institucional para construir su propio itinerario, lo que no solo incrementa la probabilidad de errores y solapamientos, sino que también genera un coste oculto en tiempo y recursos cuya magnitud analizaremos en detalle en secciones posteriores.
 
 \section{Contexto y problemática}
 
@@ -14,7 +14,7 @@ La Universidad de Granada (UGR) es una de las universidades más grandes de Espa
 
 \section{Estimación del coste agregado}
 
-Más allá de los costes económicos directos asociados a software o personal administrativo, existe un coste ``humanitario'' o ``invisible'' que se manifiesta en el tiempo y el esfuerzo invertidos por los colectivos implicados en la realización de su calendario escolar personalizado. Esta sección busca cuantificar, de manera aproximada, dicho coste anual en una universidad con una población similar a la descrita anteriormente (aproximadamente 60.000 estudiantes y 4.000 profesores).
+Más allá de los costes económicos directos asociados a software o personal administrativo, existe un coste ``humano'' o ``invisible'' que se manifiesta en el tiempo y el esfuerzo invertidos por los colectivos implicados en la realización de su calendario escolar personalizado. Esta sección busca cuantificar, de manera aproximada, dicho coste anual en una universidad con una población similar a la descrita anteriormente (aproximadamente 60.000 estudiantes y 3.500 profesores).
 \newline\newline
 Para esta estimación, consideraremos el tiempo medio que, de forma no remunerada o fuera de sus funciones explícitas, dedican estudiantes y profesores a la consulta, ajuste y resolución de problemas relacionados con la confección de horarios cada cuatrimestre. La información se ha recopilado a través de encuestas realizadas a miembros del departamento de Ingeniería de Computadores, Automática y Robótica, y a estudiantes de distintos cursos de la ETSIIT.
 
@@ -22,12 +22,12 @@ Para esta estimación, consideraremos el tiempo medio que, de forma no remunerad
 
 El profesorado dedica un tiempo considerable a la revisión de horarios, la coordinación con otros docentes, la solicitud de cambios por solapamientos o la adaptación a nuevas asignaciones. Aunque gran parte de esta labor se gestiona a través de los coordinadores de titulación y jefes de departamento, la interacción individual sigue siendo significativa.
 
-Para obtener una estimación del tiempo invertido por el profesorado, se realizó una consulta a los compañeros del departamento de Ingeniería de Computadores, Automática y Robótica. Las respuestas obtenidas revelan una dedicación variada en la configuración y ajuste de horarios. Excluyendo las respuestas que se referían a actividades diarias o eran valores atípicos, la mayoría de las estimaciones para la configuración inicial y ajustes esporádicos se sitúan entre los 15 y 45 minutos por cuatrimestre. Para esta estimación, se ha calculado una media ponderada de las respuestas, resultando en un promedio de \textbf{30 minutos (0.50 horas) por profesor y cuatrimestre} para las tareas de configuración y ajuste de horarios.
+Para obtener una estimación del tiempo invertido por el profesorado, se realizó una consulta a los profesores del departamento de Ingeniería de Computadores, Automática y Robótica (ICAR). Las respuestas obtenidas revelan una dedicación variada en la configuración y ajuste de horarios. Excluyendo las respuestas que se referían a actividades diarias o eran valores atípicos, la mayoría de las estimaciones para la configuración inicial y ajustes esporádicos se sitúan entre los 15 y 45 minutos por cuatrimestre. Para esta estimación, se ha calculado una media ponderada de las respuestas, resultando en un promedio de \textbf{30 minutos (0.50 horas) por profesor y cuatrimestre} para las tareas de configuración y ajuste de horarios.
 
 \begin{itemize}
-    \item \textbf{Población:} Aproximadamente 4.000 profesores.
+    \item \textbf{Población:} Aproximadamente 3.500 profesores.
     \item \textbf{Tiempo estimado por profesor y cuatrimestre:} 0.50 horas.
-    \item \textbf{Coste anual por profesorado:} (4.000 profesores) $\times$ 0.50 horas/cuatrimestre $\times$ 2 cuatrimestres/año = 4.000 horas/año.
+    \item \textbf{Coste anual por profesorado:} (3.500 profesores) $\times$ 0.50 horas/cuatrimestre $\times$ 2 cuatrimestres/año = 3.500 horas/año.
 \end{itemize}
 
 \subsection{Coste para el estudiantado}
@@ -44,19 +44,19 @@ Se ha realizado una encuesta anónima similar a alumnos de diferentes cursos de 
 
 \subsection{Estimación del coste agregado anual}
 
-Sumando el tiempo estimado para ambos colectivos, obtenemos una cuantificación del coste ``humanitario'' anual:
+Sumando el tiempo estimado para ambos colectivos, obtenemos una cuantificación del coste ``humano'' anual:
 
 \begin{itemize}
-    \item \textbf{Total de horas anuales:} 90.000 horas (estudiantes) + 4.000 horas (profesores) = \textbf{94.000 horas/año}.
+    \item \textbf{Total de horas anuales:} 90.000 horas (estudiantes) + 3.500 horas (profesores) = \textbf{93.500 horas/año}.
 \end{itemize}
 
 Para contextualizar esta cifra, podemos convertirla en un equivalente de jornadas laborales o incluso en un valor económico aproximado, aunque el objetivo principal es visibilizar el volumen de tiempo.
 
 \begin{itemize}
-    \item \textbf{Equivalente en jornadas laborales (8 horas/día):} 94.000 horas/año $\div$ 8 horas/día = \textbf{11.750 jornadas laborales/año}.
+    \item \textbf{Equivalente en jornadas laborales (8 horas/día):} 93.500 horas/año $\div$ 8 horas/día = \textbf{9.358 jornadas laborales/año}.
 \end{itemize}
 
-Esta cifra de 94.000 horas anuales dedicadas por la comunidad universitaria a la gestión y resolución de problemas de horarios subraya la magnitud del \textbf{coste "humanitario"} que puede pasarse por alto. Representa una cantidad significativa de tiempo y esfuerzo que podría ser redirigida hacia actividades más productivas académicamente o de mejora de la calidad de vida de la comunidad universitaria. La optimización de los procesos de generación de horarios, la mejora de la comunicación y la implementación de herramientas más eficientes tienen el potencial de mitigar sustancialmente este impacto.
+Esta cifra de 93.500 horas anuales dedicadas por la comunidad universitaria a la gestión y resolución de problemas de horarios subraya la magnitud del \textbf{coste "humanO"} que puede pasarse por alto. Representa una cantidad significativa de tiempo y esfuerzo que podría ser redirigida hacia actividades más productivas académicamente o de mejora de la calidad de vida de la comunidad universitaria. La optimización de los procesos de generación de horarios, la mejora de la comunicación y la implementación de herramientas más eficientes tienen el potencial de mitigar sustancialmente este impacto.
 
 \section{Solución propuesta}
 

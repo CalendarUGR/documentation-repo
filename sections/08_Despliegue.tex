@@ -1,5 +1,4 @@
 \chapter{Despliegue del sistema}\label{cap:despliegue}
-\Juanmi[]{Revisar estos primeros párrafos, y la parte de pruebas de carga sobre todo}
 Una vez desarrollado el sistema, es necesario desplegarlo en un servidor para que los usuarios de la UGR puedan hacer uso de él. Para ello, se ha optado por contenerizar el sistema utilizando Docker, lo que permite una fácil gestión y escalabilidad de los microservicios que componen la aplicación.
 \newline\newline
 El servidor en el que se despliega el sistema se encuentra en el edificio auxiliar de la ETSIIT y fue solicitado por el Departamento de Ingeniería de Computadores, Automática y Robótica. El servidor cuenta con las características técnicas definidas en el capítulo \ref{cap:planificacion}, en la sección de ``Presupuesto del proyecto''.
@@ -269,9 +268,6 @@ https://tempus.ugr.es/calendarugr/v1/schedule-consumer/classes-from-group
 \end{lstlisting}
 
 \subsection{Pruebas de carga en un entorno real}
-
-\Juanmi[]{Quizás hago las mismas pruebas de carga (500 y 1000) con balanceo de carga. Si no concluimos así ?}
-
 Una vez todo lo necesario levantado para un funcionamiento normal del sistema, se han realizado pruebas de carga en un entorno real para comprobar el rendimiento y la escalabilidad del sistema. Estas pruebas se han realizado utilizando Locust \cite{locust}, que es una herramienta de código abierto para realizar pruebas de carga y rendimiento en aplicaciones web.
 \newline\newline
 Las pruebas de carga se han realizado para distintos usuarios (con una media de diez suscripciones a grupos de asignatura) solicitando la información de su calendario entero (acción más común del sistema), al endpoint \texttt{https://tempus.ugr.es/calendarugr/v1/academic-subscription/entire-calendar}.\newline
