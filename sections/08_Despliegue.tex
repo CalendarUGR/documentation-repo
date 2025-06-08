@@ -321,14 +321,14 @@ En esta prueba se evaluó el comportamiento del sistema bajo una carga de 100 us
 \label{fig:locust100}
 \end{figure}
 
-Del análisis de la Gráfica~\ref{fig:locust100} y los datos de la Tabla~\ref{tab:locust100}, se extraen las siguientes observaciones:
+Del análisis de la Gráfica en la figura ~\ref{fig:locust100} y los datos de la Tabla~\ref{tab:locust100}, se extraen las siguientes observaciones:
 
 \paragraph{Rendimiento General y Tiempos de Respuesta:}
 El sistema gestionó un total de 4172 solicitudes, alcanzando un throughput promedio de 32.2 RPS. La mediana del tiempo de respuesta (Med(ms)) se situó en unos excelentes 84 ms, y el percentil 95 (95\%(ms)) en 120 ms. Estos valores indican que, una vez superada la fase inicial, la gran mayoría de los usuarios experimentaron tiempos de respuesta muy satisfactorios.
 El tiempo promedio de respuesta (Avg(ms)) fue de 213.04 ms. La diferencia entre la media y la mediana sugiere la presencia de algunas latencias más elevadas, corroborado por el percentil 99 (99\%(ms)) de 6300 ms (6.3 segundos) y un tiempo máximo (Max(ms)) de 7329 ms (7.3 segundos). Aunque estos valores de cola son considerablemente más altos que el P95, afectan a un porcentaje muy reducido de peticiones bajo esta carga.
 
 \paragraph{Comportamiento Inicial (Cold Start):}
-La gráfica de ``Response Times (ms)'' (Gráfica~\ref{fig:locust100}) muestra un pico de latencia al inicio de la prueba (aproximadamente entre 17:30:00 y 17:40:00), donde el P95 alcanzó hasta 7300 ms y la mediana (P50) unos 5200 ms. Este comportamiento es característico de un ``arranque en frío'' del sistema, atribuible a factores como la carga inicial de código en el servidor de aplicaciones, el calentamiento de cachés (aplicación y base de datos PostgreSQL), la inicialización del pool de conexiones a la base de datos y el impacto de las primeras solicitudes sobre un sistema que aún no ha alcanzado su estado óptimo de operación. Tras esta fase inicial, los tiempos de respuesta se estabilizaron rápidamente a los niveles mencionados anteriormente.
+La gráfica de ``Response Times (ms)'' (Gráfica en la figura~\ref{fig:locust100}) muestra un pico de latencia al inicio de la prueba (aproximadamente entre 17:30:00 y 17:40:00), donde el P95 alcanzó hasta 7300 ms y la mediana (P50) unos 5200 ms. Este comportamiento es característico de un ``arranque en frío'' del sistema, atribuible a factores como la carga inicial de código en el servidor de aplicaciones, el calentamiento de cachés (aplicación y base de datos PostgreSQL), la inicialización del pool de conexiones a la base de datos y el impacto de las primeras solicitudes sobre un sistema que aún no ha alcanzado su estado óptimo de operación. Tras esta fase inicial, los tiempos de respuesta se estabilizaron rápidamente a los niveles mencionados anteriormente.
 
 \paragraph{Tasa de Fallos:}
 Se registraron 35 fallos (Fails) sobre 4172 solicitudes, lo que equivale a una tasa de éxito del 99.16\% (tasa de fallo del 0.84\%). Esta tasa se considera muy baja. Los fallos fueron consistentemente del tipo \texttt{RemoteDisconnected('Remote end closed connection without response')}, sugiriendo que el servidor cerró la conexión prematuramente, posiblemente debido a timeouts durante el pico de latencia del ``cold start'' o por eventos transitorios. Dada la baja incidencia, estos fallos no señalan un problema sistémico grave bajo esta carga. El promedio de fallos por segundo fue de 0.1 Fails/s.
@@ -368,7 +368,7 @@ La mediana del tiempo de respuesta (Med(ms)) se mantuvo excelente en 88 ms, simi
 El impacto en las latencias de cola es mucho más pronunciado: el P99(ms) se disparó a 15000 ms (15 segundos) y el Max(ms) a 105514 ms (105.5 segundos). Estos valores son alarmantes y evidencian que un 1-5\% de las solicitudes experimentan degradaciones severas. El Avg(ms) de 887.77 ms está fuertemente influenciado por estas latencias extremas.
 
 \paragraph{Comportamiento Inicial (Cold Start):}
-La Gráfica~\ref{fig:locust500} también muestra un pico de latencia inicial (P95 hasta 9100 ms, P50 hasta 5100 ms), atribuible al ``cold start'', similar al observado con 100 usuarios. Tras esta fase, los tiempos para la mayoría de las solicitudes (mediana) se estabilizaron.
+La Gráfica en la figura~\ref{fig:locust500} también muestra un pico de latencia inicial (P95 hasta 9100 ms, P50 hasta 5100 ms), atribuible al ``cold start'', similar al observado con 100 usuarios. Tras esta fase, los tiempos para la mayoría de las solicitudes (mediana) se estabilizaron.
 
 \paragraph{Tasa de Fallos:}
 Se registraron 48 fallos (Fails) sobre 4918 solicitudes, resultando en una tasa de éxito del 99.02\% (tasa de fallo del 0.98\%). Esta tasa sigue siendo baja, aunque ligeramente superior a la prueba con 100 usuarios. El promedio de fallos por segundo fue de 0.3 Fails/s.
@@ -407,7 +407,7 @@ Bajo esta carga intensiva, el sistema procesó 6672 solicitudes, con un throughp
 La mediana (Med(ms)) se mantiene sorprendentemente baja en 92 ms. No obstante, este dato es engañoso si se considera aisladamente. El P95(ms) se degradó drásticamente a 2500 ms (2.5 segundos), un valor que ya impacta negativamente la experiencia del usuario. Las latencias de cola son extremas: el P99(ms) alcanzó los 89000 ms (89 segundos) y el Max(ms) los 135196 ms (135.2 segundos). Estos tiempos son indicativos de un sistema sobrecargado. El Avg(ms) de 2829.37 ms refleja el fuerte impacto de estas latencias extremas.
 
 \paragraph{Comportamiento Inicial y Durante la Prueba:}
-Se observa el pico de ``cold start'' (P95 hasta 18000 ms), aunque la mediana durante este pico inicial se mantuvo más contenida (140 ms) en comparación con los P95. Un comportamiento anómalo destacado en la Gráfica~\ref{fig:locust1000} ocurrió alrededor de los 90 segundos de prueba, donde el P99 se disparó hasta los 89000 ms. Esto sugiere un evento de saturación o un problema severo que afectó a un pequeño porcentaje de solicitudes de manera aguda durante la ejecución de la prueba, y no solo al inicio.
+Se observa el pico de ``cold start'' (P95 hasta 18000 ms), aunque la mediana durante este pico inicial se mantuvo más contenida (140 ms) en comparación con los P95. Un comportamiento anómalo destacado en la Gráfica de la figura~\ref{fig:locust1000} ocurrió alrededor de los 90 segundos de prueba, donde el P99 se disparó hasta los 89000 ms. Esto sugiere un evento de saturación o un problema severo que afectó a un pequeño porcentaje de solicitudes de manera aguda durante la ejecución de la prueba, y no solo al inicio.
 
 \paragraph{Tasa de Fallos:}
 Se registraron 215 fallos (Fails) sobre 6672 solicitudes, elevando la tasa de fallo al 3.22\% (tasa de éxito del 96.78\%). Aunque no es masiva, esta tasa es significativamente superior a las pruebas anteriores y, combinada con las latencias extremas, indica problemas de estabilidad. El promedio de fallos por segundo fue de 0.6 Fails/s.

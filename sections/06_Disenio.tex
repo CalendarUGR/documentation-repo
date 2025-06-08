@@ -62,7 +62,7 @@ Una decisión arquitectónica fundamental, coherente con los microservicios, es 
     \item \textbf{Seguridad Robusta:} Permite implementar medidas de seguridad específicas y más robustas para cada componente, especialmente en el backend, que maneja datos sensibles.
 \end{itemize}
 
-La comunicación exclusiva entre el backend y el frontend se realiza mediante una \textbf{API REST (Representational State Transfer)}. La elección de REST se basa en su \textbf{simplicidad, naturaleza sin estado y amplia adopción}, lo que facilita la integración e interoperabilidad. La API REST define un conjunto de \textit{endpoints} y utiliza un formato estandarizado, generalmente \textbf{JSON (JavaScript Object Notation)}, para el intercambio de datos.
+La comunicación exclusiva entre el backend y el frontend se realiza mediante una \textbf{API REST (Representational State Transfer)}~\ref{fig:rest_architecture}. La elección de REST se basa en su \textbf{simplicidad, naturaleza sin estado y amplia adopción}, lo que facilita la integración e interoperabilidad. La API REST define un conjunto de \textit{endpoints} y utiliza un formato estandarizado, generalmente \textbf{JSON (JavaScript Object Notation)}, para el intercambio de datos.
 
 \begin{figure}[H]
     \centering
@@ -99,7 +99,7 @@ Para el desarrollo del backend, se eligió el stack tecnológico de \textbf{Java
     \item \textbf{Spring Cloud:} Ofrece herramientas para construir aplicaciones distribuidas (descubrimiento de servicios, configuración centralizada, gestión de circuitos).
 \end{itemize}
 
-Spring Framework es una tecnología líder en Java, con un vasto ecosistema de herramientas y bibliotecas que facilitan la creación de aplicaciones robustas y escalables. La elección de Java como lenguaje de programación capitaliza un lenguaje maduro, ampliamente adoptado, con una gran comunidad, un ecosistema rico y compatibilidad con diversas plataformas y sistemas operativos, además de su velocidad de ejecución \cite{speed_comparison}.
+Spring Framework es una tecnología líder en Java, con un vasto ecosistema de herramientas y bibliotecas que facilitan la creación de aplicaciones robustas y escalables. La elección de Java como lenguaje de programación capitaliza un lenguaje maduro, ampliamente adoptado, con una gran comunidad, un ecosistema rico y compatibilidad con diversas plataformas y sistemas operativos, además de su velocidad de ejecución \cite{speed_comparison} en comparación con otros lenguajes usados en backend, reflejado en la figura~\ref{fig:programming_languages_speed}.
 
 \begin{figure}[H]
     \centering
@@ -122,7 +122,7 @@ La comunicación asíncrona y desacoplada entre servicios se logra mediante \tex
 
 Finalmente, \textbf{Docker} se seleccionó para la \textbf{contenedorización de los servicios}, permitiendo una fácil implementación y escalabilidad. Docker proporciona un entorno aislado y reproducible para cada servicio, simplificando el despliegue en diferentes entornos (desarrollo, pruebas, producción) y mejorando la portabilidad.
 
-Tras la selección de tecnologías y la definición de las interacciones entre los servicios, se establece la siguiente arquitectura general del backend:
+Tras la selección de tecnologías y la definición de las interacciones entre los servicios, se establece la siguiente arquitectura general del backend en la figura~\ref{fig:backend_architecture}:
 
 \begin{figure}[H]
     \centering
@@ -181,7 +181,7 @@ EL algoritmo de balanceo de carga utilizado es el \textbf{Round Robin}, que dist
 
 \subsection{Modelado de la base de datos}
 
-Una vez definidos los requisitos de información del sistema, y los sitemas de gestión de bases de datos a usar en cada servicio, se procedió a diseñar el modelo de datos para cada uno de los servicios del backend. A continuación se muestran los diagramas de entidad-relación (ER) para cada uno de estos:
+Una vez definidos los requisitos de información del sistema, y los sitemas de gestión de bases de datos a usar en cada servicio, se procedió a diseñar el modelo de datos~\ref{fig:user_service_er} para cada uno de los servicios del backend. A continuación se muestran los diagramas de entidad-relación (ER) para cada uno de estos:
 
 \begin{figure}[H]
     \centering
@@ -221,7 +221,7 @@ A continuación, se detalla la estructura y propósito de cada entidad:
     Esta relación implica que cada token temporal está asociado a un usuario específico.
 \end{itemize}
 
-Este diseño de base de datos proporciona una estructura sólida para el \textbf{Servicio de Gestión de Usuarios}, permitiendo una gestión eficiente y segura de la información de los usuarios, sus permisos y los mecanismos de autenticación adicionales.
+Este diseño de base de datos~\ref{fig:schedule_service_er} proporciona una estructura sólida para el \textbf{Servicio de Gestión de Usuarios}, permitiendo una gestión eficiente y segura de la información de los usuarios, sus permisos y los mecanismos de autenticación adicionales.
 
 \begin{figure}[H]
     \centering
@@ -280,7 +280,7 @@ A continuación, se describen las entidades y sus relaciones:
     \end{itemize}
 \end{itemize}
 
-Este esquema de base de datos permite al \textbf{Servicio de Horarios y Calendario} organizar y gestionar de manera eficiente toda la información académica necesaria para la composición de los horarios de los usuarios.
+Este esquema de base de datos~\ref{fig:academic_subscription_service_er} permite al \textbf{Servicio de Horarios y Calendario} organizar y gestionar de manera eficiente toda la información académica necesaria para la composición de los horarios de los usuarios.
 
 \begin{figure}[H]
     \centering
@@ -674,7 +674,7 @@ Además, Angular cuenta con un robusto sistema de inyección de dependencias, lo
 
 En cuanto a la parte visual del proyecto, se tuvo en mente desde el principio tener una interfaz usable, intuitiva y accesible, de manera que se facilitara lo máximo posible el acceso a la información del horario personalizado.
 \newline\newline
-Para ello, se optó por un diseño minimalista, con una paleta de colores clara y un uso moderado de imágenes. Además se utilizó la tipografía ``Segoe UI'' por su diseño moderno con letras redondeadas y diseño limpio que se ve bien en pantallas y papel.
+Para ello, se optó por un diseño minimalista~\ref{fig:logo}, con una paleta de colores clara y un uso moderado de imágenes. Además se utilizó la tipografía ``Segoe UI'' por su diseño moderno con letras redondeadas y diseño limpio que se ve bien en pantallas y papel.
 \newline
 \begin{center}
 \begin{minipage}{0.5\textwidth}

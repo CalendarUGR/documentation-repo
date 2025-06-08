@@ -7,7 +7,7 @@ En este capítulo se describe la implementación del proyecto, así como detalle
 
 En este sprint no se comienza el desarrollo del proyecto, sino que, como se menciona en la seccion \ref{cap:especificación} y \ref{cap:planificacion}, se realiza una investigación sobre las tecnologías a utilizar, y se detallan los requerimientos del sistema, y la arquitectura a implementar.
 \newline\newline
-Al usar Java como lenguaje de programación y Spring Boot como framework de desarrollo, se sigue un patrón similar para el desarrollo de los servicios, ya que todos comparten componentes y directorios similares.
+Al usar Java (versión 21) como lenguaje de programación y Spring Boot (versión 3.4.4) como framework de desarrollo, se sigue un patrón similar para el desarrollo de los servicios, ya que todos comparten componentes y directorios similares.
 
 \subsection{Estructura general de los servicios}
 
@@ -138,6 +138,13 @@ Este diagrama representa las principales clases del servicio, incluyendo los con
 \end{enumerate}
 
 Aunque en cada servicio se implementan diferentes funcionalidades, la estructura y la interacción entre los componentes siguen un patrón similar, lo que facilita la comprensión del código.
+Para ilustrar de manera más simple lo detallado anteriormente, se muestra la figura \ref{fig:comm}, que representa la comunicación general entre los componentes del backend. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/07_back.png}
+    \caption{Comunicación general entre los componentes del backend}
+    \label{fig:comm}
+\end{figure}
 
 \subsection{Mail Service}
 El servicio de correo electrónico se encarga de enviar correos electrónicos a los usuarios del sistema. Este servicio es utilizado por otros servicios para enviar notificaciones, como la confirmación de registro, recuperación de contraseña, etc.
@@ -150,7 +157,7 @@ Una vez recibido el mensaje, el servicio extrae los datos necesarios, como la di
 
 Después de generar el contenido del correo, se utiliza la biblioteca \texttt{JavaMail} para su envío. JavaMail proporciona una API robusta y configurable que permite construir mensajes MIME, manejar los encabezados, adjuntos y establecer la conexión con el servidor SMTP. En este caso, se ha configurado el servicio para utilizar \textbf{Gmail como proveedor de correo electrónico}, lo cual requiere definir parámetros como el host SMTP de Gmail (\texttt{smtp.gmail.com}), el puerto correspondiente, y habilitar la autenticación y conexión segura mediante TLS. Esta configuración se especifica en los archivos de propiedades del servicio, lo que facilita su adaptación a distintos entornos de despliegue.
 
-En conjunto, este microservicio representa una solución elegante y modular para el envío de correos en arquitecturas basadas en microservicios. Aprovecha la comunicación asincrónica de RabbitMQ, la potencia expresiva de las plantillas Thymeleaf, y la fiabilidad de JavaMail para lograr un sistema de notificaciones por correo eficaz, personalizable y mantenible.
+En conjunto, este microservicio representa una solución elegante y modular para el envío de correos~\ref{fig:mail-service-class-diagram} en arquitecturas basadas en microservicios. Aprovecha la comunicación asincrónica de RabbitMQ, la potencia expresiva de las plantillas Thymeleaf, y la fiabilidad de JavaMail para lograr un sistema de notificaciones por correo eficaz, personalizable y mantenible.
 
 \begin{figure}[H]
     \centering
@@ -216,7 +223,7 @@ El flujo de autenticación y generación de tokens JWT se ilustra en la figura \
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/07_auth.png}
+    \makebox[\textwidth][c]{\includegraphics[width=1.1\textwidth]{figures/07_auth.png}}
     \caption{Flujo de autenticación y generación de tokens JWT}
     \label{fig:auth-service-class-diagram}
 \end{figure}
@@ -286,7 +293,7 @@ Este fragmento configura el punto de entrada de los mensajes que serán enviados
 
 \subsubsection{Configuración en \texttt{mail-service}}
 
-El servicio \texttt{mail-service} funciona exclusivamente como consumidor de mensajes. Su configuración es más extensa, ya que debe definir tanto las colas como las asociaciones con el intercambio, además de políticas de reintento y manejo de errores.
+El servicio \texttt{mail-service} funciona exclusivamente como consumidor de mensajes~\ref{fig:rabbitmq-config}. Su configuración es más extensa, ya que debe definir tanto las colas como las asociaciones con el intercambio, además de políticas de reintento y manejo de errores.
 
 Se definen dos colas principales:
 \begin{itemize}
@@ -347,30 +354,219 @@ Después, se identifica al profesorado vinculado a la asignatura y a sus respect
 
 Finalmente, se extrae el horario de clases para cada grupo, identificando el día de la semana, aula, fechas de inicio y fin, y horas de inicio y fin. Esta información se transforma en objetos de clase que se asocian con el grupo correspondiente. Si no se detecta una clase idéntica en la base de datos, se crea una nueva entrada para ella.
 
-Este enfoque permite consolidar una base de datos académica completa, dinámica y precisa, ideal para ser explotada por nuestro sistema.
+Este enfoque~\ref{fig:scrapping-process} permite consolidar una base de datos académica completa, dinámica y precisa, ideal para ser explotada por nuestro sistema.
+
+%figura de scrapping, recortar un poco por arriba
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth, trim=0 0 0 45, clip]{figures/07_scrapping.png}
+    \caption{Proceso de scrapping de asignaturas y horarios}
+    \label{fig:scrapping-process}
+\end{figure}
 
 \section{Sprint 2}
 
-Se afina el scrapping, se crea el servicio schedule-consumer-service, y se crea la lógica de suscripciones a grupos, y demás tareas relacionadas. Además se puede extraer el ".ics"
-de los horarios personalizados, para ello se implementa el academic-subscription-service.
+En el comienzo de este sprint se continúa afinando y completando el script de scrapping, y revisando que se recoja información de todos los grados y asignaturas de la UGR. Esto se consigue realizando una labor de análisis exhaustivo de las diferenmtes páginas y secciones que conforman el portal de ``grados UGR'' mencionado con anterioridad.
+\subsubsection{Schedule Consumer Service}
+Paralelo a este desarrollo, se comienza el desarrolo del servicio \texttt{schedule-consumer-service}. Este es el encargado de, en primer lugar, hacer uso del scrapping para obtener los horarios de las asignaturas y almacenar la información en la base de datos, y en segundo lugar, de exponer endpoints relacionados con la consulta de estos datos. Uno de los objetivos de la realización se este servicio es poseer endpoints públicos para poder ser consumidos desde otros sistemas externos a nuestro frontend ``TempusUGR''.
+\newline\newline
+Una vez hecho el scrapping, y la información en base de datos (integrando el script de scrapping con el resto de componentes de Spring como lo son ``Repositories'',''Controllers'', etc), se necesita una manera de actualización de la información, puesto que es una de las premisas del sistema, mantener un acceso personalizado y actualizado del calendario académico.\newline
+Para conseguir esto, y puesto que iterar y comprobar cambios sobre las más de 50.000 clases distintas impartidas en grupos de asignatura de la UGR es una tarea costosa y compleja, se decide implementar un ``\hypertarget{cronjob}{Cron job}'' que se encargue de realizar el scrapping de forma periódica, y así mantener la información actualizada. Este cron job se implementa en el servicio \texttt{schedule-consumer-service} y se ejecuta todos los días a las 00:00 horas, de forma que se actualizan los horarios de las asignaturas y se eliminan aquellos que ya no existen.
+\newline\newline
+Spring Boot proporciona una forma sencilla de implementar cron jobs mediante la anotación \texttt{@Scheduled}. Esta anotación permite definir un método que se ejecutará periódicamente según una expresión cron. En este caso, se ha configurado para que el método de actualización de horarios se ejecute diariamente a medianoche. Además de la anotación \texttt{@Scheduled}, se utiliza la anotación \texttt{@EnableScheduling} en la clase de configuración principal del servicio para habilitar el soporte de programación de tareas, y la anotación \texttt{@Async} para permitir la ejecución asíncrona de los métodos, lo que mejora la eficiencia y la capacidad de respuesta del servicio.
+\newline
+Para evitar un fallo del funcionamiento del servicio mientras se realiza una sustitución de los datos (Primero se borran los horarios antiguos, y luego se añaden los nuevos), se hace uso también de la anotación \texttt{@Transactional}, proveniente de ``Spring Transaction'', en el método que realiza la actualización de horarios. Esto asegura que todas las operaciones de base de datos se realicen dentro de una transacción, lo que garantiza la consistencia de los datos y evita problemas de concurrencia. Así los usuarios pueden seguir consultando la información de horarios sin  interrupciones, incluso durante el proceso de actualización.
+\newline\newline
+Una vez implementado el servicio se consigue el servicio troncal del backend, que permite obtener los horarios de las asignaturas de la UGR, y exponerlos a través de una API REST. Este servicio se convierte en el núcleo del sistema, ya que proporciona la información necesaria para el objetivo principal del proyecto: ofrecer un calendario académico personalizado y actualizado para los estudiantes de la UGR.
 
-Se crea además el servidor de descubrimiento de servicios con eureka, y así se investiga como mejorar el rendimiento con balanceo de carga y varias instancias.
+\subsubsection{Academic Subscription Service}
+Así se comienza con el desarrollo del servicio \texttt{academic-subscription-service}, que se encargará de gestionar las suscripciones a los grupos de asignaturas de cualquier grado de la UGR.\newline
+Las suscripciones se componen del identificador del usuario, la facultad, el grado, la asignatura y su grupo, puesto que de otra manera no se podría identificar de forma única un grupo de asignatura, ya que puede haber grupos con el mismo nombre en diferentes grados o facultades. Con esta información se hacen peticiones al servicio \texttt{schedule-consumer-service} para obtener los horarios de las asignaturas~\ref{classes} y generar un calendario personalizado para el usuario con sus clases oficiales.\newline
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/07_classes.png}
+    \caption{Servicio de suscripciones académicas}
+    \label{classes}
+\end{figure}
+
+Una vez se consigue esta información en formato ``JSON'', se implementa la lógica para generar un archivo \texttt{.ics}\cite{icalendar} que pueda ser importado en aplicaciones de calendario como Google Calendar, Outlook, etc. Para ello se utiliza la biblioteca \texttt{ical4j}, que permite crear y manipular archivos de calendario en formato iCalendar (\texttt{.ics}).\newline
+\newline
+Para crear esta primera versión de ``.ics'' se hace uso de los eventos recurrentes ( \texttt{RRULE}) de iCalendar, que permiten definir patrones de repetición para eventos. Esto es especialmente útil para las clases que se repiten semanalmente, ya que permite definir una sola entrada en el calendario que se repetirá automáticamente en las fechas correspondientes.\newline
+\newline
+Toda la información en este servicio se almacena en una base de datos no relacional, en este caso \texttt{MongoDB}, que permite una mayor flexibilidad y escalabilidad para almacenar los datos de las suscripciones y los horarios de las asignaturas. 
+
+\subsubsection{Eureka Discovery Server}
+A esta altura del proyecto en la que ya se tienen desarrollados varios servicios, se decide implementar un servidor de descubrimiento de servicios utilizando \textbf{Eureka}, que es parte del ecosistema de Spring Cloud. Eureka permite a los servicios registrarse y descubrir otros servicios en el sistema, facilitando la comunicación entre ellos sin necesidad de conocer sus direcciones IP o puertos específicos.
+\newline 
+Para conseguir esto se crea un nuevo proyecto de Spring Boot que actúa como el servidor Eureka. Este servidor se configura para permitir que otros servicios se registren y descubran entre sí. Cada servicio que se desea registrar en Eureka debe incluir la dependencia de \texttt{spring-cloud-starter-netflix-eureka-client} y configurarse adecuadamente en su archivo \texttt{application.properties}.
+\newline
+Esto nos permite los siguientes avances:
+\begin{itemize}
+  \item \textbf{Balanceo de carga}: Al registrar los servicios en Eureka, se pueden utilizar balanceadores de carga de manera dinámica, sin necesidad de configurar manualmente las direcciones IP y puertos de cada servicio. Eureka proporciona una lista de instancias disponibles, lo que permite al cliente elegir una instancia para enviar la solicitud.
+  \item \textbf{Alta disponibilidad}: Si un servicio falla, Eureka permite que otros servicios sigan funcionando sin interrupciones, ya que pueden redirigir las peticiones a otras instancias disponibles.
+  \item \textbf{Configuración centralizada}: Permite gestionar la configuración de los servicios desde un único punto, facilitando el mantenimiento y la actualización del sistema.
+  \item \textbf{Facilidad de desarrollo}: Al utilizar Eureka, los desarrolladores pueden centrarse en la lógica de negocio de sus servicios sin preocuparse por la gestión de direcciones IP y puertos, ya que Eureka se encarga de ello. Es decir, las llamadas HTTP pasan de tener un formato similar a este \texttt{http://localhost:8081/calendarugr/v1/user-service/users} a \texttt{http://user-service/users}, donde \texttt{user-service} es el nombre del servicio registrado en Eureka.
+\end{itemize}
+
+De esta manera podemos tener un control de los servicios que se están ejecutando en el sistema~\ref{eureka}, y facilitar la comunicación entre ellos. Además, se puede escalar horizontalmente los servicios, añadiendo más instancias de un mismo servicio sin necesidad de modificar el código del cliente.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/07_eureka.png}
+    \caption{Servidor de descubrimiento de servicios con Eureka}
+    \label{eureka}
+\end{figure}
 
 \section{Sprint 3}
 
-Fin del backend generando eventos a nivel de grupo y a nivel de facultad. Extracción del ics con clases oficiales, clases extra y eventos de facultad. Sincronización con Google calendar.
-Alertas cuando se crean eventos a nivel de grupo (clases extra).
-Se crean pruebas unitarias y se realizan pruebas de carga en el servidor de despliegue.
-Se dockeriza el sistema y se implementa en un servidor de producción.
+El comienzo de estas tres semanas estuvo centrado en la finalización del servicio \texttt{academic-subscription-service}, que se encarga de gestionar las suscripciones a los grupos de asignaturas de cualquier grado de la UGR.\newline
+Para conseguir esto, se implementa la gestión de eventos a nivel de grupo (eventos que son relevantes para aquellas personas suscritas a ese grupo de asignatura), y eventos a nivel de facultad (eventos que son relevantes para todas las personas suscritas a cualquier grupo de asignatura de esa facultad). Estos eventos se almacenan en la base de datos del servicio \texttt{academic-subscription-service}, en una tabla diferente a las suscripciones.\newline
+Para poder crear estos eventos, el usuario debe ser tanto profesor como administrador, y para poder crear eventos a nivel de facultad, el usuario debe ser administrador. Estos eventos se crean a través de endpoints del servicio \texttt{academic-subscription-service}. 
+\newline\newline
+Una vez se crean los eventos, estos serán visibles para todos los usuarios suscritos a ese grupo de asignatura o facultad, y se enviarán notificaciones a través del servicio de correo electrónico (\texttt{mail-service}) a todos los usuarios suscritos con notificaciones activadas. Estas notificaciones se envían mediante RabbitMQ, como se ha explicado anteriormente, y se generan correos electrónicos personalizados utilizando plantillas Thymeleaf en el servicio de mail.
+\newline\newline
+Una vez creados los eventos, e implementada la posibilidad de poder obtener la información de estos y clases oficiales, se adaptó la creación de los archivos \texttt{.ics} para incluir tanto las clases oficiales como los eventos de grupo y facultad. Estos al contrario que las clases oficiales, no son recurrentes, por lo que se crean como eventos únicos en el calendario. De esta manera, el usuario puede importar un archivo \texttt{.ics} que contenga tanto sus clases oficiales como los eventos de grupo y facultad a su calendario personal, ya sea Google Calendar, Outlook, etc.\newline
+\newline\newline
+Además de esto se implementa la sincronización con Google Calendar. Para conseguir esto se pueden seguir diferentes estrategias:
+\begin{itemize}
+  \item \textbf{Google Calendar API}: Utilizar la API de Google Calendar para crear eventos directamente en el calendario del usuario. Esto requiere que el usuario autorice la aplicación a acceder a su calendario.
+  \item \textbf{Exportación de archivos ICS}: Generar un archivo \texttt{.ics} que el usuario pueda descargar e importar manualmente en su Google Calendar.
+  \item \textbf{Url de sincronización}: Proporcionar una URL de suscripción a un calendario que Google Calendar pueda utilizar para sincronizar automáticamente los eventos y clases oficiales.
+\end{itemize}
+
+En este caso, y como el sistema ya requiere el correo institucional al usuario (con el de google no podemos descifrar si es estudiante o docente), se opta por la tercera opción, que es la más sencilla y permite al usuario sincronizar su calendario de forma automática. Para ello se genera una URL que el usuario puede añadir a su Google Calendar, y que se actualizará automáticamente con los eventos y clases oficiales del usuario.
+El acceso a esta URL es público, por lo que cualquier persona que tenga el enlace podrá acceder a los eventos y clases oficiales del usuario. Esto se decide hacer de esta manera para que Google Calendar pueda acceder a la información sin necesidad de autenticación, ya que el usuario ya ha autorizado la aplicación a acceder a su calendario al momento de crear la suscripción.
+\newline
+La fabricación de esta URL requiere la creación de un hash único para cada usuario que además sea ``reversible'' para identificar la pertenencia del mismo. Para conseguir esto se hizo uso de ``AES'', un algoritmo de cifrado simétrico que permite cifrar y descifrar datos de forma segura. Se utiliza una clave secreta para cifrar el identificador del usuario, y se genera un hash único que se utiliza como parte de la URL de sincronización. De esta manera, se garantiza que la URL es única para cada usuario y que solo el usuario puede acceder a su información.
+\newline\newline
+La URL queda con un formato similar a este: \texttt{https://tempus.ugr.es/calendarugr/v1/academic-subscription/calendar/{HASH}}
+
+\subsubsection{Segundo hito del backend}
+
+Con la implementación del servicio \texttt{academic-subscription-service} y la sincronización con Google Calendar, se alcanza el segundo hito del backend. Este hito permite a los usuarios suscribirse a grupos de asignaturas, recibir notificaciones de eventos relevantes y sincronizar su calendario personal con las clases oficiales y eventos de su facultad.
+
+\subsubsection{Pruebas unitarias y de integración}
+Se implementan pruebas unitarias para todos los servicios del backend, utilizando \textbf{JUnit} (librería de pruebas para Java) y \textbf{Mockito} (framework de simulación para pruebas unitarias). Estas pruebas permiten verificar el correcto funcionamiento de los servicios, asegurando que las funcionalidades implementadas cumplen con los requisitos establecidos. Se realizan pruebas tanto a nivel de unidad como de integración, comprobando que los servicios interactúan correctamente entre sí y con la base de datos.
+\newline
+Por ejemplo se implementan pruebas de integración en el servicio \texttt{schedule-consumer-service} para comprobar que todos los componentes del servicio funcionan correctamente, desde el scrapping de los horarios hasta la generación de los archivos \texttt{.ics}. Estas pruebas permiten detectar posibles errores en la lógica del servicio y asegurar que la información se almacena correctamente en la base de datos.
+\newline
+Algunos ejemplos de test en este servicio son:
+\begin{itemize}
+    \item \textbf{\texttt{testGetClassesFromGroup()}}:
+    Este test verifica el \textit{endpoint} que devuelve las \textbf{clases de un grupo específico} (\texttt{/classes-from-group}). Simula una petición \texttt{GET} con parámetros para el grado, la asignatura y el grupo. Espera una respuesta exitosa (código \texttt{200 OK}) con contenido JSON que es un \textit{array}, y específicamente que el primer elemento tenga el día ``viernes''. También incluye un \texttt{System.out.println} para depuración de la \texttt{API Key} y la respuesta.
+
+    \item \textbf{\texttt{testValidateExtraClass()}}:
+    Este test prueba el \textit{endpoint} de \textbf{validación de clases extra} (\texttt{/extraclass-validation}). Envía una petición \texttt{POST} con un objeto \texttt{ExtraClassDTO} que contiene los detalles de una clase. Espera una respuesta exitosa (código \texttt{200 OK}) con contenido JSON que es una cadena \texttt{false}, lo que indica que la clase extra enviada no es válida según la lógica del \textit{backend}.
+
+    \item \textbf{\texttt{testGetGrades()}}:
+    Este test verifica el \textit{endpoint} que devuelve la \textbf{lista de grados} (\texttt{/grades}). Simula una petición \texttt{GET} y espera una respuesta exitosa (código \texttt{200 OK}) con contenido JSON que es un \textit{array}, y que ese \textit{array} contenga exactamente 6 elementos.
+
+    \item \textbf{\texttt{testGetSubjectsGroups()}}:
+    Este test prueba el \textit{endpoint} que devuelve las \textbf{asignaturas y sus grupos asociados} para un grado específico (\texttt{/subjects-groups}). Envía una petición \texttt{GET} con el parámetro \texttt{grade} y espera una respuesta exitosa (código \texttt{200 OK}) con un \textit{array} JSON. Verifica que el primer elemento del \textit{array} tenga la asignatura ``Cálculo'' y que su \textit{array} de grupos asociado contenga 22 elementos.
+
+    \item \textbf{\texttt{testValidateSubscription()}}:
+    Este test verifica el \textit{endpoint} de \textbf{validación de suscripciones} (\texttt{/subscription-validation}). Realiza dos pruebas \texttt{POST}:
+    \begin{itemize}
+        \item La primera envía una \texttt{SubscriptionDTO} \textbf{válida} y espera una respuesta \texttt{true}.
+        \item La segunda envía una \texttt{SubscriptionDTO} \textbf{inválida} (con un grupo inexistente ``Z'') y espera una respuesta \texttt{false}. Ambas esperan un código \texttt{200 OK}.
+    \end{itemize}
+
+    \item \textbf{\texttt{testGetClassesFromGroup\_unauthorized()}}:
+    Este test es una prueba de \textbf{seguridad o autorización}. Intenta acceder al mismo \textit{endpoint} \texttt{/classes-from-group} que el primer test, pero utiliza una \texttt{X-Api-Key} \textbf{incorrecta}. Espera que la respuesta sea un código \texttt{403 Forbidden}, indicando que la petición no está autorizada.
+\end{itemize}
+
+Ejemplos de test que comprueban la correcta interoperabilidad entre los servicios:
+
+\begin{itemize}
+    \item \textbf{\texttt{testConflictWithExistingClassMiddle()}}:
+    Verifica que el \textit{backend} detecta un \textbf{conflicto de horario} cuando una clase extra propuesta se solapa con una clase existente en la base de datos (iniciando y terminando dentro del rango de la clase existente). Espera una respuesta de \texttt{status 409 Conflict}.
+
+    \item \textbf{\texttt{testBadRequestNoFaculty()}}:
+    Prueba la validación de entrada. Envía una petición para crear una clase extra donde el campo \texttt{facultyName} está \textbf{vacío}. Espera un \texttt{status 400 Bad Request}, indicando que el servidor ha rechazado la petición debido a datos inválidos o faltantes.
+
+    \item \textbf{\texttt{testConflictWithExistingClassInit()}}:
+    Comprueba que se detecta un \textbf{conflicto de horario} cuando la hora de inicio de la clase extra propuesta se solapa con una clase existente, aunque la hora de fin sea anterior al fin de la clase existente. Espera un \texttt{status 409 Conflict}.
+
+    \item \textbf{\texttt{testConflictWithExistingClassFinish()}}:
+    Asegura que se detecta un \textbf{conflicto de horario} cuando la hora de fin de la clase extra propuesta se solapa con una clase existente, aunque la hora de inicio sea posterior al inicio de la clase existente. Espera un \texttt{status 409 Conflict}.
+
+    \item \textbf{\texttt{testConflictWithExistingClassFull()}}:
+    Valida que se detecta un \textbf{conflicto de horario} cuando la clase extra propuesta abarca completamente el horario de una clase existente. Espera un \texttt{status 409 Conflict}.
+\end{itemize}
+
+En conjunto, estos test cubren la funcionalidad básica de varios \textit{endpoints} de la API (Ejemplo de test pasados con éxito en la figura~\ref{test}), incluyendo la recuperación de datos, la validación de información y la comprobación de la seguridad por clave API.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{figures/07_test.png}
+    \caption{Pruebas unitarias e integración del servicio schedule-consumer-service}
+    \label{test}
+\end{figure}
 
 \section{Sprint 4}
 
-Comienzo del frontend, se implementan las mismas historias de usuario que en el backend.
-Refinamiento del backend, añadidos para complementar el frontend. Se añade la posibilidad de suscripcion a asignaturas por nombre de profesor.
+En este punto ya tenemos un backend sólido y funcional, con servicios que permiten gestionar usuarios, autenticación, suscripciones a asignaturas y horarios de la UGR. El siguiente paso es desarrollar el frontend de la aplicación, que permitirá a los usuarios interactuar con el sistema de manera intuitiva y visual.
+\subsection{Frontend con Angular}
+El frontend se desarrolla con Angular (versión 19.0.2), lo que significa que se utiliza TypeScript como lenguaje principal, junto con HTML y CSS para la estructura y el estilo de la aplicación. Angular es un framework de desarrollo web que permite crear aplicaciones de una sola página (SPA) de manera eficiente y escalable.
+\subsubsection{Estructura del proyecto}
+El proyecto de Angular se organiza en ``components'', ``services'' y ``models'', siguiendo las mejores prácticas de Angular. Los componentes son las unidades básicas de la interfaz de usuario, los servicios se encargan de la lógica de negocio y la comunicación con el backend, y los modelos definen las estructuras de datos utilizadas en la aplicación.
+\subsubsection{Comunicación con el backend}
+La comunicación con el backend se realiza a través de servicios que utilizan \texttt{HttpClient} de Angular para hacer peticiones HTTP a los diferentes \textit{endpoints} del API Gateway. Estos servicios manejan la autenticación mediante tokens JWT, que se envían en las cabeceras de las peticiones para identificar al usuario y su rol. Tanto el ``access\_token'' como el ``refresh\_token'' se almacenan en el almacenamiento local del navegador, lo que permite mantener la sesión del usuario activa entre recargas de página.
+
+Además, también se ha hecho uso de ``Observables'' para manejar las respuestas del backend de manera asíncrona, lo que permite una experiencia de usuario más fluida y reactiva. Los servicios se encargan de transformar los datos recibidos del backend en objetos que pueden ser utilizados por los componentes de la interfaz de usuario.
+
+Cada vez que se hace una petición al backend se hace uso de un ``Interceptor'' de Angular, este adjunta el token de acceso a la cabecera Authorization de casi todas las solicitudes salientes. Sin embargo, excluye ciertas rutas relacionadas con la autenticación inicial o el refresco de tokens (como /auth/login o /auth/refresh) para evitar bucles o requisitos innecesarios.
+Si una solicitud protegida se realiza sin un token de acceso, el interceptor redirige al usuario a la página de login y lanza un error. Su función más importante es el manejo de tokens de acceso expirados: si una API devuelve un error 401, el interceptor intenta refrescar el token usando el token de refresco. Si el refresco es exitoso, actualiza el token de acceso y reintenta la solicitud original. Si el token de refresco también ha expirado, elimina ambos tokens, redirige al usuario al login y reporta un error. Para otros tipos de errores HTTP, simplemente los propaga.
+\subsubsection{Rutas y navegación}
+El enrutamiento se gestiona mediante el módulo de enrutamiento de Angular, que permite definir rutas para cada componente de la aplicación. Esto facilita la navegación entre diferentes vistas y componentes sin necesidad de recargar la página completa, lo que mejora la experiencia del usuario. Además, se implementa un sistema de guardias de ruta para proteger las rutas que requieren autenticación, asegurando que solo los usuarios con un token JWT válido puedan acceder a ellas.
+\subsubsection{Interfaz de usuario}
+La interfaz de usuario se ha desarrollado únicamente con HTML, CSS y Tailwind CSS, sin utilizar librerías de componentes adicionales. Esto permite un mayor control sobre el diseño y la apariencia de la aplicación, adaptándola a las necesidades específicas del proyecto. Se han creado componentes reutilizables para las diferentes secciones de la aplicación, como formularios de inicio de sesión, registro, suscripciones y visualización de horarios.
+A continuación se muestran en las siguientes figuras (~\ref{login} , ~\ref{calendario} , ~\ref{sincro} , ~\ref{suscripciones} , ~\ref{eventos}) las páginas principales de la aplicación que incluyen el inicio de sesión, la página principal del calendario,la página de sincronización, la página de suscripciones y la página de eventos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/07_inicio.png}
+    \caption{Página de inicio de sesión}
+    \label{login}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/07_calendario.png}
+    \caption{Página principal del calendario}
+    \label{calendario}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/07_sincro.png}
+    \caption{Página de sincronización con Google Calendar}
+    \label{sincro}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/07_suscripciones.png}
+    \caption{Página de suscripciones a asignaturas}
+    \label{suscripciones}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/07_eventos.png}
+    \caption{Página de eventos de grupo y facultad}
+    \label{eventos}
+\end{figure}
+
+\subsubsection{Suscripción a las asignaturas de un profesor}
+Al principio de este sprint se ajustaron tanto el ``Backlog'' como el ``Sprint Backlog'' para incluir la posibilidad de que un profesor pueda suscribirse a las asignaturas que imparte automáticamente buscando su nombre. Esta es una funcionalidad que se detectó como necesaria durante el desarrollo del frontend, ya que tenemos la información necesaria para poder implementarla, y es una funcionalidad que se espera que sea utilizada por los profesores de la UGR.
+\newline
+Al tener todos los servicios necesarios implementados, y funcionalidades similares ( obtener clases según grado, obtener todos los grados ...), no costó mucho tiempo y cambios significativos en el código. Se implementó un nuevo \textit{endpoint} en el servicio \texttt{schedule-consumer-service} que permite obtener las asignaturas de un profesor a partir de su nombre, y se añadió una nueva funcionalidad en el servicio \texttt{academic-subscription-service} que permite suscribirse a varias asignaturas a la vez.
+Por otra parte en el apartado ``suscripciones'' se añadió un ``dropdown'' que sólo podrán visualizar los profesores y administradores, que les permitirá buscar por su nombre y suscribirse a todas sus asignaturas directamente.
 
 \section{Sprint 5}
 
-Se acaba el frontend. Se termina la documentación del proyecto. Se añade recuperación de contraseña. Se despliega y se hacen las pruebas de carga.
-Se comienza la presentación del TFG.
+Las últimas tres semanas del desarrollo se destinaron a depurar y arreglar errores tanto en el frontend como en el backend. Además antes de comenzar este sprint también se hicieron modificaciones en el ``Backlog'' y el ``Sprint Backlog'' para añadir la funcionalidad de ``reseteo de contraseña''. Esta se detectó al hacer pruebas exhaustivas del sistema. Al pretender desplegar el sistema y que esté preparado para su uso, esta es una funcionalidad que se considera esencial para cualquier sistema de gestión de usuarios, y que no se había implementado hasta ahora.
+\newline
+Al contrario que en el sprint anterior, esta funcionalidad sí requiere de varios pasos para su implementación puesto que requiere, en el caso del backend, un endpoint para solicitar el reseteo, lógica para poder mandar un correo al usuario, y otro endpoint para modificar su contraseña, mientras que en el frontend se requerían un modal para solicitar un correo de contacto, y una página para establecer la nueva contraseña.
 
-
+En todos los sprint, además de desarrollo, se ha destinado parte del tiempo para ir completando la documentación (diagramas, esquemas, redacción, etc), pero en este sprint se pretende completar la memoria.
+\newline
+Además al final, y tras este sprint, se despliega el sistema en un servidor de producción, y se realizan pruebas de carga y estrés para comprobar que el sistema es capaz de soportar un número elevado de usuarios concurrentes. Este apartado se desarrolla con más detalle en el apartado de ``Despliegue''\ref{cap:despliegue}.
