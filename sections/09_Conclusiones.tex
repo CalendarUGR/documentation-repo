@@ -1,11 +1,44 @@
 \chapter{Conclusiones y trabajos futuros}\label{cap:conclusiones}
 
-\section{Evalución del proyecto}
+\Juanmi[]{Punto a revisar}
 
-\Juanmi[]{Meter enlace al proyecto en GitHub}
+El sistema completo, ``TempusUGR'', ha sido desarrollado y desplegado con éxito. Además de estar preparado para un uso normal, se han implementado varias características que lo hacen un sistema robusto y escalable. 
+
+\section{Objetivos cumplidos}
+Todos los objetivos planteados al inicio del proyecto se han cumplido, aunque algunos de ellos han evolucionado a lo largo del desarrollo. En particular, se ha logrado:
+\begin{itemize}
+    \item Desarrollar un sistema de gestión de horarios para la Universidad de Granada que permita a los estudiantes y profesores visualizar sus horarios de manera eficiente.
+    \item Proveer al usuario un archivo ``ical'' que pueda ser importado en aplicaciones de calendario como Google Calendar, Apple Calendar, Outlook, etc.
+    \item Permitir la sincronización de los horarios con aplicaciones de calendario, facilitando la gestión del tiempo y la planificación de actividades académicas.
+    \item Agilizar el proceso de comunicaciones de eventos tanto de grupo como de facultades, a nivel de la UGR.
+    \item Implementar una interfaz de usuario intuitiva y fácil de usar, que permita a los usuarios interactuar con el sistema de manera eficiente.
+    \item Aprender sobre la arquitectura de microservicios, y sobre varias tecnologías relativas a este tipo de arquitectura.
+    \item Desplegar el sistema en un entorno de producción, utilizando herramientas de contenedorización y orquestación como Docker y Docker Compose.
+\end{itemize}
 
 \section{Dificultades y resolución}
 
+El proyecto ha supuesto un reto significativo tanto a nivel técnico como a nivel de gestión. Algunas de las dificultades encontradas incluyen:
+\begin{itemize}
+    \item El sistema se planteó inicialmente como un apoyo a las sedes de la UGR para la subida de información de horarios a una única plataforma de manera estándar. Tras la primera entrevista con Jesús García Miranda, Secretario de la ETSIIT y encargado de la gestión de horarios, se decidió cambiar de dirección hacia un sistema que utilizara los datos ya publicados en un punto central (en este caso Grados UGR).
+    Esta decisión se tomó por la falta de información en cuanto a la generación, formato y fechas relativas a la subida de horarios, así como por la falta de un sistema centralizado que permitiera a las sedes subir sus horarios de manera estandarizada.
+    Sin embargo, esta decisión también ha permitido centrar el proyecto en una solución más escalable y flexible, que puede adaptarse a futuras necesidades de la UGR.
+
+    \item Desde un principio se plantearon varias opciones para la implementación del sistema. Desde solicitar una vista o API a la base de datos de los horarios y calendario académico, desde integrar el sistema de autenticación institucional u obtener la información relativa a las matriculaciones. Al no poder tener acceso a ninguna de estas opciones, se optó por soluciones alternativas e ``independientes'' de la UGR, como la utilización de los datos publicados en Grados UGR y la implementación de un sistema de autenticación propio.
+    \item Aunque se realizaron varias reuniones con el director del TFG, Juan Luis Jiménez Laredo, para concretar el alcance y requisitos del proyecto, es inevitable que con la evolución de este se hayan presentado nuevos casos de uso y funcionalidades que no estaban contemplados inicialmente. Esto ha requerido una adaptación constante del proyecto, que gracias a la metodología ágil utilizada, se ha podido gestionar de manera eficiente.
+\end{itemize}
+
+Todo el desarrollo del sistema (repositorios del backend, frontend, despliegue y documentación) se puede consultar de manera centralizada en la organización de GitHub [\href{https://github.com/TempusUGR}{TempusUGR}]. De este modo se facilita la colaboración y el mantenimiento del proyecto, permitiendo que otros desarrolladores puedan contribuir y mejorar el sistema en el futuro.
+Además se puede visualizar también a través de su propio ``Github Project'' [\href{https://github.com/orgs/TempusUGR/projects/3}{TempusUGR Project}] tanto los tableros de tareas, issues y pull requests del proyecto, como el ``roadmap'' con la temporización real de las tareas y funcionalidades implementadas.
+
 \section{Mejoras posibles y trabajos futuros}
 
-\Juanmi[]{Integración con sistemas institucionales de la UGR (API de los horarios, autenticación de la UGR, matriculaciones...), Despliegue CI/CD, Proyecto vivo y colaborativo en Github, Monitorización y estadísticas, Optimización del sistema para mejor rendimiento}
+Aunque el sistema ha sido desarrollado y desplegado con éxito, siempre hay margen para mejoras y nuevas funcionalidades. Algunas de las posibles mejoras y trabajos futuros incluyen:
+\begin{itemize}
+    \item Integración con otros sistemas institucionales de la UGR, como la API de los horarios, autenticación institucional, matriculaciones, etc. Esto permitiría una mayor interoperabilidad y una mejor experiencia de usuario.
+    Además la posibilidad de integrar TempusUGR con plataformas establecidas como Prado UGR o SWAD , podría facilitar la adopción del sistema por parte de los usuarios y mejorar la experiencia general.
+    \item Implementación de un sistema de notificaciones para alertar a los usuarios sobre cambios en sus horarios de clases oficiales.
+    \item Optimización del rendimiento del sistema para manejar un mayor volumen de usuarios y datos, asegurando que el sistema sea escalable y eficiente.
+    \item Implementación  de monitorización y estadísticas para analizar el uso del sistema y detectar posibles problemas o áreas de mejora.
+    \item Integrar sistemas de Integración Continua/Despliegue Continuo (CI/CD) para facilitar el desarrollo y despliegue de nuevas funcionalidades, asegurando que el sistema se mantenga actualizado y libre de errores. Esto permitiría también una mayor colaboración entre los desarrolladores y una mejor gestión del código fuente.
+\end{itemize}

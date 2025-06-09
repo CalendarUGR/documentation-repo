@@ -92,6 +92,7 @@ Este diagrama representa las principales clases del servicio, incluyendo los con
 \begin{itemize}
   \item \textbf{UserRepository}, \textbf{RoleRepository}, \textbf{TemporaryTokenRepository}: Son interfaces que definen operaciones CRUD (Create, Read, Update, Delete) sobre las entidades.
   \item \textbf{Interacción}: Son utilizados por los servicios para obtener o almacenar datos en la base de datos.
+  Además toda la interacción con la base de datos se realiza a través de JPA, lo que permite una fácil integración y manejo de las entidades. JPA es un Objeto-Relational Mapping (ORM) que facilita la persistencia de datos en aplicaciones Java, permitiendo mapear clases Java a tablas de bases de datos relacionales.
 \end{itemize}
 
 \subsubsection*{4. Entidades (\texttt{entities})}
