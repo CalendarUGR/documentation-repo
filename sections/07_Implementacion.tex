@@ -54,7 +54,7 @@ Aunque este servicio no es el encargado de la autenticación, srve de soporte pa
 \end{itemize}
 
 \subsubsection{Diagrama de clases}
-Este es el primer servicio implementado, y se sigue una estructura similar en los demás servicios para mantener la coherencia en el proyecto. La arquitectura de los servicios en la \textbf{Arquitectura limpia o hexagonal}, que se basa en la separación de responsabilidades y la independencia de las capas, se refleja en el diagrama de clases del servicio User Service, que se muestra en la figura \ref{fig:user-service-class-diagram}.
+Este es el primer servicio implementado, y se sigue una estructura similar en los demás servicios para mantener la coherencia en el proyecto. El patrón de diseño implementado a lo largo del desarrollo de los servicios es el \textbf{Modelo-Vista-Controlador (MVC)}, que separa la lógica de negocio, la presentación y el acceso a datos. Esta separación de responsabilidades facilita el mantenimiento y la escalabilidad del código, esto se refleja en el diagrama de clases del servicio User Service, que se muestra en la figura \ref{fig:user-service-class-diagram}.
 \begin{figure}[H]
     \centering
     \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{figures/07_uml_user.png}}
