@@ -14,7 +14,7 @@ La Universidad de Granada (UGR) es una de las universidades más grandes de Espa
 
 \section{Estimación del coste agregado}
 
-Más allá de los costes económicos directos asociados a software o personal administrativo, existe un coste ``humano'' o ``invisible'' que se manifiesta en el tiempo y el esfuerzo invertidos por los colectivos implicados en la realización de su calendario escolar personalizado. Esta sección busca cuantificar, de manera aproximada, dicho coste anual en una universidad con una población similar a la descrita anteriormente (aproximadamente 60.000 estudiantes y 3.500 profesores).
+Más allá de los costes económicos directos asociados a software o personal administrativo, existe un coste ``invisible'' que se manifiesta en el tiempo y el esfuerzo invertidos por los colectivos implicados en la realización de su calendario escolar personalizado. Esta sección busca cuantificar, de manera aproximada, dicho coste anual en una universidad con una población similar a la descrita anteriormente (aproximadamente 60.000 estudiantes y 3.500 profesores).
 \newline\newline
 Para esta estimación, consideraremos el tiempo medio que, de forma no remunerada o fuera de sus funciones explícitas, dedican estudiantes y profesores a la consulta, ajuste y resolución de problemas relacionados con la confección de horarios cada cuatrimestre. La información se ha recopilado a través de encuestas realizadas a miembros del departamento de Ingeniería de Computadores, Automática y Robótica, y a estudiantes de distintos cursos de la ETSIIT.
 
@@ -44,7 +44,7 @@ Se ha realizado una encuesta anónima similar a alumnos de diferentes cursos de 
 
 \subsection{Estimación del coste agregado anual}
 
-Sumando el tiempo estimado para ambos colectivos, obtenemos una cuantificación del coste ``humano'' anual:
+Sumando el tiempo estimado para ambos colectivos, obtenemos una cuantificación de la inversión de tiempo anual en la gestión de horarios académicos en la UGR:
 
 \begin{itemize}
     \item \textbf{Total de horas anuales:} 90.000 horas (estudiantes) + 3.500 horas (profesores) = \textbf{93.500 horas/año}.
@@ -56,7 +56,7 @@ Para contextualizar esta cifra, podemos convertirla en un equivalente de jornada
     \item \textbf{Equivalente en jornadas laborales (8 horas/día):} 93.500 horas/año $\div$ 8 horas/día = \textbf{9.358 jornadas laborales/año}.
 \end{itemize}
 
-Esta cifra de 93.500 horas anuales dedicadas por la comunidad universitaria a la gestión y resolución de problemas de horarios subraya la magnitud del \textbf{coste "humanO"} que puede pasarse por alto. Representa una cantidad significativa de tiempo y esfuerzo que podría ser redirigida hacia actividades más productivas académicamente o de mejora de la calidad de vida de la comunidad universitaria. La optimización de los procesos de generación de horarios, la mejora de la comunicación y la implementación de herramientas más eficientes tienen el potencial de mitigar sustancialmente este impacto.
+Esta cifra de 93.500 horas anuales dedicadas por la comunidad universitaria a la gestión y resolución de problemas de horarios subraya la magnitud del \textbf{coste temporal} que puede pasarse por alto. Representa una cantidad significativa de tiempo y esfuerzo que podría ser redirigida hacia actividades más productivas académicamente o de mejora de la calidad de vida de la comunidad universitaria. La optimización de los procesos de generación de horarios, la mejora de la comunicación y la implementación de herramientas más eficientes tienen el potencial de mitigar sustancialmente este impacto.
 
 \section{Solución propuesta}
 
@@ -103,3 +103,22 @@ Desarrollar una aplicación backend basada en microservicios robusta, escalable 
     \item Permitir a los usuarios exportar su horario en formato iCalendar (.ics) para su importación en diversos sistemas de calendario.
     \item Implementar la sincronización automática del horario de los usuarios con Google Calendar, reflejando los cambios en tiempo real.
 \end{enumerate}
+
+\section{Licencia de código abierto}
+
+Todos los repositorios de código fuente asociados a este proyecto están licenciados bajo la \textbf{Licencia Apache 2.0}. Esto se hace con el fin de fomentar la colaboración del estudiantado y/o profesorado, así como de la UGR y de la comunidad en general, permitiendo que cualquier persona interesada pueda contribuir al desarrollo del sistema, adaptarlo a sus necesidades o utilizarlo como base para otros proyectos.
+
+Se ha optado por esta licencia debido a sus características y beneficios clave, que se alinean perfectamente con los objetivos de nuestro proyecto:
+
+\begin{itemize}
+    \item \textbf{Permisividad y Flexibilidad:} La Licencia Apache 2.0 permite a otros usuarios y organizaciones utilizar, modificar, distribuir y sublicenciar el software para cualquier propósito, incluyendo el uso comercial. Esto fomenta una amplia adopción y colaboración en el desarrollo del proyecto.
+    \item \textbf{Claridad en la Atribución:} Si bien es permisiva, la licencia Apache 2.0 requiere que se mantengan los avisos de copyright y los términos de la licencia en todas las copias y obras derivadas. Esto asegura que el origen del proyecto sea siempre reconocido.
+    \item \textbf{Protección de Patentes:} Un aspecto crucial de esta licencia es la concesión de patentes implícita. Si los colaboradores aportan código que incluye invenciones patentadas, otorgan una licencia de patente a los usuarios del software. Esto ayuda a prevenir futuros litigios por patentes y promueve un entorno de desarrollo más seguro y libre de riesgos.
+    \item \textbf{Madurez y Reconocimiento:} La Licencia Apache 2.0 es ampliamente reconocida y utilizada por grandes empresas y proyectos de software de renombre mundial, lo que ofrece una base legal sólida y bien entendida por la comunidad de desarrollo.
+    \item \textbf{Cambios:} La licencia obliga a los usuarios a documentar cualquier cambio realizado en el código fuente original, lo que facilita el seguimiento de las modificaciones y mejora la transparencia del proyecto.
+    \item \textbf{No viral:} A diferencia de licencias como la GPL, la Apache 2.0 no impone restricciones de copyleft, lo que significa que los desarrolladores pueden incorporar el código en proyectos propietarios sin necesidad de liberar su propio código bajo la misma licencia.
+\end{itemize}
+
+Esta elección de licencia busca equilibrar la máxima libertad para la comunidad con una estructura legal clara que protege tanto a los desarrolladores originales como a los futuros usuarios del software.
+
+

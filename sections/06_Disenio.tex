@@ -1,7 +1,5 @@
 \chapter{Diseño del sistema: Arquitectura, tecnologías y decisiones clave}\label{cap:disenio}
 
-\Juanmi[]{Punto a revisar}
-
 Este capítulo profundiza en el \textbf{diseño del sistema}, abarcando desde su \textbf{arquitectura general} y la \textbf{elección de tecnologías y frameworks}, hasta el \textbf{diseño de la base de datos} y la \textbf{API}. También se detallan el \textbf{diseño de la interfaz de usuario (UI)} y la \textbf{experiencia de usuario (UX)}, elementos cruciales para garantizar una aplicación intuitiva y accesible.
 
 \section{Decisiones de diseño y arquitectura: Cimientos del sistema}
@@ -19,7 +17,6 @@ Para cumplir con los exigentes requisitos de escalabilidad, flexibilidad y mante
 
 \begin{table}[H]
     \centering
-    \caption{Comparativa: Arquitectura Monolítica vs. Microservicios}
     \label{tab:monolitico_vs_microservicios_checks}
     \begin{tabular}{|p{4cm}|c|c|}
         \hline
@@ -46,6 +43,7 @@ Para cumplir con los exigentes requisitos de escalabilidad, flexibilidad y mante
         \textbf{Independencia de Equipos} & \checkmark & \checkmark\checkmark\checkmark \\
         \hline
     \end{tabular}
+    \caption{Comparativa: Arquitectura Monolítica vs. Microservicios}
 \end{table}
 
 Comparada con una arquitectura monolítica, los microservicios ofrecen ventajas significativas. Mientras que un monolito puede ser más sencillo de implementar inicialmente, su mantenimiento y escalabilidad eficiente se complican a medida que la aplicación crece. Los microservicios, en cambio, fomentan una mayor \textbf{modularidad y reutilización}, facilitando el \textbf{desarrollo ágil y la integración continua}. Cada microservicio puede ser \textbf{desarrollado, desplegado y escalado de forma independiente}, lo que agiliza la implementación de nuevas funcionalidades y la adaptación a cambios en los requisitos.
