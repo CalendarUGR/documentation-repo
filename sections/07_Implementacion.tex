@@ -5,7 +5,7 @@ En este capítulo se describe la implementación del proyecto, así como detalle
 
 \section{Sprint 0}
 
-En este sprint no se comienza el desarrollo del proyecto, sino que, como se menciona en la seccion \ref{cap:especificación} y \ref{cap:planificacion}, se realiza una investigación sobre las tecnologías a utilizar, y se detallan los requerimientos del sistema, y la arquitectura a implementar.
+En este sprint no se comienza el desarrollo del proyecto, sino que, como se menciona en la sección \ref{cap:especificación} y \ref{cap:planificacion}, se realiza una investigación sobre las tecnologías a utilizar, y se detallan los requerimientos del sistema, y la arquitectura a implementar.
 \newline\newline
 Al usar Java (versión 21) como lenguaje de programación y Spring Boot (versión 3.4.4) como framework de desarrollo, se sigue un patrón similar para el desarrollo de los servicios, ya que todos comparten componentes y directorios similares.
 
@@ -44,7 +44,7 @@ Las contraseñas se almacenan de forma segura mediante codificación (por ejempl
 \newline\newline
 Los usuarios pueden poseer los roles de \texttt{ROLE\_INACTIVE}, \texttt{ROLE\_STUDENT}, \texttt{ROLE\_TEACHER}, o \texttt{ROLE\_ADMIN}, y estos nos permiten controlar el acceso a diferentes funcionalidades del sistema.
 \newline\newline
-Aunque este servicio no es el encargado de la autenticación, srve de soporte para el servicio de autenticación, proporcionando la información de los usuarios y sus roles.
+Aunque este servicio no es el encargado de la autenticación, sirve de soporte para el servicio de autenticación, proporcionando la información de los usuarios y sus roles.
 
 \subsubsection{Integración con otros microservicios}
 
@@ -367,9 +367,9 @@ Este enfoque~\ref{fig:scrapping-process} permite consolidar una base de datos ac
 
 \section{Sprint 2}
 
-En el comienzo de este sprint se continúa afinando y completando el script de scrapping, y revisando que se recoja información de todos los grados y asignaturas de la UGR. Esto se consigue realizando una labor de análisis exhaustivo de las diferenmtes páginas y secciones que conforman el portal de ``grados UGR'' mencionado con anterioridad.
+En el comienzo de este sprint se continúa afinando y completando el script de scrapping, y revisando que se recoja información de todos los grados y asignaturas de la UGR. Esto se consigue realizando una labor de análisis exhaustivo de las diferentes páginas y secciones que conforman el portal de ``grados UGR'' mencionado con anterioridad.
 \subsubsection{Schedule Consumer Service}
-Paralelo a este desarrollo, se comienza el desarrolo del servicio \texttt{schedule-consumer-service}. Este es el encargado de, en primer lugar, hacer uso del scrapping para obtener los horarios de las asignaturas y almacenar la información en la base de datos, y en segundo lugar, de exponer endpoints relacionados con la consulta de estos datos. Uno de los objetivos de la realización se este servicio es poseer endpoints públicos para poder ser consumidos desde otros sistemas externos a nuestro frontend ``TempusUGR''.
+Paralelo a este desarrollo, se comienza el desarrollo del servicio \texttt{schedule-consumer-service}. Este es el encargado de, en primer lugar, hacer uso del scrapping para obtener los horarios de las asignaturas y almacenar la información en la base de datos, y en segundo lugar, de exponer endpoints relacionados con la consulta de estos datos. Uno de los objetivos de la realización se este servicio es poseer endpoints públicos para poder ser consumidos desde otros sistemas externos a nuestro frontend ``TempusUGR''.
 \newline\newline
 Una vez hecho el scrapping, y la información en base de datos (integrando el script de scrapping con el resto de componentes de Spring como lo son ``Repositories'',''Controllers'', etc), se necesita una manera de actualización de la información, puesto que es una de las premisas del sistema, mantener un acceso personalizado y actualizado del calendario académico.\newline
 Para conseguir esto, y puesto que iterar y comprobar cambios sobre las más de 50.000 clases distintas impartidas en grupos de asignatura de la UGR es una tarea costosa y compleja, se decide implementar un ``\hypertarget{cronjob}{Cron job}'' que se encargue de realizar el scrapping de forma periódica, y así mantener la información actualizada. Este cron job se implementa en el servicio \texttt{schedule-consumer-service} y se ejecuta todos los días a las 00:00 horas, de forma que se actualizan los horarios de las asignaturas y se eliminan aquellos que ya no existen.
