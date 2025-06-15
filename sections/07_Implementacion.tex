@@ -1,5 +1,4 @@
 \chapter{Implementación}\label{cap:implementacion}
-\Juanmi[]{Punto a revisar}
 
 En este capítulo se describe la implementación del proyecto, así como detalles técnicos y decisiones tomadas durante el desarrollo. Se divide en varios sprints, cada uno con sus propias tareas y objetivos.
 
@@ -158,7 +157,7 @@ Una vez recibido el mensaje, el servicio extrae los datos necesarios, como la di
 
 Después de generar el contenido del correo, se utiliza la biblioteca \texttt{JavaMail} para su envío. JavaMail proporciona una API robusta y configurable que permite construir mensajes MIME, manejar los encabezados, adjuntos y establecer la conexión con el servidor SMTP. En este caso, se ha configurado el servicio para utilizar \textbf{Gmail como proveedor de correo electrónico}, lo cual requiere definir parámetros como el host SMTP de Gmail (\texttt{smtp.gmail.com}), el puerto correspondiente, y habilitar la autenticación y conexión segura mediante TLS. Esta configuración se especifica en los archivos de propiedades del servicio, lo que facilita su adaptación a distintos entornos de despliegue.
 
-En conjunto, este microservicio representa una solución elegante y modular para el envío de correos~\ref{fig:mail-service-class-diagram} en arquitecturas basadas en microservicios. Aprovecha la comunicación asincrónica de RabbitMQ, la potencia expresiva de las plantillas Thymeleaf, y la fiabilidad de JavaMail para lograr un sistema de notificaciones por correo eficaz, personalizable y mantenible.
+En conjunto, este microservicio representa una solución elegante y modular para el envío de correos, como el que se observa en la figura~\ref{fig:mail-service-class-diagram} en arquitecturas basadas en microservicios. Aprovecha la comunicación asincrónica de RabbitMQ, la potencia expresiva de las plantillas Thymeleaf, y la fiabilidad de JavaMail para lograr un sistema de notificaciones por correo eficaz, personalizable y mantenible.
 
 \begin{figure}[H]
     \centering
@@ -294,7 +293,7 @@ Este fragmento configura el punto de entrada de los mensajes que serán enviados
 
 \subsubsection{Configuración en \texttt{mail-service}}
 
-El servicio \texttt{mail-service} funciona exclusivamente como consumidor de mensajes~\ref{fig:rabbitmq-config}. Su configuración es más extensa, ya que debe definir tanto las colas como las asociaciones con el intercambio, además de políticas de reintento y manejo de errores.
+El servicio \texttt{mail-service} funciona exclusivamente como consumidor de mensajes, reflejada una configuración en la figura~\ref{fig:rabbitmq-config}. Su configuración es más extensa, ya que debe definir tanto las colas como las asociaciones con el intercambio, además de políticas de reintento y manejo de errores.
 
 Se definen dos colas principales:
 \begin{itemize}
@@ -355,7 +354,7 @@ Después, se identifica al profesorado vinculado a la asignatura y a sus respect
 
 Finalmente, se extrae el horario de clases para cada grupo, identificando el día de la semana, aula, fechas de inicio y fin, y horas de inicio y fin. Esta información se transforma en objetos de clase que se asocian con el grupo correspondiente. Si no se detecta una clase idéntica en la base de datos, se crea una nueva entrada para ella.
 
-Este enfoque~\ref{fig:scrapping-process} permite consolidar una base de datos académica completa, dinámica y precisa, ideal para ser explotada por nuestro sistema.
+El enfoque mostrado en la figura~\ref{fig:scrapping-process} permite consolidar una base de datos académica completa, dinámica y precisa, ideal para ser explotada por nuestro sistema.
 
 %figura de scrapping, recortar un poco por arriba
 \begin{figure}[H]
@@ -382,7 +381,7 @@ Una vez implementado el servicio se consigue el servicio troncal del backend, qu
 
 \subsubsection{Academic Subscription Service}
 Así se comienza con el desarrollo del servicio \texttt{academic-subscription-service}, que se encargará de gestionar las suscripciones a los grupos de asignaturas de cualquier grado de la UGR.\newline
-Las suscripciones se componen del identificador del usuario, la facultad, el grado, la asignatura y su grupo, puesto que de otra manera no se podría identificar de forma única un grupo de asignatura, ya que puede haber grupos con el mismo nombre en diferentes grados o facultades. Con esta información se hacen peticiones al servicio \texttt{schedule-consumer-service} para obtener los horarios de las asignaturas~\ref{classes} y generar un calendario personalizado para el usuario con sus clases oficiales.\newline
+Las suscripciones se componen del identificador del usuario, la facultad, el grado, la asignatura y su grupo, puesto que de otra manera no se podría identificar de forma única un grupo de asignatura, ya que puede haber grupos con el mismo nombre en diferentes grados o facultades. Con esta información se hacen peticiones al servicio \texttt{schedule-consumer-service} para obtener los horarios de las asignaturas, flujo mostrado en la figura~\ref{classes}, y generar un calendario personalizado para el usuario con sus clases oficiales.\newline
 
 \begin{figure}[H]
     \centering
@@ -410,7 +409,7 @@ Esto nos permite los siguientes avances:
   \item \textbf{Facilidad de desarrollo}: Al utilizar Eureka, los desarrolladores pueden centrarse en la lógica de negocio de sus servicios sin preocuparse por la gestión de direcciones IP y puertos, ya que Eureka se encarga de ello. Es decir, las llamadas HTTP pasan de tener un formato similar a este \texttt{http://localhost:8081/calendarugr/v1/user-service/users} a \texttt{http://user-service/users}, donde \texttt{user-service} es el nombre del servicio registrado en Eureka.
 \end{itemize}
 
-De esta manera podemos tener un control de los servicios que se están ejecutando en el sistema~\ref{eureka}, y facilitar la comunicación entre ellos. Además, se puede escalar horizontalmente los servicios, añadiendo más instancias de un mismo servicio sin necesidad de modificar el código del cliente.
+De esta manera podemos tener un control de los servicios que se están ejecutando en el sistema, como se muestra en la figura~\ref{eureka}, y facilitar la comunicación entre ellos. Además, se puede escalar horizontalmente los servicios, añadiendo más instancias de un mismo servicio sin necesidad de modificar el código del cliente.
 
 \begin{figure}[H]
     \centering
@@ -496,7 +495,7 @@ Ejemplos de test que comprueban la correcta interoperabilidad entre los servicio
     Valida que se detecta un \textbf{conflicto de horario} cuando la clase extra propuesta abarca completamente el horario de una clase existente. Espera un \texttt{status 409 Conflict}.
 \end{itemize}
 
-En conjunto, estos test cubren la funcionalidad básica de varios \textit{endpoints} de la API (Ejemplo de test pasados con éxito en la figura~\ref{test}), incluyendo la recuperación de datos, la validación de información y la comprobación de la seguridad por clave API.
+En conjunto, estos test cubren la funcionalidad básica de varios \textit{endpoints} de la API (ejemplo de test pasados con éxito en la figura~\ref{test}), incluyendo la recuperación de datos, la validación de información y la comprobación de la seguridad por clave API.
 
 \begin{figure}[H]
     \centering
